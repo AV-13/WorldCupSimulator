@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_14_151313) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_29_142525) do
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -18,15 +18,21 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_14_151313) do
   end
 
   create_table "matches", force: :cascade do |t|
+    t.string "away_source"
     t.integer "away_team_id"
     t.datetime "created_at", null: false
     t.integer "group_id"
+    t.string "home_source"
     t.integer "home_team_id"
+    t.integer "match_number"
+    t.string "round"
     t.string "stage"
     t.datetime "updated_at", null: false
     t.index ["away_team_id"], name: "index_matches_on_away_team_id"
     t.index ["group_id"], name: "index_matches_on_group_id"
     t.index ["home_team_id"], name: "index_matches_on_home_team_id"
+    t.index ["match_number"], name: "index_matches_on_match_number", unique: true
+    t.index ["round"], name: "index_matches_on_round"
   end
 
   create_table "predictions", force: :cascade do |t|
@@ -43,9 +49,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_14_151313) do
 
   create_table "simulations", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.string "mode", default: "complete", null: false
     t.string "pseudo"
     t.string "token"
     t.datetime "updated_at", null: false
+    t.index ["mode"], name: "index_simulations_on_mode"
     t.index ["token"], name: "index_simulations_on_token", unique: true
   end
 

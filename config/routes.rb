@@ -14,7 +14,25 @@ Rails.application.routes.draw do
   root "pages#home"
   post "/start_simulation", to: "simulations#start", as: :start_simulation
   get "/s/:token", to: "simulations#show", as: :simulation
+
+  # Complete mode routes (enter scores)
   get "/s/:token/groups/:name", to: "groups#show", as: :group
   get "s/:token/matches/:id", to: "matches#show", as: :match
   patch "s/:token/matches/:id", to: "matches#update", as: :update_match
+
+  # Knockout stage routes (complete mode)
+  get "/s/:token/bracket", to: "brackets#show", as: :bracket
+  get "/s/:token/knockout/:match_number", to: "knockout_matches#show", as: :knockout_match
+  patch "/s/:token/knockout/:match_number", to: "knockout_matches#update", as: :update_knockout_match
+
+  # Quick mode routes (drag & drop ranking)
+  get "/s/:token/quick/groups/:name", to: "quick_groups#show", as: :quick_group
+  patch "/s/:token/quick/groups/:name", to: "quick_groups#update", as: :update_quick_group
+
+  # Quick mode bracket
+  get "/s/:token/quick/bracket", to: "quick_brackets#show", as: :quick_bracket
+  get "/s/:token/quick/third-place", to: "quick_brackets#third_place", as: :quick_third_place
+  patch "/s/:token/quick/third-place", to: "quick_brackets#update_third_place", as: :update_quick_third_place
+  get "/s/:token/quick/knockout/:match_number", to: "quick_brackets#choose_winner", as: :quick_knockout_match
+  patch "/s/:token/quick/knockout/:match_number", to: "quick_brackets#set_winner", as: :set_quick_winner
 end

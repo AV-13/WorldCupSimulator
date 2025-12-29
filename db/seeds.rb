@@ -87,27 +87,34 @@ world_cup_data = {
   ]
 }
 
+# Numérotation des matchs de groupe (1-48 pour les matchs FIFA officiels)
+# On utilise une numérotation simple par groupe : A1-A6, B1-B6, etc.
+match_counter = 1
+
 # Boucle principale pour créer Groupes, Équipes et Matchs
 world_cup_data.each do |group_name, teams_list|
   group = Group.create!(name: group_name)
-  puts "🏆 Groupe #{group.name} créé."
+  puts "Groupe #{group.name} cree."
 
   current_teams = teams_list.map do |name, iso|
     Team.create!(
       name: name,
       iso_code: iso,
-      group_id: group.id # ✅ évite l'erreur si belongs_to :group n'est pas encore déclaré
+      group_id: group.id
     )
   end
 
   # Matchs de poule : tout le monde contre tout le monde
   current_teams.combination(2).each do |home, away|
     Match.create!(
-      group_id: group.id,         # ✅ idem
-      home_team_id: home.id,       # ✅ évite l'erreur si belongs_to :home_team n'est pas encore déclaré
-      away_team_id: away.id,       # ✅ évite l'erreur si belongs_to :away_team n'est pas encore déclaré
-      stage: "group_stage"
+      group_id: group.id,
+      home_team_id: home.id,
+      away_team_id: away.id,
+      stage: "group_stage",
+      round: "group_stage",
+      match_number: match_counter
     )
+    match_counter += 1
   end
 end
 

@@ -1,0 +1,62 @@
+<% %w[round_of_32 round_of_16 quarter_final semi_final third_place final].each do |round| %>
+  <% matches = @matches_by_round[round] %>
+  <% next unless matches&.any? %>
+
+  <h3><%= Match::ROUND_NAMES[round] || round.titleize %></h3>
+
+  <table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th colspan="3">Match</th>
+        <th>Vainqueur</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% matches.each do |match| %>
+        <% prediction = @predictions[match.id] %>
+        <% has_winner = prediction&.home_score && prediction&.away_score %>
+        <% winner = has_winner ? (prediction.home_score > prediction.away_score ? match.home_team : match.away_team) : nil %>
+        <tr>
+          <td><%= match.match_number %></td>
+          <td style="<%= winner == match.home_team ? 'background: #d4edda; font-weight: bold;' : '' %>">
+            <% if match.home_team %>
+              <% if match.teams_known? && !has_winner %>
+                <%= link_to set_quick_winner_path(token: @simulation.token, match_number: match.match_number, winner_team_id: match.home_team.id), data: { turbo_method: :patch } do %>
+                  <%= flag_icon(match.home_team) %> <%= match.home_team.name %>
+                <% end %>
+              <% else %>
+                <%= flag_icon(match.home_team) %> <%= match.home_team.name %>
+              <% end %>
+            <% else %>
+              <em><%= match.home_source %></em>
+            <% end %>
+          </td>
+          <td>vs</td>
+          <td style="<%= winner == match.away_team ? 'background: #d4edda; font-weight: bold;' : '' %>">
+            <% if match.away_team %>
+              <% if match.teams_known? && !has_winner %>
+                <%= link_to set_quick_winner_path(token: @simulation.token, match_number: match.match_number, winner_team_id: match.away_team.id), data: { turbo_method: :patch } do %>
+                  <%= flag_icon(match.away_team) %> <%= match.away_team.name %>
+                <% end %>
+              <% else %>
+                <%= flag_icon(match.away_team) %> <%= match.away_team.name %>
+              <% end %>
+            <% else %>
+              <em><%= match.away_source %></em>
+            <% end %>
+          </td>
+          <td>
+            <% if winner %>
+              <strong><%= flag_icon(winner) %> <%= winner.name %></strong>
+            <% elsif match.teams_known? %>
+              <em>A choisir</em>
+            <% else %>
+              <em>En attente</em>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

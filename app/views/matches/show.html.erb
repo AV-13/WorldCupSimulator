@@ -2,20 +2,22 @@
 
 <p>Groupe <%= @match.group&.name %></p>
 
-<h2><%= @match.home_team.name %> vs <%= @match.away_team.name %></h2>
+<h2><%= flag_icon(@match.home_team) %> <%= @match.home_team.name %> vs <%= flag_icon(@match.away_team) %> <%= @match.away_team.name %></h2>
 
 <%= form_with model: @prediction,
               url: update_match_path(@simulation.token, @match.id),
               method: :patch do |f| %>
 
-  <div>
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <%= flag_icon(@match.home_team) %>
     <label><%= @match.home_team.name %></label>
-    <%= f.number_field :home_score, min: 0 %>
+    <%= f.number_field :home_score, min: 0, style: "width: 60px;" %>
   </div>
 
-  <div style="margin-top: 10px;">
+  <div style="margin-top: 10px; display: flex; align-items: center; gap: 10px;">
+    <%= flag_icon(@match.away_team) %>
     <label><%= @match.away_team.name %></label>
-    <%= f.number_field :away_score, min: 0 %>
+    <%= f.number_field :away_score, min: 0, style: "width: 60px;" %>
   </div>
 
   <div style="margin-top: 16px;">
@@ -24,5 +26,5 @@
 <% end %>
 
 <p style="margin-top: 16px;">
-  <%= link_to "← Retour au groupe", group_path(@simulation.token, @match.group.name) %>
+  <%= link_to "Retour au groupe", group_path(@simulation.token, @match.group.name) %>
 </p>

@@ -20,7 +20,7 @@
   <% @standings.each_with_index do |row, i| %>
     <tr>
       <td><%= i + 1 %></td>
-      <td><%= row.team.name %></td>
+      <td><%= flag_icon(row.team) %> <%= row.team.name %></td>
       <td><%= row.played %></td>
       <td><%= row.wins %></td>
       <td><%= row.draws %></td>
@@ -34,25 +34,21 @@
   </tbody>
 </table>
 
-<h2>Équipes</h2>
-<ul>
-  <%= @teams.each do |team| %>
-    <li><%= team.name %></li>
-  <% end %>
-</ul>
-
 <h2>Matchs</h2>
 <ul>
   <% @matches.each do |m| %>
     <li>
-      <%= m.home_team.name %> vs <%= m.away_team.name %>
-      — <%= link_to "Saisir le score", match_path(@simulation.token, m.id) %>
+      <%= flag_icon(m.home_team) %> <%= m.home_team.name %>
+      vs
+      <%= flag_icon(m.away_team) %> <%= m.away_team.name %>
+      <% p = @predictions_by_match_id[m.id] %>
+      <% if p&.home_score && p.away_score %>
+        : <strong><%= p.home_score %> - <%= p.away_score %></strong>
+      <% else %>
+        — <%= link_to "Saisir le score", match_path(@simulation.token, m.id) %>
+      <% end %>
     </li>
-    <% p = @predictions_by_match_id[m.id] %>
-    <% if p&.home_score && p.away_score %>
-      ( <%= p.home_score %> - <%= p.away_score %> )
-    <% end %>
-<% end %>
+  <% end %>
 </ul>
 
 <p><%= link_to "Retour", simulation_path(@simulation.token) %></p>

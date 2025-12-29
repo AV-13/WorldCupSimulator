@@ -1,0 +1,71 @@
+<h1>Match <%= @match.match_number %> - <%= @match.round_name %></h1>
+
+<p><%= link_to "Retour au bracket", bracket_path(token: @simulation.token) %></p>
+
+<div class="match-details">
+  <h2>
+    <% if @match.home_team %>
+      <%= flag_icon(@match.home_team) %> <%= @match.home_team.name %>
+    <% else %>
+      <%= @match.home_source %>
+    <% end %>
+    vs
+    <% if @match.away_team %>
+      <%= flag_icon(@match.away_team) %> <%= @match.away_team.name %>
+    <% else %>
+      <%= @match.away_source %>
+    <% end %>
+  </h2>
+
+  <% unless @match.teams_known? %>
+    <p class="warning">
+      <em>Les equipes ne sont pas encore determinees pour ce match.</em>
+    </p>
+  <% end %>
+</div>
+
+<% if @match.teams_known? %>
+  <%= form_with model: @prediction, url: update_knockout_match_path(token: @simulation.token, match_number: @match.match_number), method: :patch do |f| %>
+
+    <% if @prediction.errors.any? %>
+      <div class="errors">
+        <ul>
+          <% @prediction.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <table border="1" cellpadding="10" cellspacing="0">
+      <tr>
+        <td style="text-align: center;">
+          <%= flag_icon(@match.home_team, size: :large) %>
+          <br>
+          <strong><%= @match.home_team.name %></strong>
+          <br>
+          <%= f.number_field :home_score, min: 0, max: 20, style: "width: 60px; font-size: 24px; text-align: center;" %>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+          <strong>-</strong>
+        </td>
+        <td style="text-align: center;">
+          <%= flag_icon(@match.away_team, size: :large) %>
+          <br>
+          <strong><%= @match.away_team.name %></strong>
+          <br>
+          <%= f.number_field :away_score, min: 0, max: 20, style: "width: 60px; font-size: 24px; text-align: center;" %>
+        </td>
+      </tr>
+    </table>
+
+    <br>
+
+    <p>
+      <em>Note : En cas d'egalite, le vainqueur sera determine automatiquement (equipe a domicile).</em>
+    </p>
+
+    <%= f.submit "Enregistrer la prediction", style: "padding: 10px 20px; font-size: 16px;" %>
+
+  <% end %>
+<% end %>

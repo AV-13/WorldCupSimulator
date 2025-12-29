@@ -1,0 +1,91 @@
+<h1>Selection des meilleurs 3emes</h1>
+
+<p><%= link_to "Retour au bracket", quick_bracket_path(token: @simulation.token) %></p>
+
+<p>Selectionnez les 8 groupes dont les equipes 3emes se qualifient :</p>
+
+<%= form_with url: update_quick_third_place_path(token: @simulation.token), method: :patch do |f| %>
+
+  <table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Qualifie ?</th>
+        <th>Groupe</th>
+        <th>Equipe 3eme</th>
+        <th>Points</th>
+        <th>Diff</th>
+        <th>BP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @all_thirds.each_with_index do |third, i| %>
+        <% is_qualifying = @current_qualifying.include?(third.group) %>
+        <tr style="<%= is_qualifying ? 'background-color: #d4edda;' : '' %>">
+          <td style="text-align: center;">
+            <input type="checkbox"
+                   name="qualifying_groups[]"
+                   value="<%= third.group %>"
+                   <%= 'checked' if is_qualifying %>
+                   onchange="updateCheckboxes(this)">
+          </td>
+          <td><%= third.group %></td>
+          <td>
+            <% if third.team %>
+              <%= flag_icon(third.team) %> <%= third.team.name %>
+            <% else %>
+              TBD
+            <% end %>
+          </td>
+          <td><%= third.points %></td>
+          <td><%= third.goal_diff %></td>
+          <td><%= third.goals_for %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p id="selection-count" style="margin-top: 10px;">
+    Selection : <span id="count"><%= @current_qualifying.length %></span> / 8 groupes
+  </p>
+
+  <div style="margin-top: 20px;">
+    <%= f.submit "Valider la selection", id: "submit-btn", style: "padding: 10px 20px; font-size: 16px;" %>
+  </div>
+
+<% end %>
+
+<script>
+  function updateCheckboxes(checkbox) {
+    const checkboxes = document.querySelectorAll('input[name="qualifying_groups[]"]');
+    const checked = document.querySelectorAll('input[name="qualifying_groups[]"]:checked');
+    const count = checked.length;
+
+    document.getElementById('count').textContent = count;
+
+    const submitBtn = document.getElementById('submit-btn');
+    if (count === 8) {
+      submitBtn.disabled = false;
+      document.getElementById('selection-count').style.color = 'green';
+    } else {
+      submitBtn.disabled = true;
+      document.getElementById('selection-count').style.color = count > 8 ? 'red' : 'orange';
+    }
+
+    // Update row colors
+    checkboxes.forEach(function(cb) {
+      const row = cb.closest('tr');
+      if (cb.checked) {
+        row.style.backgroundColor = '#d4edda';
+      } else {
+        row.style.backgroundColor = '';
+      }
+    });
+  }
+
+  // Initial state
+  document.addEventListener('DOMContentLoaded', function() {
+    const checked = document.querySelectorAll('input[name="qualifying_groups[]"]:checked');
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.disabled = checked.length !== 8;
+  });
+</script>

@@ -1,9 +1,62 @@
-<h1>Simulation</h1>
-<p>Token: <%= @simulation.token %></p>
-<p>Pseudo: <%= @simulation.pseudo %></p>
+<h1>Simulation - Coupe du Monde 2026</h1>
 
-<%= @groups.each do |group| %>
-  <li>
-    <%= link_to "Groupe #{group.name}", group_path(@simulation.token, group.name) %>
-</li>
+<p>
+  <strong>Mode :</strong>
+  <% if @simulation.quick_mode? %>
+    Rapide (classement direct)
+  <% else %>
+    Complet (scores detailles)
+  <% end %>
+</p>
+
+<p>
+  <strong>Progression :</strong>
+  <%= @group_progress[:completed] %> / <%= @group_progress[:total] %> matchs de groupe
+</p>
+
+<hr>
+
+<h2>Phase de groupes</h2>
+
+<% if @simulation.quick_mode? %>
+  <p><em>Cliquez sur un groupe pour classer les equipes par glisser-deposer</em></p>
+  <ul>
+  <% @groups.each do |group| %>
+    <li>
+      <%= link_to "Groupe #{group.name}", quick_group_path(token: @simulation.token, name: group.name) %>
+    </li>
+  <% end %>
+  </ul>
+<% else %>
+  <p><em>Cliquez sur un groupe pour entrer les scores des matchs</em></p>
+  <ul>
+  <% @groups.each do |group| %>
+    <li>
+      <%= link_to "Groupe #{group.name}", group_path(@simulation.token, group.name) %>
+    </li>
+  <% end %>
+  </ul>
 <% end %>
+
+<hr>
+
+<h2>Phase finale</h2>
+
+<% if @simulation.quick_mode? %>
+  <p>
+    <%= link_to "Choisir les meilleurs 3emes", quick_third_place_path(token: @simulation.token) %>
+  </p>
+  <p>
+    <%= link_to "Voir le bracket (choisir les vainqueurs)", quick_bracket_path(token: @simulation.token) %>
+  </p>
+<% else %>
+  <p>
+    <%= link_to "Voir le bracket (8emes -> Finale)", bracket_path(token: @simulation.token) %>
+  </p>
+<% end %>
+
+<hr>
+
+<p style="margin-top: 20px;">
+  <%= link_to "Nouvelle simulation", root_path %>
+</p>

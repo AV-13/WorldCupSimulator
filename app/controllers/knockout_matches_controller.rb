@@ -1,0 +1,44 @@
+# frozen_string_literal: true
+
+class KnockoutMatchesController < ApplicationController
+  before_action :load_simulation
+  before_action :load_match
+
+  def show
+    @prediction = Prediction.find_or_initialize_by(
+      simulation: @simulation,
+      match: @match
+    )
+  end
+
+  def update
+    @prediction = Prediction.find_or_initialize_by(
+      simulation: @simulation,
+      match: @match
+    )
+
+    if @prediction.update(prediction_params)
+      # Update bracket progression after prediction
+      KnockoutProgression.new(simulation: @simulation).update_from_match(@match.match_number)
+
+      redirect_to bracket_path(token: @simulation.token),
+                  notice: "Prediction enregistree pour le match #{@match.match_number}"
+    else
+      render :show, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def load_simulation
+    @simulation = Simulation.find_by!(token: params[:token])
+  end
+
+  def load_match
+    @match = Match.find_by!(match_number: params[:match_number], stage: "knockout")
+  end
+
+  def prediction_params
+    params.require(:prediction).permit(:home_score, :away_score)
+  end
+end
