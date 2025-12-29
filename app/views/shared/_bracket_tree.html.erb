@@ -1,0 +1,159 @@
+<%#
+  Bracket Tree Visualization
+
+  Local variables:
+  - matches_by_round: Hash with matches grouped by round
+  - predictions: Hash with predictions indexed by match_id
+  - simulation: Current simulation
+  - quick_mode: Boolean - if true, teams are clickable to select winner
+%>
+
+<%
+  # Get matches by round and side
+  r32_left = (matches_by_round['round_of_32'] || []).select { |m| m.match_number.between?(49, 56) }.sort_by(&:match_number)
+  r32_right = (matches_by_round['round_of_32'] || []).select { |m| m.match_number.between?(57, 64) }.sort_by(&:match_number)
+  r16_left = (matches_by_round['round_of_16'] || []).select { |m| m.match_number.between?(65, 68) }.sort_by(&:match_number)
+  r16_right = (matches_by_round['round_of_16'] || []).select { |m| m.match_number.between?(69, 72) }.sort_by(&:match_number)
+  qf_left = (matches_by_round['quarter_final'] || []).select { |m| m.match_number.between?(73, 74) }.sort_by(&:match_number)
+  qf_right = (matches_by_round['quarter_final'] || []).select { |m| m.match_number.between?(75, 76) }.sort_by(&:match_number)
+  sf_left = (matches_by_round['semi_final'] || []).find { |m| m.match_number == 77 }
+  sf_right = (matches_by_round['semi_final'] || []).find { |m| m.match_number == 78 }
+  final_match = (matches_by_round['final'] || []).first
+  third_place_match = (matches_by_round['third_place'] || []).first
+
+  # Determine champion
+  champion = final_match ? bracket_match_winner(final_match, predictions[final_match.id]) : nil
+%>
+
+<div class="bracket-tree">
+  <div class="bracket-tree-inner">
+    <!-- LEFT SIDE OF BRACKET -->
+    <div class="bracket-side bracket-side-left">
+      <!-- Round of 32 - Left -->
+      <% if r32_left.any? %>
+        <div class="bracket-round bracket-round-32">
+          <span class="bracket-round-label">8èmes</span>
+          <% r32_left.each_slice(2) do |pair| %>
+            <div class="bracket-match-pair">
+              <% pair.each do |match| %>
+                <%= render 'shared/bracket_match', match: match, prediction: predictions[match.id], simulation: simulation, quick_mode: quick_mode %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <!-- Round of 16 - Left -->
+      <% if r16_left.any? %>
+        <div class="bracket-round bracket-round-16">
+          <span class="bracket-round-label">Quarts</span>
+          <% r16_left.each_slice(2) do |pair| %>
+            <div class="bracket-match-pair">
+              <% pair.each do |match| %>
+                <%= render 'shared/bracket_match', match: match, prediction: predictions[match.id], simulation: simulation, quick_mode: quick_mode %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <!-- Quarter Finals - Left -->
+      <% if qf_left.any? %>
+        <div class="bracket-round bracket-round-qf">
+          <span class="bracket-round-label">Demis</span>
+          <div class="bracket-match-pair">
+            <% qf_left.each do |match| %>
+              <%= render 'shared/bracket_match', match: match, prediction: predictions[match.id], simulation: simulation, quick_mode: quick_mode %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Semi Final - Left -->
+      <% if sf_left %>
+        <div class="bracket-round bracket-round-sf">
+          <%= render 'shared/bracket_match', match: sf_left, prediction: predictions[sf_left.id], simulation: simulation, quick_mode: quick_mode %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- FINAL SECTION (CENTER) -->
+    <div class="bracket-final-section">
+      <!-- Trophy -->
+      <div class="bracket-trophy">🏆</div>
+
+      <!-- Champion display -->
+      <% if champion %>
+        <div class="bracket-champion">
+          <%= flag_icon(champion, size: :large) %>
+          <span class="champion-label">CHAMPION</span>
+        </div>
+      <% end %>
+
+      <!-- Final Match -->
+      <% if final_match %>
+        <div class="bracket-final-match">
+          <%= render 'shared/bracket_match', match: final_match, prediction: predictions[final_match.id], simulation: simulation, quick_mode: quick_mode %>
+        </div>
+      <% end %>
+
+      <!-- Third Place Match -->
+      <% if third_place_match %>
+        <div class="bracket-third-place">
+          <span class="bracket-third-label">3ÈME PLACE</span>
+          <%= render 'shared/bracket_match', match: third_place_match, prediction: predictions[third_place_match.id], simulation: simulation, quick_mode: quick_mode %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- RIGHT SIDE OF BRACKET -->
+    <div class="bracket-side bracket-side-right">
+      <!-- Round of 32 - Right -->
+      <% if r32_right.any? %>
+        <div class="bracket-round bracket-round-32">
+          <span class="bracket-round-label">8èmes</span>
+          <% r32_right.each_slice(2) do |pair| %>
+            <div class="bracket-match-pair">
+              <% pair.each do |match| %>
+                <%= render 'shared/bracket_match', match: match, prediction: predictions[match.id], simulation: simulation, quick_mode: quick_mode %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <!-- Round of 16 - Right -->
+      <% if r16_right.any? %>
+        <div class="bracket-round bracket-round-16">
+          <span class="bracket-round-label">Quarts</span>
+          <% r16_right.each_slice(2) do |pair| %>
+            <div class="bracket-match-pair">
+              <% pair.each do |match| %>
+                <%= render 'shared/bracket_match', match: match, prediction: predictions[match.id], simulation: simulation, quick_mode: quick_mode %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <!-- Quarter Finals - Right -->
+      <% if qf_right.any? %>
+        <div class="bracket-round bracket-round-qf">
+          <span class="bracket-round-label">Demis</span>
+          <div class="bracket-match-pair">
+            <% qf_right.each do |match| %>
+              <%= render 'shared/bracket_match', match: match, prediction: predictions[match.id], simulation: simulation, quick_mode: quick_mode %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Semi Final - Right -->
+      <% if sf_right %>
+        <div class="bracket-round bracket-round-sf">
+          <%= render 'shared/bracket_match', match: sf_right, prediction: predictions[sf_right.id], simulation: simulation, quick_mode: quick_mode %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

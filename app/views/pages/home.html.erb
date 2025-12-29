@@ -1,38 +1,129 @@
-<h1>Simulateur Coupe du Monde 2026</h1>
+<% content_for :title, "World Cup Simulator 2026 - Prédisez le Champion" %>
 
-<p>Predisez les resultats de la Coupe du Monde FIFA 2026 !</p>
+<div class="landing">
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <!-- Animated particles -->
+    <div class="hero-particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
 
-<h2>Choisissez votre mode</h2>
+    <!-- Hero content -->
+    <div class="hero-content">
+      <div class="hero-trophy">🏆</div>
 
-<div style="display: flex; gap: 20px; margin-top: 20px;">
-  <div style="border: 2px solid #333; padding: 20px; flex: 1; text-align: center;">
-    <h3>Mode Complet</h3>
-    <p>Entrez les scores de chaque match</p>
-    <ul style="text-align: left;">
-      <li>72 matchs de poule a predire</li>
-      <li>32 matchs de phase finale</li>
-      <li>Experience realiste et detaillee</li>
-    </ul>
-    <%= button_to "Jouer en mode complet", start_simulation_path(mode: "complete"), method: :post, style: "padding: 10px 20px; font-size: 16px;" %>
-  </div>
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>USA • CANADA • MEXICO 2026</span>
+      </div>
 
-  <div style="border: 2px solid #333; padding: 20px; flex: 1; text-align: center;">
-    <h3>Mode Rapide</h3>
-    <p>Classez les equipes directement</p>
-    <ul style="text-align: left;">
-      <li>Glissez-deposez pour classer chaque groupe</li>
-      <li>Choisissez les meilleurs 3emes</li>
-      <li>Selectionnez le vainqueur de chaque match</li>
-    </ul>
-    <%= button_to "Jouer en mode rapide", start_simulation_path(mode: "quick"), method: :post, style: "padding: 10px 20px; font-size: 16px;" %>
-  </div>
+      <h1 class="hero-title">
+        <span class="title-world">WORLD</span>
+        <span class="title-cup">CUP</span>
+        <span class="title-simulator">SIMULATOR</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Prédisez les résultats, créez votre propre tournoi et découvrez qui soulèvera le trophée selon vos pronostics.
+      </p>
+
+      <!-- Mode selection cards -->
+      <div class="mode-selection">
+        <!-- Complete mode -->
+        <div class="mode-card mode-complete">
+          <span class="mode-icon">⚽</span>
+          <h2 class="mode-title">MODE COMPLET</h2>
+          <p class="mode-description">L'expérience ultime du pronostiqueur</p>
+          <ul class="mode-features">
+            <li>72 matchs de poule à prédire</li>
+            <li>Entrez le score exact de chaque rencontre</li>
+            <li>32 matchs de phase finale</li>
+            <li>Simulation réaliste et détaillée</li>
+          </ul>
+          <%= button_to start_simulation_path(mode: "complete"), method: :post, class: "btn btn-gold" do %>
+            COMMENCER
+          <% end %>
+        </div>
+
+        <!-- Quick mode -->
+        <div class="mode-card mode-quick">
+          <span class="mode-icon">⚡</span>
+          <h2 class="mode-title">MODE RAPIDE</h2>
+          <p class="mode-description">Pour les experts pressés</p>
+          <ul class="mode-features">
+            <li>Classez les équipes par glisser-déposer</li>
+            <li>Sélectionnez les meilleurs 3èmes</li>
+            <li>Choisissez le vainqueur de chaque match</li>
+            <li>Résultat en quelques minutes</li>
+          </ul>
+          <%= button_to start_simulation_path(mode: "quick"), method: :post, class: "btn btn-emerald" do %>
+            JOUER
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <span>DÉCOUVRIR LE FORMAT</span>
+      <span class="arrow">↓</span>
+    </div>
+  </section>
+
+  <!-- FORMAT SECTION -->
+  <section class="format-section">
+    <div class="format-container">
+      <h2 class="format-title">FORMAT <span>2026</span></h2>
+
+      <div class="format-grid">
+        <div class="format-stat">
+          <div class="stat-number">48</div>
+          <div class="stat-label">Équipes qualifiées</div>
+        </div>
+        <div class="format-stat">
+          <div class="stat-number">12</div>
+          <div class="stat-label">Groupes de 4</div>
+        </div>
+        <div class="format-stat">
+          <div class="stat-number">104</div>
+          <div class="stat-label">Matchs au total</div>
+        </div>
+        <div class="format-stat">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Pays hôtes</div>
+        </div>
+      </div>
+
+      <div class="format-info">
+        <p>
+          <strong>Phase de groupes :</strong> Les 2 premiers de chaque groupe + les 8 meilleurs 3èmes<br>
+          <strong>Phase finale :</strong> Huitièmes → Quarts → Demi-finales → Finale
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="landing-footer">
+    <p>Simulateur non-officiel créé par passion pour le football</p>
+    <div class="footer-flags">
+      <span class="fi fi-us"></span>
+      <span class="fi fi-ca"></span>
+      <span class="fi fi-mx"></span>
+    </div>
+  </footer>
 </div>
-
-<hr style="margin-top: 40px;">
-
-<h3>Format 2026</h3>
-<p>
-  48 equipes - 12 groupes de 4 - Les 2 premiers + 8 meilleurs 3emes qualifies
-  <br>
-  Huitiemes de finale -> Quarts -> Demies -> Finale
-</p>

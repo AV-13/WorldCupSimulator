@@ -1,83 +1,98 @@
-<h1>Selection des meilleurs 3emes</h1>
+<% content_for :title, "Sélection des 3èmes - Mode Rapide" %>
 
-<p><%= link_to "Retour au bracket", quick_bracket_path(token: @simulation.token) %></p>
+<div class="page">
+  <header class="page-header">
+    <div class="page-header-content">
+      <h1 class="page-title">MEILLEURS <span>3ÈMES</span></h1>
+      <div class="mode-badge mode-quick">⚡ Mode Rapide</div>
+    </div>
+  </header>
 
-<p>Selectionnez les 8 groupes dont les equipes 3emes se qualifient :</p>
+  <main class="page-content">
+    <%= link_to quick_bracket_path(token: @simulation.token), class: "back-link" do %>
+      Retour au bracket
+    <% end %>
 
-<%= form_with url: update_quick_third_place_path(token: @simulation.token), method: :patch do |f| %>
+    <section class="page-section">
+      <h2 class="section-title">Sélection des qualifiés</h2>
+      <p class="text-muted mb-md">Sélectionnez les 8 groupes dont les équipes 3èmes se qualifient pour les 8èmes de finale :</p>
 
-  <table border="1" cellpadding="10" cellspacing="0">
-    <thead>
-      <tr>
-        <th>Qualifie ?</th>
-        <th>Groupe</th>
-        <th>Equipe 3eme</th>
-        <th>Points</th>
-        <th>Diff</th>
-        <th>BP</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @all_thirds.each_with_index do |third, i| %>
-        <% is_qualifying = @current_qualifying.include?(third.group) %>
-        <tr style="<%= is_qualifying ? 'background-color: #d4edda;' : '' %>">
-          <td style="text-align: center;">
-            <input type="checkbox"
-                   name="qualifying_groups[]"
-                   value="<%= third.group %>"
-                   <%= 'checked' if is_qualifying %>
-                   onchange="updateCheckboxes(this)">
-          </td>
-          <td><%= third.group %></td>
-          <td>
-            <% if third.team %>
-              <%= flag_icon(third.team) %> <%= third.team.name %>
-            <% else %>
-              TBD
-            <% end %>
-          </td>
-          <td><%= third.points %></td>
-          <td><%= third.goal_diff %></td>
-          <td><%= third.goals_for %></td>
-        </tr>
+      <%= form_with url: update_quick_third_place_path(token: @simulation.token), method: :patch do |f| %>
+
+        <div class="third-place-grid">
+          <% @all_thirds.each_with_index do |third, i| %>
+            <% is_qualifying = @current_qualifying.include?(third.group) %>
+            <label class="third-place-item <%= is_qualifying ? 'selected' : '' %>">
+              <input type="checkbox"
+                     name="qualifying_groups[]"
+                     value="<%= third.group %>"
+                     <%= 'checked' if is_qualifying %>
+                     onchange="updateSelection(this)">
+              <div class="third-place-info">
+                <strong>Groupe <%= third.group %></strong>
+                <% if third.team %>
+                  <span style="display: flex; align-items: center; gap: 8px; margin-left: 12px;">
+                    <%= flag_icon(third.team) %>
+                    <%= third.team.name %>
+                  </span>
+                <% else %>
+                  <span class="bracket-tbd" style="margin-left: 12px;">À déterminer</span>
+                <% end %>
+              </div>
+              <div class="third-place-stats">
+                <div><strong><%= third.points %></strong> pts</div>
+                <div style="font-size: 0.8rem;"><%= third.goal_diff > 0 ? "+#{third.goal_diff}" : third.goal_diff %> diff</div>
+              </div>
+            </label>
+          <% end %>
+        </div>
+
+        <div class="selection-counter" id="selection-counter">
+          <span>Sélection : </span>
+          <span class="count" id="selection-count"><%= @current_qualifying.length %></span>
+          <span> / 8 groupes</span>
+        </div>
+
+        <div class="mt-lg text-center">
+          <%= f.submit "Valider la sélection", id: "submit-btn", class: "btn btn-emerald" %>
+        </div>
+
       <% end %>
-    </tbody>
-  </table>
-
-  <p id="selection-count" style="margin-top: 10px;">
-    Selection : <span id="count"><%= @current_qualifying.length %></span> / 8 groupes
-  </p>
-
-  <div style="margin-top: 20px;">
-    <%= f.submit "Valider la selection", id: "submit-btn", style: "padding: 10px 20px; font-size: 16px;" %>
-  </div>
-
-<% end %>
+    </section>
+  </main>
+</div>
 
 <script>
-  function updateCheckboxes(checkbox) {
+  function updateSelection(checkbox) {
     const checkboxes = document.querySelectorAll('input[name="qualifying_groups[]"]');
     const checked = document.querySelectorAll('input[name="qualifying_groups[]"]:checked');
     const count = checked.length;
 
-    document.getElementById('count').textContent = count;
+    document.getElementById('selection-count').textContent = count;
 
+    const counter = document.getElementById('selection-counter');
     const submitBtn = document.getElementById('submit-btn');
+
+    counter.classList.remove('valid', 'invalid', 'over');
+
     if (count === 8) {
       submitBtn.disabled = false;
-      document.getElementById('selection-count').style.color = 'green';
+      counter.classList.add('valid');
+    } else if (count > 8) {
+      submitBtn.disabled = true;
+      counter.classList.add('over');
     } else {
       submitBtn.disabled = true;
-      document.getElementById('selection-count').style.color = count > 8 ? 'red' : 'orange';
+      counter.classList.add('invalid');
     }
 
-    // Update row colors
+    // Update item styles
     checkboxes.forEach(function(cb) {
-      const row = cb.closest('tr');
+      const item = cb.closest('.third-place-item');
       if (cb.checked) {
-        row.style.backgroundColor = '#d4edda';
+        item.classList.add('selected');
       } else {
-        row.style.backgroundColor = '';
+        item.classList.remove('selected');
       }
     });
   }
@@ -85,7 +100,19 @@
   // Initial state
   document.addEventListener('DOMContentLoaded', function() {
     const checked = document.querySelectorAll('input[name="qualifying_groups[]"]:checked');
+    const count = checked.length;
+    const counter = document.getElementById('selection-counter');
     const submitBtn = document.getElementById('submit-btn');
-    submitBtn.disabled = checked.length !== 8;
+
+    if (count === 8) {
+      counter.classList.add('valid');
+      submitBtn.disabled = false;
+    } else if (count > 8) {
+      counter.classList.add('over');
+      submitBtn.disabled = true;
+    } else {
+      counter.classList.add('invalid');
+      submitBtn.disabled = true;
+    }
   });
 </script>

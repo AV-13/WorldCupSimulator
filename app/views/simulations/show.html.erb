@@ -1,62 +1,94 @@
-<h1>Simulation - Coupe du Monde 2026</h1>
+<% content_for :title, "Simulation - World Cup 2026" %>
 
-<p>
-  <strong>Mode :</strong>
-  <% if @simulation.quick_mode? %>
-    Rapide (classement direct)
-  <% else %>
-    Complet (scores detailles)
-  <% end %>
-</p>
+<div class="page">
+  <header class="page-header">
+    <div class="page-header-content">
+      <h1 class="page-title">WORLD CUP <span>2026</span></h1>
+      <div class="mode-badge <%= @simulation.quick_mode? ? 'mode-quick' : 'mode-complete' %>">
+        <% if @simulation.quick_mode? %>
+          ⚡ Mode Rapide
+        <% else %>
+          ⚽ Mode Complet
+        <% end %>
+      </div>
+    </div>
+  </header>
 
-<p>
-  <strong>Progression :</strong>
-  <%= @group_progress[:completed] %> / <%= @group_progress[:total] %> matchs de groupe
-</p>
+  <main class="page-content">
+    <!-- Progress -->
+    <div class="progress-container">
+      <div class="progress-label">
+        <span>Progression phase de groupes</span>
+        <span><%= @group_progress[:completed] %> / <%= @group_progress[:total] %> matchs</span>
+      </div>
+      <div class="progress-bar">
+        <% progress_percent = @group_progress[:total] > 0 ? (@group_progress[:completed].to_f / @group_progress[:total] * 100).round : 0 %>
+        <div class="progress-fill" style="width: <%= progress_percent %>%;"></div>
+      </div>
+    </div>
 
-<hr>
+    <!-- Group Stage Section -->
+    <section class="page-section">
+      <h2 class="section-title">Phase de groupes</h2>
 
-<h2>Phase de groupes</h2>
+      <% if @simulation.quick_mode? %>
+        <p class="text-muted mb-md">Cliquez sur un groupe pour classer les équipes par glisser-déposer</p>
+      <% else %>
+        <p class="text-muted mb-md">Cliquez sur un groupe pour entrer les scores des matchs</p>
+      <% end %>
 
-<% if @simulation.quick_mode? %>
-  <p><em>Cliquez sur un groupe pour classer les equipes par glisser-deposer</em></p>
-  <ul>
-  <% @groups.each do |group| %>
-    <li>
-      <%= link_to "Groupe #{group.name}", quick_group_path(token: @simulation.token, name: group.name) %>
-    </li>
-  <% end %>
-  </ul>
-<% else %>
-  <p><em>Cliquez sur un groupe pour entrer les scores des matchs</em></p>
-  <ul>
-  <% @groups.each do |group| %>
-    <li>
-      <%= link_to "Groupe #{group.name}", group_path(@simulation.token, group.name) %>
-    </li>
-  <% end %>
-  </ul>
-<% end %>
+      <div class="groups-grid">
+        <% @groups.each do |group| %>
+          <%
+            group_path_url = @simulation.quick_mode? ? quick_group_path(token: @simulation.token, name: group.name) : group_path(@simulation.token, group.name)
+            teams = group.teams.limit(4)
+          %>
+          <%= link_to group_path_url, class: "group-card" do %>
+            <div class="group-card-header">
+              <div class="group-name">GROUPE <span><%= group.name %></span></div>
+            </div>
+            <div class="group-teams">
+              <% teams.each do |team| %>
+                <div class="group-team">
+                  <%= flag_icon(team, size: :small) %>
+                  <span><%= team.name %></span>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
 
-<hr>
+    <!-- Knockout Stage Section -->
+    <section class="page-section">
+      <h2 class="section-title">Phase finale</h2>
 
-<h2>Phase finale</h2>
+      <% if @simulation.quick_mode? %>
+        <div class="card" style="max-width: 500px;">
+          <p class="mb-md">Après avoir classé tous les groupes :</p>
+          <%= link_to quick_third_place_path(token: @simulation.token), class: "btn btn-outline", style: "width: 100%; margin-bottom: var(--space-sm);" do %>
+            Sélectionner les meilleurs 3èmes
+          <% end %>
+          <%= link_to quick_bracket_path(token: @simulation.token), class: "btn btn-gold", style: "width: 100%;" do %>
+            Voir le bracket
+          <% end %>
+        </div>
+      <% else %>
+        <div class="card" style="max-width: 500px;">
+          <p class="mb-md">Le bracket sera disponible une fois la phase de groupes complétée.</p>
+          <%= link_to bracket_path(token: @simulation.token), class: "btn btn-gold" do %>
+            Voir le bracket (8èmes → Finale)
+          <% end %>
+        </div>
+      <% end %>
+    </section>
 
-<% if @simulation.quick_mode? %>
-  <p>
-    <%= link_to "Choisir les meilleurs 3emes", quick_third_place_path(token: @simulation.token) %>
-  </p>
-  <p>
-    <%= link_to "Voir le bracket (choisir les vainqueurs)", quick_bracket_path(token: @simulation.token) %>
-  </p>
-<% else %>
-  <p>
-    <%= link_to "Voir le bracket (8emes -> Finale)", bracket_path(token: @simulation.token) %>
-  </p>
-<% end %>
-
-<hr>
-
-<p style="margin-top: 20px;">
-  <%= link_to "Nouvelle simulation", root_path %>
-</p>
+    <!-- Actions -->
+    <div class="text-center mt-lg">
+      <%= link_to root_path, class: "btn btn-outline" do %>
+        ← Nouvelle simulation
+      <% end %>
+    </div>
+  </main>
+</div>

@@ -1,54 +1,105 @@
-<h1>Groupe <%= @group.name %></h1>
-<h2>Classement</h2>
+<% content_for :title, "Groupe #{@group.name} - World Cup 2026" %>
 
-<table border="1" cellpadding="8" cellspacing="0">
-  <thead>
-  <tr>
-    <th>#</th>
-    <th>Équipe</th>
-    <th>MJ</th>
-    <th>V</th>
-    <th>N</th>
-    <th>D</th>
-    <th>BP</th>
-    <th>BC</th>
-    <th>Diff</th>
-    <th>Pts</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @standings.each_with_index do |row, i| %>
-    <tr>
-      <td><%= i + 1 %></td>
-      <td><%= flag_icon(row.team) %> <%= row.team.name %></td>
-      <td><%= row.played %></td>
-      <td><%= row.wins %></td>
-      <td><%= row.draws %></td>
-      <td><%= row.losses %></td>
-      <td><%= row.goals_for %></td>
-      <td><%= row.goals_against %></td>
-      <td><%= row.goal_diff %></td>
-      <td><strong><%= row.points %></strong></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+<div class="page">
+  <header class="page-header">
+    <div class="page-header-content">
+      <h1 class="page-title">GROUPE <span><%= @group.name %></span></h1>
+    </div>
+  </header>
 
-<h2>Matchs</h2>
-<ul>
-  <% @matches.each do |m| %>
-    <li>
-      <%= flag_icon(m.home_team) %> <%= m.home_team.name %>
-      vs
-      <%= flag_icon(m.away_team) %> <%= m.away_team.name %>
-      <% p = @predictions_by_match_id[m.id] %>
-      <% if p&.home_score && p.away_score %>
-        : <strong><%= p.home_score %> - <%= p.away_score %></strong>
-      <% else %>
-        — <%= link_to "Saisir le score", match_path(@simulation.token, m.id) %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+  <main class="page-content">
+    <%= link_to simulation_path(@simulation.token), class: "back-link" do %>
+      Retour aux groupes
+    <% end %>
 
-<p><%= link_to "Retour", simulation_path(@simulation.token) %></p>
+    <!-- Standings Table -->
+    <section class="page-section">
+      <h2 class="section-title">Classement</h2>
+
+      <div class="table-container">
+        <table class="standings-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">#</th>
+              <th>Équipe</th>
+              <th style="text-align: center;">MJ</th>
+              <th style="text-align: center;">V</th>
+              <th style="text-align: center;">N</th>
+              <th style="text-align: center;">D</th>
+              <th style="text-align: center;">BP</th>
+              <th style="text-align: center;">BC</th>
+              <th style="text-align: center;">Diff</th>
+              <th style="text-align: center;">Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @standings.each_with_index do |row, i| %>
+              <tr class="position-<%= i + 1 %>">
+                <td><%= i + 1 %></td>
+                <td class="team-cell">
+                  <%= flag_icon(row.team) %>
+                  <%= row.team.name %>
+                </td>
+                <td style="text-align: center;"><%= row.played %></td>
+                <td style="text-align: center;"><%= row.wins %></td>
+                <td style="text-align: center;"><%= row.draws %></td>
+                <td style="text-align: center;"><%= row.losses %></td>
+                <td style="text-align: center;"><%= row.goals_for %></td>
+                <td style="text-align: center;"><%= row.goals_against %></td>
+                <td style="text-align: center;" class="<%= row.goal_diff > 0 ? 'diff-positive' : (row.goal_diff < 0 ? 'diff-negative' : '') %>">
+                  <%= row.goal_diff > 0 ? "+#{row.goal_diff}" : row.goal_diff %>
+                </td>
+                <td style="text-align: center;" class="points-cell"><%= row.points %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="ranking-legend mt-md">
+        <h4>LÉGENDE</h4>
+        <ul>
+          <li class="legend-qualified">1er et 2ème : Qualifiés pour les 8èmes</li>
+          <li class="legend-playoff">3ème : Peut se qualifier parmi les meilleurs 3èmes</li>
+          <li class="legend-eliminated">4ème : Éliminé</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Matches List -->
+    <section class="page-section">
+      <h2 class="section-title">Matchs</h2>
+
+      <div class="matches-list">
+        <% @matches.each do |m| %>
+          <% p = @predictions_by_match_id[m.id] %>
+          <% has_score = p&.home_score && p&.away_score %>
+          <div class="match-item <%= has_score ? 'match-completed' : 'match-pending' %>">
+            <div class="match-teams">
+              <div class="match-team home">
+                <span><%= m.home_team.name %></span>
+                <%= flag_icon(m.home_team) %>
+              </div>
+              <% if has_score %>
+                <div class="match-score"><%= p.home_score %> - <%= p.away_score %></div>
+              <% else %>
+                <div class="match-vs">VS</div>
+              <% end %>
+              <div class="match-team away">
+                <%= flag_icon(m.away_team) %>
+                <span><%= m.away_team.name %></span>
+              </div>
+            </div>
+            <div class="match-action">
+              <% if has_score %>
+                <%= link_to "Modifier", match_path(@simulation.token, m.id) %>
+              <% else %>
+                <%= link_to "Prédire →", match_path(@simulation.token, m.id), class: "btn btn-sm btn-gold" %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  </main>
+</div>

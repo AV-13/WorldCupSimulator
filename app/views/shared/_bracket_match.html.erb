@@ -1,0 +1,55 @@
+<%#
+  Single Bracket Match
+
+  Local variables:
+  - match: The match object
+  - prediction: The prediction for this match (can be nil)
+  - simulation: Current simulation
+  - quick_mode: Boolean - if true, teams are clickable
+%>
+
+<%
+  winner = bracket_match_winner(match, prediction)
+  can_click = bracket_can_click?(match, prediction, quick_mode)
+%>
+
+<div class="bracket-tree-match">
+  <div class="bracket-tree-match-number">#<%= match.match_number %></div>
+  <div class="bracket-tree-teams">
+    <%# Home Team %>
+    <% home_classes = bracket_team_classes(match.home_team, winner, match, prediction, quick_mode) %>
+    <% if can_click && match.home_team %>
+      <%= link_to set_quick_winner_path(token: simulation.token, match_number: match.match_number, winner_team_id: match.home_team.id),
+                  data: { turbo_method: :patch },
+                  class: home_classes do %>
+        <%= flag_icon(match.home_team) %>
+      <% end %>
+    <% elsif match.home_team %>
+      <div class="<%= home_classes %>">
+        <%= flag_icon(match.home_team) %>
+      </div>
+    <% else %>
+      <div class="bracket-tree-team tbd">
+        <%= match.home_source.presence&.truncate(6) || '?' %>
+      </div>
+    <% end %>
+
+    <%# Away Team %>
+    <% away_classes = bracket_team_classes(match.away_team, winner, match, prediction, quick_mode) %>
+    <% if can_click && match.away_team %>
+      <%= link_to set_quick_winner_path(token: simulation.token, match_number: match.match_number, winner_team_id: match.away_team.id),
+                  data: { turbo_method: :patch },
+                  class: away_classes do %>
+        <%= flag_icon(match.away_team) %>
+      <% end %>
+    <% elsif match.away_team %>
+      <div class="<%= away_classes %>">
+        <%= flag_icon(match.away_team) %>
+      </div>
+    <% else %>
+      <div class="bracket-tree-team tbd">
+        <%= match.away_source.presence&.truncate(6) || '?' %>
+      </div>
+    <% end %>
+  </div>
+</div>

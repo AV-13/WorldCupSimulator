@@ -1,3 +1,7 @@
 <%= turbo_stream.update "bracket-container" do %>
-  <%= render "bracket" %>
+  <%= render 'shared/bracket_tree',
+             matches_by_round: @matches_by_round,
+             predictions: @predictions,
+             simulation: @simulation,
+             quick_mode: true %>
 <% end %>

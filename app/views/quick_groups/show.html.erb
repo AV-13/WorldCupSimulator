@@ -1,49 +1,61 @@
-<h1>Groupe <%= @group.name %> - Classement rapide</h1>
+<% content_for :title, "Groupe #{@group.name} - Mode Rapide" %>
 
-<p><%= link_to "Retour", simulation_path(token: @simulation.token) %></p>
+<div class="page">
+  <header class="page-header">
+    <div class="page-header-content">
+      <h1 class="page-title">GROUPE <span><%= @group.name %></span></h1>
+      <div class="mode-badge mode-quick">⚡ Mode Rapide</div>
+    </div>
+  </header>
 
-<p>Glissez-deposez les equipes pour definir le classement :</p>
-
-<%= form_with url: update_quick_group_path(token: @simulation.token, name: @group.name), method: :patch, id: "ranking-form" do |f| %>
-
-  <div data-controller="sortable" data-sortable-target="list" style="max-width: 400px;">
-    <% @teams.each_with_index do |team, index| %>
-      <div data-sortable-target="item"
-           data-team-id="<%= team.id %>"
-           style="padding: 15px; margin: 5px 0; background: #f8f9fa; border: 3px solid <%= index < 2 ? '#28a745' : (index == 2 ? '#fd7e14' : '#dc3545') %>; border-radius: 8px; cursor: grab; display: flex; align-items: center; gap: 12px; user-select: none; transition: all 0.2s ease;">
-        <span data-rank style="font-weight: bold; width: 30px; font-size: 18px;"><%= index + 1 %>.</span>
-        <%= flag_icon(team) %>
-        <span style="font-size: 16px;"><%= team.name %></span>
-        <input type="hidden" name="team_ids[]" value="<%= team.id %>">
-      </div>
+  <main class="page-content">
+    <%= link_to simulation_path(token: @simulation.token), class: "back-link" do %>
+      Retour aux groupes
     <% end %>
-  </div>
 
-  <div style="margin-top: 20px;">
-    <p><strong>Legende :</strong></p>
-    <ul>
-      <li style="color: #28a745;">1er et 2eme : Qualifies directement</li>
-      <li style="color: #fd7e14;">3eme : Peut se qualifier parmi les meilleurs 3emes</li>
-      <li style="color: #dc3545;">4eme : Elimine</li>
-    </ul>
-  </div>
+    <section class="page-section">
+      <h2 class="section-title">Classement du groupe</h2>
+      <p class="text-muted mb-md">Glissez-déposez les équipes pour définir le classement :</p>
 
-  <div style="margin-top: 20px;">
-    <%= f.submit "Valider ce classement", style: "padding: 12px 24px; font-size: 16px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer;" %>
-  </div>
+      <%= form_with url: update_quick_group_path(token: @simulation.token, name: @group.name), method: :patch, id: "ranking-form", class: "ranking-form" do |f| %>
 
-<% end %>
+        <div class="ranking-list" data-controller="sortable" data-sortable-target="list">
+          <% @teams.each_with_index do |team, index| %>
+            <div class="ranking-item position-<%= index + 1 %>"
+                 data-sortable-target="item"
+                 data-team-id="<%= team.id %>">
+              <span class="ranking-position" data-rank><%= index + 1 %></span>
+              <div class="ranking-team">
+                <%= flag_icon(team) %>
+                <span><%= team.name %></span>
+              </div>
+              <span class="ranking-handle">⋮⋮</span>
+              <input type="hidden" name="team_ids[]" value="<%= team.id %>">
+            </div>
+          <% end %>
+        </div>
+
+        <div class="ranking-legend">
+          <h4>LÉGENDE</h4>
+          <ul>
+            <li class="legend-qualified">1er et 2ème : Qualifiés directement</li>
+            <li class="legend-playoff">3ème : Peut se qualifier parmi les meilleurs 3èmes</li>
+            <li class="legend-eliminated">4ème : Éliminé</li>
+          </ul>
+        </div>
+
+        <div class="mt-lg">
+          <%= f.submit "Valider ce classement", class: "btn btn-emerald" %>
+        </div>
+
+      <% end %>
+    </section>
+  </main>
+</div>
 
 <style>
-  [data-sortable-target="item"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  }
-  [data-sortable-target="item"].dragging {
+  .ranking-item.dragging {
     opacity: 0.5;
     cursor: grabbing;
-  }
-  .fi {
-    font-size: 24px;
   }
 </style>

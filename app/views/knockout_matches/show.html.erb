@@ -1,71 +1,71 @@
-<h1>Match <%= @match.match_number %> - <%= @match.round_name %></h1>
+<% content_for :title, "#{@match.round_name} - World Cup 2026" %>
 
-<p><%= link_to "Retour au bracket", bracket_path(token: @simulation.token) %></p>
+<div class="page">
+  <header class="page-header">
+    <div class="page-header-content">
+      <h1 class="page-title"><%= @match.round_name.upcase %></h1>
+    </div>
+  </header>
 
-<div class="match-details">
-  <h2>
-    <% if @match.home_team %>
-      <%= flag_icon(@match.home_team) %> <%= @match.home_team.name %>
-    <% else %>
-      <%= @match.home_source %>
+  <main class="page-content">
+    <%= link_to bracket_path(token: @simulation.token), class: "back-link" do %>
+      Retour au bracket
     <% end %>
-    vs
-    <% if @match.away_team %>
-      <%= flag_icon(@match.away_team) %> <%= @match.away_team.name %>
-    <% else %>
-      <%= @match.away_source %>
-    <% end %>
-  </h2>
 
-  <% unless @match.teams_known? %>
-    <p class="warning">
-      <em>Les equipes ne sont pas encore determinees pour ce match.</em>
-    </p>
-  <% end %>
-</div>
-
-<% if @match.teams_known? %>
-  <%= form_with model: @prediction, url: update_knockout_match_path(token: @simulation.token, match_number: @match.match_number), method: :patch do |f| %>
-
-    <% if @prediction.errors.any? %>
-      <div class="errors">
-        <ul>
-          <% @prediction.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
+    <% unless @match.teams_known? %>
+      <div class="alert alert-warning mb-lg">
+        <span class="alert-icon">⚠️</span>
+        <div class="alert-content">
+          <strong>Équipes non déterminées</strong>
+          Les équipes de ce match ne sont pas encore connues.
+        </div>
       </div>
     <% end %>
 
-    <table border="1" cellpadding="10" cellspacing="0">
-      <tr>
-        <td style="text-align: center;">
-          <%= flag_icon(@match.home_team, size: :large) %>
-          <br>
-          <strong><%= @match.home_team.name %></strong>
-          <br>
-          <%= f.number_field :home_score, min: 0, max: 20, style: "width: 60px; font-size: 24px; text-align: center;" %>
-        </td>
-        <td style="text-align: center; vertical-align: middle;">
-          <strong>-</strong>
-        </td>
-        <td style="text-align: center;">
-          <%= flag_icon(@match.away_team, size: :large) %>
-          <br>
-          <strong><%= @match.away_team.name %></strong>
-          <br>
-          <%= f.number_field :away_score, min: 0, max: 20, style: "width: 60px; font-size: 24px; text-align: center;" %>
-        </td>
-      </tr>
-    </table>
+    <% if @match.teams_known? %>
+      <div class="prediction-form">
+        <div class="prediction-card">
+          <% if @prediction.errors.any? %>
+            <div class="alert alert-danger mb-md">
+              <ul style="margin: 0; padding-left: 20px;">
+                <% @prediction.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-    <br>
+          <%= form_with model: @prediction,
+                        url: update_knockout_match_path(token: @simulation.token, match_number: @match.match_number),
+                        method: :patch do |f| %>
 
-    <p>
-      <em>Note : En cas d'egalite, le vainqueur sera determine automatiquement (equipe a domicile).</em>
-    </p>
+            <div class="prediction-teams">
+              <div class="prediction-team">
+                <%= flag_icon(@match.home_team, size: :large) %>
+                <div class="team-name"><%= @match.home_team.name %></div>
+                <%= f.number_field :home_score, min: 0, max: 20, placeholder: "0" %>
+              </div>
 
-    <%= f.submit "Enregistrer la prediction", style: "padding: 10px 20px; font-size: 16px;" %>
+              <div class="prediction-separator">-</div>
 
-  <% end %>
-<% end %>
+              <div class="prediction-team">
+                <%= flag_icon(@match.away_team, size: :large) %>
+                <div class="team-name"><%= @match.away_team.name %></div>
+                <%= f.number_field :away_score, min: 0, max: 20, placeholder: "0" %>
+              </div>
+            </div>
+
+            <p class="text-muted text-center mb-md" style="font-size: 0.9rem;">
+              En cas d'égalité, l'équipe à domicile sera déclarée vainqueur.
+            </p>
+
+            <div class="prediction-submit">
+              <%= f.submit "Enregistrer la prédiction", class: "btn btn-gold" %>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </main>
+</div>

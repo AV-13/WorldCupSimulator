@@ -2,61 +2,93 @@
   <% matches = @matches_by_round[round] %>
   <% next unless matches&.any? %>
 
-  <h3><%= Match::ROUND_NAMES[round] || round.titleize %></h3>
+  <section class="bracket-section">
+    <h3 class="bracket-round-title"><%= Match::ROUND_NAMES[round] || round.titleize %></h3>
 
-  <table border="1" cellpadding="5" cellspacing="0">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th colspan="3">Match</th>
-        <th>Vainqueur</th>
-      </tr>
-    </thead>
-    <tbody>
+    <div class="bracket-matches">
       <% matches.each do |match| %>
         <% prediction = @predictions[match.id] %>
         <% has_winner = prediction&.home_score && prediction&.away_score %>
         <% winner = has_winner ? (prediction.home_score > prediction.away_score ? match.home_team : match.away_team) : nil %>
-        <tr>
-          <td><%= match.match_number %></td>
-          <td style="<%= winner == match.home_team ? 'background: #d4edda; font-weight: bold;' : '' %>">
-            <% if match.home_team %>
-              <% if match.teams_known? && !has_winner %>
-                <%= link_to set_quick_winner_path(token: @simulation.token, match_number: match.match_number, winner_team_id: match.home_team.id), data: { turbo_method: :patch } do %>
-                  <%= flag_icon(match.home_team) %> <%= match.home_team.name %>
-                <% end %>
-              <% else %>
-                <%= flag_icon(match.home_team) %> <%= match.home_team.name %>
-              <% end %>
-            <% else %>
-              <em><%= match.home_source %></em>
-            <% end %>
-          </td>
-          <td>vs</td>
-          <td style="<%= winner == match.away_team ? 'background: #d4edda; font-weight: bold;' : '' %>">
-            <% if match.away_team %>
-              <% if match.teams_known? && !has_winner %>
-                <%= link_to set_quick_winner_path(token: @simulation.token, match_number: match.match_number, winner_team_id: match.away_team.id), data: { turbo_method: :patch } do %>
-                  <%= flag_icon(match.away_team) %> <%= match.away_team.name %>
-                <% end %>
-              <% else %>
-                <%= flag_icon(match.away_team) %> <%= match.away_team.name %>
-              <% end %>
-            <% else %>
-              <em><%= match.away_source %></em>
-            <% end %>
-          </td>
-          <td>
-            <% if winner %>
-              <strong><%= flag_icon(winner) %> <%= winner.name %></strong>
+
+        <div class="bracket-match">
+          <div class="bracket-match-header">
+            <span>Match #<%= match.match_number %></span>
+            <% if has_winner %>
+              <span style="color: var(--color-success);">✓ Terminé</span>
             <% elsif match.teams_known? %>
-              <em>A choisir</em>
+              <span style="color: var(--color-warning);">À jouer</span>
             <% else %>
-              <em>En attente</em>
+              <span class="text-muted">En attente</span>
             <% end %>
-          </td>
-        </tr>
+          </div>
+          <div class="bracket-match-content">
+            <!-- Home Team -->
+            <% if match.home_team %>
+              <% is_winner = winner == match.home_team %>
+              <% can_click = match.teams_known? && !has_winner %>
+              <% if can_click %>
+                <%= link_to set_quick_winner_path(token: @simulation.token, match_number: match.match_number, winner_team_id: match.home_team.id),
+                            data: { turbo_method: :patch },
+                            class: "bracket-team clickable #{is_winner ? 'winner' : ''}" do %>
+                  <div class="bracket-team-info">
+                    <%= flag_icon(match.home_team) %>
+                    <span><%= match.home_team.name %></span>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="bracket-team <%= is_winner ? 'winner' : '' %>">
+                  <div class="bracket-team-info">
+                    <%= flag_icon(match.home_team) %>
+                    <span><%= match.home_team.name %></span>
+                  </div>
+                  <% if is_winner %>
+                    <span style="color: var(--color-success);">👑</span>
+                  <% end %>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="bracket-team">
+                <div class="bracket-team-info">
+                  <span class="bracket-tbd"><%= match.home_source %></span>
+                </div>
+              </div>
+            <% end %>
+
+            <!-- Away Team -->
+            <% if match.away_team %>
+              <% is_winner = winner == match.away_team %>
+              <% can_click = match.teams_known? && !has_winner %>
+              <% if can_click %>
+                <%= link_to set_quick_winner_path(token: @simulation.token, match_number: match.match_number, winner_team_id: match.away_team.id),
+                            data: { turbo_method: :patch },
+                            class: "bracket-team clickable #{is_winner ? 'winner' : ''}" do %>
+                  <div class="bracket-team-info">
+                    <%= flag_icon(match.away_team) %>
+                    <span><%= match.away_team.name %></span>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="bracket-team <%= is_winner ? 'winner' : '' %>">
+                  <div class="bracket-team-info">
+                    <%= flag_icon(match.away_team) %>
+                    <span><%= match.away_team.name %></span>
+                  </div>
+                  <% if is_winner %>
+                    <span style="color: var(--color-success);">👑</span>
+                  <% end %>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="bracket-team">
+                <div class="bracket-team-info">
+                  <span class="bracket-tbd"><%= match.away_source %></span>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
       <% end %>
-    </tbody>
-  </table>
+    </div>
+  </section>
 <% end %>

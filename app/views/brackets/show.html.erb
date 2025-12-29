@@ -1,116 +1,157 @@
-<h1>Phase finale - Coupe du Monde 2026</h1>
+<% content_for :title, "Phase finale - World Cup 2026" %>
 
-<p><%= link_to "Retour aux groupes", simulation_path(token: @simulation.token) %></p>
+<div class="page">
+  <header class="page-header">
+    <div class="page-header-content">
+      <h1 class="page-title">PHASE <span>FINALE</span></h1>
+      <div class="mode-badge mode-complete">⚽ Mode Complet</div>
+    </div>
+  </header>
 
-<% unless @qualification[:complete] %>
-  <div class="warning">
-    <strong>Attention :</strong> La phase de groupes n'est pas complete.
-    Completez toutes les predictions de groupe pour voir le bracket final.
-    <br>
-    <small>
-      Matchs predits : <%= Prediction.where(simulation: @simulation).where.not(home_score: nil).count %> / 72
-    </small>
-  </div>
-<% end %>
-
-<h2>Classement des 3emes</h2>
-<p>Les 8 meilleures equipes 3emes se qualifient pour les 8emes de finale.</p>
-
-<table border="1" cellpadding="5" cellspacing="0">
-  <thead>
-    <tr>
-      <th>Rang</th>
-      <th>Groupe</th>
-      <th>Equipe</th>
-      <th>Pts</th>
-      <th>Diff</th>
-      <th>BP</th>
-      <th>BC</th>
-      <th>Statut</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @qualification[:all_thirds].each_with_index do |third, i| %>
-      <tr style="<%= i < 8 ? 'background-color: #d4edda;' : 'background-color: #f8d7da;' %>">
-        <td><%= i + 1 %></td>
-        <td><%= third.group %></td>
-        <td>
-          <% if third.team %>
-            <%= flag_icon(third.team) %> <%= third.team.name %>
-          <% else %>
-            TBD
-          <% end %>
-        </td>
-        <td><%= third.points %></td>
-        <td><%= third.goal_diff %></td>
-        <td><%= third.goals_for %></td>
-        <td><%= third.goals_against %></td>
-        <td><%= i < 8 ? "Qualifie" : "Elimine" %></td>
-      </tr>
+  <main class="page-content">
+    <%= link_to simulation_path(token: @simulation.token), class: "back-link" do %>
+      Retour aux groupes
     <% end %>
-  </tbody>
-</table>
 
-<hr>
+    <% unless @qualification[:complete] %>
+      <div class="alert alert-warning mb-lg">
+        <span class="alert-icon">⚠️</span>
+        <div class="alert-content">
+          <strong>Phase de groupes incomplète</strong>
+          Complétez toutes les prédictions de groupe pour voir le bracket final.
+          <br>
+          <small>Matchs prédits : <%= Prediction.where(simulation: @simulation).where.not(home_score: nil).count %> / 72</small>
+        </div>
+      </div>
+    <% end %>
 
-<% if @knockout_matches.any? %>
-  <h2>Tableau final</h2>
+    <!-- Bracket Tree Visualization -->
+    <% if @knockout_matches.any? %>
+      <section class="page-section">
+        <h2 class="section-title">Arbre du tournoi</h2>
+        <p class="text-muted mb-md">Cliquez sur un match pour saisir le score</p>
 
-  <% %w[round_of_32 round_of_16 quarter_final semi_final third_place final].each do |round| %>
-    <% matches = @matches_by_round[round] %>
-    <% next unless matches&.any? %>
+        <%= render 'shared/bracket_tree',
+                   matches_by_round: @matches_by_round,
+                   predictions: @predictions,
+                   simulation: @simulation,
+                   quick_mode: false %>
+      </section>
+    <% end %>
 
-    <h3><%= Match::ROUND_NAMES[round] || round.titleize %></h3>
+    <!-- Third Place Rankings Table -->
+    <section class="page-section">
+      <h2 class="section-title">Classement des 3èmes</h2>
+      <p class="text-muted mb-md">Les 8 meilleures équipes 3èmes se qualifient pour les 8èmes de finale.</p>
 
-    <table border="1" cellpadding="5" cellspacing="0">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Domicile</th>
-          <th>Score</th>
-          <th>Exterieur</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% matches.each do |match| %>
-          <% prediction = @predictions[match.id] %>
-          <tr>
-            <td><%= match.match_number %></td>
-            <td>
-              <% if match.home_team %>
-                <%= flag_icon(match.home_team) %> <%= match.home_team.name %>
-              <% else %>
-                <em><%= match.home_source %></em>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 60px;">Rang</th>
+              <th style="width: 80px;">Groupe</th>
+              <th>Équipe</th>
+              <th style="text-align: center;">Pts</th>
+              <th style="text-align: center;">Diff</th>
+              <th style="width: 100px;">Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @qualification[:all_thirds].each_with_index do |third, i| %>
+              <tr class="<%= i < 8 ? 'qualified' : 'eliminated' %>">
+                <td><%= i + 1 %></td>
+                <td><%= third.group %></td>
+                <td>
+                  <% if third.team %>
+                    <span class="team-cell">
+                      <%= flag_icon(third.team) %>
+                      <%= third.team.name %>
+                    </span>
+                  <% else %>
+                    <span class="bracket-tbd">À déterminer</span>
+                  <% end %>
+                </td>
+                <td style="text-align: center;"><%= third.points %></td>
+                <td style="text-align: center;"><%= third.goal_diff %></td>
+                <td>
+                  <% if i < 8 %>
+                    <span style="color: var(--color-success);">✓ Qualifié</span>
+                  <% else %>
+                    <span style="color: var(--color-danger);">✗ Éliminé</span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Detailed Match List -->
+    <% if @knockout_matches.any? %>
+      <section class="page-section">
+        <h2 class="section-title">Détail des matchs</h2>
+
+        <% %w[round_of_32 round_of_16 quarter_final semi_final third_place final].each do |round| %>
+          <% matches = @matches_by_round[round] %>
+          <% next unless matches&.any? %>
+
+          <div class="bracket-section">
+            <h3 class="bracket-round-title"><%= Match::ROUND_NAMES[round] || round.titleize %></h3>
+
+            <div class="bracket-matches">
+              <% matches.each do |match| %>
+                <% prediction = @predictions[match.id] %>
+                <% has_score = prediction&.home_score && prediction&.away_score %>
+                <% winner = has_score ? (prediction.home_score > prediction.away_score ? match.home_team : (prediction.away_score > prediction.home_score ? match.away_team : match.home_team)) : nil %>
+
+                <div class="bracket-match">
+                  <div class="bracket-match-header">
+                    <span>Match #<%= match.match_number %></span>
+                    <% if match.teams_known? && !has_score %>
+                      <%= link_to "Prédire", knockout_match_path(token: @simulation.token, match_number: match.match_number) %>
+                    <% elsif has_score %>
+                      <%= link_to "Modifier", knockout_match_path(token: @simulation.token, match_number: match.match_number) %>
+                    <% end %>
+                  </div>
+                  <div class="bracket-match-content">
+                    <div class="bracket-team <%= winner == match.home_team ? 'winner' : '' %>">
+                      <div class="bracket-team-info">
+                        <% if match.home_team %>
+                          <%= flag_icon(match.home_team) %>
+                          <span><%= match.home_team.name %></span>
+                        <% else %>
+                          <span class="bracket-tbd"><%= match.home_source %></span>
+                        <% end %>
+                      </div>
+                      <% if has_score %>
+                        <span class="bracket-team-score"><%= prediction.home_score %></span>
+                      <% end %>
+                    </div>
+                    <div class="bracket-team <%= winner == match.away_team ? 'winner' : '' %>">
+                      <div class="bracket-team-info">
+                        <% if match.away_team %>
+                          <%= flag_icon(match.away_team) %>
+                          <span><%= match.away_team.name %></span>
+                        <% else %>
+                          <span class="bracket-tbd"><%= match.away_source %></span>
+                        <% end %>
+                      </div>
+                      <% if has_score %>
+                        <span class="bracket-team-score"><%= prediction.away_score %></span>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
               <% end %>
-            </td>
-            <td>
-              <% if prediction&.home_score && prediction&.away_score %>
-                <strong><%= prediction.home_score %> - <%= prediction.away_score %></strong>
-              <% else %>
-                - : -
-              <% end %>
-            </td>
-            <td>
-              <% if match.away_team %>
-                <%= flag_icon(match.away_team) %> <%= match.away_team.name %>
-              <% else %>
-                <em><%= match.away_source %></em>
-              <% end %>
-            </td>
-            <td>
-              <% if match.teams_known? %>
-                <%= link_to "Predire", knockout_match_path(token: @simulation.token, match_number: match.match_number) %>
-              <% else %>
-                <em>En attente</em>
-              <% end %>
-            </td>
-          </tr>
+            </div>
+          </div>
         <% end %>
-      </tbody>
-    </table>
-  <% end %>
-
-<% else %>
-  <p><em>Le bracket sera genere une fois la phase de groupes completee.</em></p>
-<% end %>
+      </section>
+    <% else %>
+      <div class="card text-center">
+        <p class="text-muted">Le bracket sera généré une fois la phase de groupes complétée.</p>
+      </div>
+    <% end %>
+  </main>
+</div>
