@@ -1,0 +1,67 @@
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema[8.1].define(version: 2025_12_14_151313) do
+  create_table "groups", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.integer "away_team_id"
+    t.datetime "created_at", null: false
+    t.integer "group_id"
+    t.integer "home_team_id"
+    t.string "stage"
+    t.datetime "updated_at", null: false
+    t.index ["away_team_id"], name: "index_matches_on_away_team_id"
+    t.index ["group_id"], name: "index_matches_on_group_id"
+    t.index ["home_team_id"], name: "index_matches_on_home_team_id"
+  end
+
+  create_table "predictions", force: :cascade do |t|
+    t.integer "away_score"
+    t.datetime "created_at", null: false
+    t.integer "home_score"
+    t.integer "match_id", null: false
+    t.integer "simulation_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_predictions_on_match_id"
+    t.index ["simulation_id", "match_id"], name: "index_predictions_on_simulation_id_and_match_id", unique: true
+    t.index ["simulation_id"], name: "index_predictions_on_simulation_id"
+  end
+
+  create_table "simulations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "pseudo"
+    t.string "token"
+    t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_simulations_on_token", unique: true
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "group_id", null: false
+    t.string "iso_code"
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_teams_on_group_id"
+  end
+
+  add_foreign_key "matches", "groups"
+  add_foreign_key "matches", "teams", column: "away_team_id"
+  add_foreign_key "matches", "teams", column: "home_team_id"
+  add_foreign_key "predictions", "matches"
+  add_foreign_key "predictions", "simulations"
+  add_foreign_key "teams", "groups"
+end

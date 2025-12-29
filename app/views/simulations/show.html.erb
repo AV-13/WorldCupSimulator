@@ -1,0 +1,9 @@
+<h1>Simulation</h1>
+<p>Token: <%= @simulation.token %></p>
+<p>Pseudo: <%= @simulation.pseudo %></p>
+
+<%= @groups.each do |group| %>
+  <li>
+    <%= link_to "Groupe #{group.name}", group_path(@simulation.token, group.name) %>
+</li>
+<% end %>

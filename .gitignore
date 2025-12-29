@@ -1,0 +1,173 @@
+# See https://help.github.com/articles/ignoring-files for more about ignoring files.
+
+# =============================================================================
+# Ruby / Bundler
+# =============================================================================
+/.bundle
+/vendor/bundle
+*.gem
+
+# =============================================================================
+# Rails
+# =============================================================================
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore storage (uploaded files in development and any SQLite databases).
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
+
+# Ignore compiled assets
+/public/assets
+/public/packs
+/public/packs-test
+
+# Ignore key files for decrypting credentials and more.
+/config/*.key
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+/config/credentials/*.key
+
+# =============================================================================
+# Database
+# =============================================================================
+/db/*.sqlite3
+/db/*.sqlite3-*
+*.sql
+*.sqlite
+
+# =============================================================================
+# Environment files
+# =============================================================================
+/.env*
+!/.env.example
+.env.local
+.env.*.local
+
+# =============================================================================
+# IDE / Editors
+# =============================================================================
+
+# JetBrains (RubyMine, IntelliJ)
+/.idea
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+/.vscode
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+
+# =============================================================================
+# macOS
+# =============================================================================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# =============================================================================
+# Windows
+# =============================================================================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# =============================================================================
+# Linux
+# =============================================================================
+*~
+.directory
+
+# =============================================================================
+# Testing / Coverage
+# =============================================================================
+/coverage/
+/.rspec_status
+.rspec_local
+
+# =============================================================================
+# Node / JavaScript (if using)
+# =============================================================================
+/node_modules/
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+npm-debug.log*
+
+# =============================================================================
+# Docker
+# =============================================================================
+.docker-sync/
+docker-sync.yml
+
+# =============================================================================
+# Kamal / Deployment
+# =============================================================================
+/.kamal/secrets
+
+# =============================================================================
+# Misc
+# =============================================================================
+
+# Byebug history
+.byebug_history
+
+# Spring (Rails app preloader)
+/spring/*.pid
+
+# Bootsnap cache
+/tmp/cache/bootsnap*
+
+# Ignore Capybara screenshots
+/tmp/capybara/
+
+# Ignore generated documentation
+/doc/
+/rdoc/
+
+# Ignore SimpleCov results
+/coverage
+
+# Ignore letter opener emails in development
+/tmp/letter_opener/
+
+# Ignore overmind socket
+.overmind.sock
+
+# Ignore Procfile.dev generated files
+Procfile.dev.lock

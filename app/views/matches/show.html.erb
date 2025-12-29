@@ -1,0 +1,28 @@
+<h1>Match</h1>
+
+<p>Groupe <%= @match.group&.name %></p>
+
+<h2><%= @match.home_team.name %> vs <%= @match.away_team.name %></h2>
+
+<%= form_with model: @prediction,
+              url: update_match_path(@simulation.token, @match.id),
+              method: :patch do |f| %>
+
+  <div>
+    <label><%= @match.home_team.name %></label>
+    <%= f.number_field :home_score, min: 0 %>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <label><%= @match.away_team.name %></label>
+    <%= f.number_field :away_score, min: 0 %>
+  </div>
+
+  <div style="margin-top: 16px;">
+    <%= f.submit "Enregistrer" %>
+  </div>
+<% end %>
+
+<p style="margin-top: 16px;">
+  <%= link_to "← Retour au groupe", group_path(@simulation.token, @match.group.name) %>
+</p>
