@@ -472,6 +472,70 @@ input[type="submit"] {
   }
 }
 
+/* Ranked team in completed group */
+.group-team-ranked {
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  margin: 0 -8px;
+  transition: background var(--duration-fast);
+}
+
+.group-team-rank {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  width: 18px;
+  color: var(--color-silver);
+}
+
+.group-team-name {
+  flex: 1;
+}
+
+.group-team-points {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--color-gold);
+  margin-left: auto;
+}
+
+/* Position indicators */
+.group-team-position-1,
+.group-team-position-2 {
+  background: var(--color-success-bg);
+  border-left: 3px solid var(--color-success);
+
+  & .group-team-rank {
+    color: var(--color-success);
+  }
+}
+
+.group-team-position-3 {
+  background: var(--color-warning-bg);
+  border-left: 3px solid var(--color-warning);
+
+  & .group-team-rank {
+    color: var(--color-warning);
+  }
+}
+
+.group-team-position-4 {
+  background: var(--color-danger-bg);
+  border-left: 3px solid var(--color-danger);
+
+  & .group-team-rank {
+    color: var(--color-danger);
+  }
+}
+
+/* Completed group card */
+.group-card-complete {
+  border-color: var(--color-success);
+
+  &:hover {
+    border-color: var(--color-gold);
+  }
+}
+
 /* ============================================
    TABLES
    ============================================ */
@@ -812,6 +876,7 @@ tr.eliminated td {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
+  position: relative;
 }
 
 .ranking-item {
@@ -824,16 +889,26 @@ tr.eliminated td {
   gap: var(--space-md);
   cursor: grab;
   user-select: none;
-  transition: all var(--duration-fast) var(--ease-out-expo);
+  transition: transform 150ms ease-out, background var(--duration-fast) var(--ease-out-expo), box-shadow var(--duration-fast) var(--ease-out-expo);
+  will-change: transform;
 
-  &:hover {
+  &:hover:not(.dragging) {
     background: var(--color-turf);
     transform: translateX(4px);
   }
 
   &.dragging {
-    opacity: 0.5;
+    opacity: 0.9;
     cursor: grabbing;
+    z-index: 100;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--color-gold-glow);
+    transform: scale(1.02);
+    background: var(--color-turf);
+  }
+
+  &.touch-dragging {
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), 0 0 30px var(--color-gold-glow);
+    transform: scale(1.05);
   }
 
   &.position-1,
@@ -851,6 +926,15 @@ tr.eliminated td {
     border-color: var(--color-danger);
     border-left-width: 4px;
   }
+}
+
+/* Placeholder for drag & drop */
+.ranking-placeholder {
+  background: rgba(212, 160, 23, 0.1);
+  border: 2px dashed var(--color-gold);
+  border-radius: var(--radius-md);
+  transition: all 150ms ease-out;
+  cursor: default;
 }
 
 .ranking-position {
@@ -1663,25 +1747,27 @@ tr.eliminated td {
    BRACKET TREE - Tournament Visualization
    ============================================ */
 .bracket-tree {
-  --bracket-match-width: 90px;
+  --bracket-match-width: 85px;
   --bracket-match-height: 70px;
-  --bracket-gap: 8px;
-  --bracket-round-gap: 40px;
+  --bracket-gap: 6px;
+  --bracket-round-gap: 30px;
   --bracket-connector-color: var(--color-line);
   --bracket-connector-width: 2px;
 
   position: relative;
   width: 100%;
+  padding: var(--space-lg) var(--space-sm);
   overflow-x: auto;
-  padding: var(--space-lg) 0;
+  overflow-y: visible;
 }
 
 .bracket-tree-inner {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: max-content;
+  min-width: fit-content;
   gap: 0;
+  margin: 0 auto;
 }
 
 /* Each side of the bracket */
@@ -1968,8 +2054,15 @@ tr.eliminated td {
    ============================================ */
 @media (max-width: 1200px) {
   .bracket-tree {
-    --bracket-match-width: 80px;
-    --bracket-round-gap: 30px;
+    --bracket-match-width: 75px;
+    --bracket-round-gap: 25px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .bracket-tree {
+    --bracket-match-width: 70px;
+    --bracket-round-gap: 20px;
   }
 }
 
@@ -1977,12 +2070,26 @@ tr.eliminated td {
   .bracket-tree {
     overflow-x: visible;
     padding: var(--space-md);
+    --bracket-match-width: 90px;
   }
 
   .bracket-tree-inner {
     flex-direction: column;
     min-width: auto;
-    gap: var(--space-xl);
+    gap: 0;
+  }
+
+  /* Use order to put final section at the end */
+  .bracket-side-left {
+    order: 1;
+  }
+
+  .bracket-final-section {
+    order: 3;
+  }
+
+  .bracket-side-right {
+    order: 2;
   }
 
   .bracket-side {
@@ -1995,11 +2102,42 @@ tr.eliminated td {
     flex-direction: column !important;
   }
 
+  /* Add visual separator between sides */
+  .bracket-side-left::after {
+    content: 'TABLEAU B';
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: var(--space-md) 0;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--color-gold);
+    border-top: 2px solid var(--color-line);
+    margin-top: var(--space-sm);
+  }
+
+  .bracket-side-left::before {
+    content: 'TABLEAU A';
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: var(--space-sm) 0 var(--space-md);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--color-gold);
+  }
+
+  .bracket-side-right::before {
+    display: none;
+  }
+
   .bracket-round {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    padding: var(--space-md) 0 !important;
+    padding: var(--space-sm) 0 !important;
     gap: var(--space-sm);
     border-bottom: 1px solid var(--color-line);
   }
@@ -2011,12 +2149,13 @@ tr.eliminated td {
     transform: none;
     width: 100%;
     text-align: center;
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-xs);
+    font-size: 0.65rem;
   }
 
   .bracket-match-pair {
     flex-direction: row;
-    gap: var(--space-sm);
+    gap: var(--space-xs);
     margin: 0 !important;
   }
 
@@ -2034,10 +2173,24 @@ tr.eliminated td {
   }
 
   .bracket-final-section {
-    padding: var(--space-md);
+    padding: var(--space-lg);
+    margin-top: var(--space-md);
     background: var(--color-pitch);
     border-radius: var(--radius-lg);
-    border: 1px solid var(--color-gold);
+    border: 2px solid var(--color-gold);
+    box-shadow: 0 0 30px rgba(212, 160, 23, 0.2);
+  }
+
+  .bracket-final-section::before {
+    content: 'FINALE';
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    color: var(--color-gold);
+    margin-bottom: var(--space-md);
   }
 
   .bracket-third-place {

@@ -15,6 +15,19 @@
   </header>
 
   <main class="page-content">
+    <% if flash[:alert] %>
+      <div class="alert alert-warning mb-md">
+        <span class="alert-icon">⚠️</span>
+        <div class="alert-content"><%= flash[:alert] %></div>
+      </div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class="alert alert-success mb-md">
+        <span class="alert-icon">✓</span>
+        <div class="alert-content"><%= flash[:notice] %></div>
+      </div>
+    <% end %>
+
     <!-- Progress -->
     <div class="progress-container">
       <div class="progress-label">
@@ -41,18 +54,33 @@
         <% @groups.each do |group| %>
           <%
             group_path_url = @simulation.quick_mode? ? quick_group_path(token: @simulation.token, name: group.name) : group_path(@simulation.token, group.name)
-            teams = group.teams.limit(4)
+            standings = @group_standings[group.id]
+            is_complete = @group_completion[group.id]
           %>
-          <%= link_to group_path_url, class: "group-card" do %>
+          <%= link_to group_path_url, class: "group-card #{'group-card-complete' if is_complete}" do %>
             <div class="group-card-header">
               <div class="group-name">GROUPE <span><%= group.name %></span></div>
+              <% if is_complete %>
+                <span class="group-status complete">Terminé</span>
+              <% end %>
             </div>
             <div class="group-teams">
-              <% teams.each do |team| %>
-                <div class="group-team">
-                  <%= flag_icon(team, size: :small) %>
-                  <span><%= team.name %></span>
-                </div>
+              <% if is_complete && standings.any? %>
+                <% standings.each_with_index do |row, index| %>
+                  <div class="group-team group-team-ranked group-team-position-<%= index + 1 %>">
+                    <span class="group-team-rank"><%= index + 1 %></span>
+                    <%= flag_icon(row.team, size: :small) %>
+                    <span class="group-team-name"><%= row.team.name %></span>
+                    <span class="group-team-points"><%= row.points %> pts</span>
+                  </div>
+                <% end %>
+              <% else %>
+                <% group.teams.limit(4).each do |team| %>
+                  <div class="group-team">
+                    <%= flag_icon(team, size: :small) %>
+                    <span><%= team.name %></span>
+                  </div>
+                <% end %>
               <% end %>
             </div>
           <% end %>
@@ -66,12 +94,23 @@
 
       <% if @simulation.quick_mode? %>
         <div class="card" style="max-width: 500px;">
-          <p class="mb-md">Après avoir classé tous les groupes :</p>
-          <%= link_to quick_third_place_path(token: @simulation.token), class: "btn btn-outline", style: "width: 100%; margin-bottom: var(--space-sm);" do %>
-            Sélectionner les meilleurs 3èmes
-          <% end %>
-          <%= link_to quick_bracket_path(token: @simulation.token), class: "btn btn-gold", style: "width: 100%;" do %>
-            Voir le bracket
+          <% if @all_groups_complete %>
+            <p class="mb-md">Tous les groupes sont terminés ! Vous pouvez maintenant :</p>
+            <%= link_to quick_third_place_path(token: @simulation.token), class: "btn btn-outline", style: "width: 100%; margin-bottom: var(--space-sm);" do %>
+              Sélectionner les meilleurs 3èmes
+            <% end %>
+            <%= link_to quick_bracket_path(token: @simulation.token), class: "btn btn-gold", style: "width: 100%;" do %>
+              Voir le bracket
+            <% end %>
+          <% else %>
+            <% completed_count = @group_completion.values.count(true) %>
+            <p class="mb-md">Terminez d'abord tous les groupes (<%= completed_count %>/12 terminés)</p>
+            <button class="btn btn-outline" style="width: 100%; margin-bottom: var(--space-sm);" disabled>
+              Sélectionner les meilleurs 3èmes
+            </button>
+            <%= link_to quick_bracket_path(token: @simulation.token), class: "btn btn-outline", style: "width: 100%;" do %>
+              Aperçu du bracket
+            <% end %>
           <% end %>
         </div>
       <% else %>

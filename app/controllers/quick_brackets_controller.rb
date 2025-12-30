@@ -26,6 +26,13 @@ class QuickBracketsController < ApplicationController
 
   # Choose third place teams that qualify
   def third_place
+    # Check if all groups are complete
+    unless all_groups_complete?
+      redirect_to simulation_path(token: @simulation.token),
+                  alert: "Vous devez terminer tous les groupes avant de sélectionner les meilleurs 3èmes"
+      return
+    end
+
     @qualification = KnockoutQualification.new(simulation: @simulation).call
     @all_thirds = @qualification[:all_thirds]
     @current_qualifying = @qualification[:qualifying_third_groups]
@@ -95,6 +102,15 @@ class QuickBracketsController < ApplicationController
     unless @simulation.quick_mode?
       redirect_to simulation_path(token: @simulation.token),
                   alert: "Cette fonctionnalite n'est disponible qu'en mode rapide"
+    end
+  end
+
+  def all_groups_complete?
+    Group.all.all? do |group|
+      group_matches = Match.where(group: group, stage: "group_stage")
+      completed = Prediction.where(simulation: @simulation, match: group_matches)
+                            .where.not(home_score: nil).count
+      completed == group_matches.count && group_matches.count > 0
     end
   end
 end

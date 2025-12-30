@@ -21,10 +21,27 @@ class SimulationsController < ApplicationController
       expires: 6.months.from_now,
       httponly: true
     }
-    @groups = Group.order(:name)
+    @groups = Group.includes(:teams).order(:name)
 
     # Calculate progress
     @group_progress = calculate_group_progress
+
+    # Calculate standings for each group
+    @group_standings = {}
+    @group_completion = {}
+    @groups.each do |group|
+      standings = GroupStandings.new(simulation: @simulation, group: group).call
+      @group_standings[group.id] = standings
+
+      # Check if group is complete (all matches have predictions)
+      group_matches = Match.where(group: group, stage: "group_stage")
+      completed_predictions = Prediction.where(simulation: @simulation, match: group_matches)
+                                        .where.not(home_score: nil).count
+      @group_completion[group.id] = completed_predictions == group_matches.count && group_matches.count > 0
+    end
+
+    # Check if all groups are complete (for third place selection)
+    @all_groups_complete = @group_completion.values.all?
   end
 
   private
