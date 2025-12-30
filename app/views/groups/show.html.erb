@@ -1,35 +1,35 @@
-<% content_for :title, "Groupe #{@group.name} - World Cup 2026" %>
+<% content_for :title, "#{t('groups.title')} #{@group.name} - #{t('site.description')}" %>
 
 <div class="page">
   <header class="page-header">
     <div class="page-header-content">
-      <h1 class="page-title">GROUPE <span><%= @group.name %></span></h1>
+      <h1 class="page-title"><%= t('groups.title').upcase %> <span><%= @group.name %></span></h1>
     </div>
   </header>
 
   <main class="page-content">
     <%= link_to simulation_path(@simulation.token), class: "back-link" do %>
-      Retour aux groupes
+      <%= t('groups.back') %>
     <% end %>
 
     <!-- Standings Table -->
     <section class="page-section">
-      <h2 class="section-title">Classement</h2>
+      <h2 class="section-title"><%= t('groups.standings') %></h2>
 
       <div class="table-container">
         <table class="standings-table">
           <thead>
             <tr>
               <th style="width: 50px;">#</th>
-              <th>Équipe</th>
-              <th style="text-align: center;">MJ</th>
-              <th style="text-align: center;">V</th>
-              <th style="text-align: center;">N</th>
-              <th style="text-align: center;">D</th>
-              <th style="text-align: center;">BP</th>
-              <th style="text-align: center;">BC</th>
-              <th style="text-align: center;">Diff</th>
-              <th style="text-align: center;">Pts</th>
+              <th><%= t('groups.table.team') %></th>
+              <th style="text-align: center;"><%= t('groups.table.played') %></th>
+              <th style="text-align: center;"><%= t('groups.table.won') %></th>
+              <th style="text-align: center;"><%= t('groups.table.drawn') %></th>
+              <th style="text-align: center;"><%= t('groups.table.lost') %></th>
+              <th style="text-align: center;"><%= t('groups.table.gf') %></th>
+              <th style="text-align: center;"><%= t('groups.table.ga') %></th>
+              <th style="text-align: center;"><%= t('groups.table.gd') %></th>
+              <th style="text-align: center;"><%= t('groups.table.pts') %></th>
             </tr>
           </thead>
           <tbody>
@@ -57,18 +57,18 @@
       </div>
 
       <div class="ranking-legend mt-md">
-        <h4>LÉGENDE</h4>
+        <h4><%= t('groups.legend.title').upcase %></h4>
         <ul>
-          <li class="legend-qualified">1er et 2ème : Qualifiés pour les 8èmes</li>
-          <li class="legend-playoff">3ème : Peut se qualifier parmi les meilleurs 3èmes</li>
-          <li class="legend-eliminated">4ème : Éliminé</li>
+          <li class="legend-qualified"><%= t('groups.legend.qualified') %></li>
+          <li class="legend-playoff"><%= t('groups.legend.playoff') %></li>
+          <li class="legend-eliminated"><%= t('groups.legend.eliminated') %></li>
         </ul>
       </div>
     </section>
 
     <!-- Matches List -->
     <section class="page-section">
-      <h2 class="section-title">Matchs</h2>
+      <h2 class="section-title"><%= t('groups.matches') %></h2>
 
       <div class="matches-list">
         <% @matches.each do |m| %>
@@ -83,7 +83,7 @@
               <% if has_score %>
                 <div class="match-score"><%= p.home_score %> - <%= p.away_score %></div>
               <% else %>
-                <div class="match-vs">VS</div>
+                <div class="match-vs"><%= t('groups.vs') %></div>
               <% end %>
               <div class="match-team away">
                 <%= flag_icon(m.away_team) %>
@@ -92,9 +92,9 @@
             </div>
             <div class="match-action">
               <% if has_score %>
-                <%= link_to "Modifier", match_path(@simulation.token, m.id) %>
+                <%= link_to t('groups.edit'), match_path(@simulation.token, m.id) %>
               <% else %>
-                <%= link_to "Prédire →", match_path(@simulation.token, m.id), class: "btn btn-sm btn-gold" %>
+                <%= link_to "#{t('groups.predict')} →", match_path(@simulation.token, m.id), class: "btn btn-sm btn-gold" %>
               <% end %>
             </div>
           </div>

@@ -1,15 +1,15 @@
-<% content_for :title, "#{@match.home_team.name} vs #{@match.away_team.name} - World Cup 2026" %>
+<% content_for :title, "#{@match.home_team.name} vs #{@match.away_team.name} - #{t('site.description')}" %>
 
 <div class="page">
   <header class="page-header">
     <div class="page-header-content">
-      <h1 class="page-title">GROUPE <span><%= @match.group&.name %></span></h1>
+      <h1 class="page-title"><%= t('match.title').upcase %> <span><%= @match.group&.name %></span></h1>
     </div>
   </header>
 
   <main class="page-content">
     <%= link_to group_path(@simulation.token, @match.group.name), class: "back-link" do %>
-      Retour au groupe <%= @match.group.name %>
+      <%= t('match.back', name: @match.group.name) %>
     <% end %>
 
     <div class="prediction-form">
@@ -35,7 +35,7 @@
           </div>
 
           <div class="prediction-submit">
-            <%= f.submit "Enregistrer la prédiction", class: "btn btn-gold" %>
+            <%= f.submit t('match.save'), class: "btn btn-gold" %>
           </div>
 
         <% end %>

@@ -1,31 +1,178 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  site:
+    title: "Mondial Simulator"
+    description: "World Cup 2026 Simulator"
+
+  nav:
+    new_simulation: "New Simulation"
+    back_to_groups: "Back to Groups"
+    back_to_bracket: "Back to Bracket"
+
+  home:
+    badge: "United 2026"
+    title_main: "Mondial"
+    title_sub: "Simulator"
+    subtitle_1: "The art of tournament prediction, refined."
+    subtitle_2: "Forecast the destiny of 48 nations."
+    modes:
+      complete:
+        title: "Complete"
+        description: "The connoisseur's approach to tournament forecasting"
+        feature_1: "Predict all 72 group stage matches"
+        feature_2: "Enter precise scorelines"
+        feature_3: "Full knockout bracket control"
+        feature_4: "Comprehensive statistical outcomes"
+        button: "Begin"
+      express:
+        title: "Express"
+        description: "Refined predictions for the decisive analyst"
+        feature_1: "Rank teams by intuition"
+        feature_2: "Select qualifying third-place teams"
+        feature_3: "Choose match winners directly"
+        feature_4: "Complete in minutes"
+        button: "Start"
+    format:
+      title: "Tournament"
+      title_highlight: "Format"
+      nations: "Nations"
+      groups: "Groups"
+      matches: "Matches"
+      hosts: "Host Nations"
+      group_stage: "Group Stage"
+      group_stage_desc: "Top 2 advance + 8 best third-place finishers"
+      knockout: "Knockout Rounds"
+      knockout_desc: "R32 → Quarterfinals → Semifinals → Final"
+    footer: "An unofficial tournament simulator crafted with precision"
+
+  simulation:
+    title: "Mondial"
+    title_highlight: "Simulator"
+    mode_express: "Express Mode"
+    mode_complete: "Complete Mode"
+    progress_label: "Group Stage Progress"
+    matches: "matches"
+    group_stage: "Group Stage"
+    knockout_stage: "Knockout Stage"
+    instructions:
+      quick: "Select a group to rank teams by drag and drop"
+      complete: "Select a group to enter match scores"
+    group: "Group"
+    complete_status: "Complete"
+    pts: "pts"
+    all_complete: "All groups are complete. You may now proceed:"
+    select_third: "Select Best Third-Place Teams"
+    view_bracket: "View Bracket"
+    complete_first: "Complete all groups first"
+    complete_count: "%{completed}/12 complete"
+    preview_bracket: "Preview Bracket"
+    bracket_available: "The bracket will be available once the group stage is complete."
+    view_bracket_full: "View Bracket (R32 to Final)"
+    new_simulation: "New Simulation"
+
+  groups:
+    title: "Group"
+    back: "Back to Groups"
+    standings: "Standings"
+    matches: "Matches"
+    legend:
+      title: "Legend"
+      qualified: "1st & 2nd: Qualify for Round of 32"
+      playoff: "3rd: May qualify as best third-place"
+      eliminated: "4th: Eliminated"
+    table:
+      team: "Team"
+      played: "MP"
+      won: "W"
+      drawn: "D"
+      lost: "L"
+      gf: "GF"
+      ga: "GA"
+      gd: "GD"
+      pts: "Pts"
+    edit: "Edit"
+    predict: "Predict"
+    rankings: "Group Rankings"
+    drag_instruction: "Drag and drop teams to set your predicted standings:"
+    confirm_rankings: "Confirm Rankings"
+    vs: "VS"
+
+  bracket:
+    title: "Knockout"
+    title_highlight: "Stage"
+    back: "Back to Groups"
+    back_to_bracket: "Back to Bracket"
+    tree: "Tournament Bracket"
+    click_instruction: "Click on a match to enter the score"
+    click_winner: "Click on a flag to select the winner"
+    third_place_title: "Third-Place Rankings"
+    third_place_info: "The 8 best third-place teams qualify for the Round of 32."
+    match_details: "Match Details"
+    match_number: "Match"
+    incomplete_alert: "Group Stage Incomplete"
+    incomplete_groups_alert: "Groups Incomplete"
+    incomplete_message: "Complete all group predictions to view the final bracket."
+    incomplete_groups_message: "Complete all group rankings first."
+    predictions_count: "Matches predicted"
+    edit_third: "Edit Third-Place Selection"
+    empty_state: "The bracket will be generated once all groups are ranked."
+    empty_state_complete: "The bracket will be generated once the group stage is complete."
+    rounds:
+      r32: "R32"
+      r16: "R16"
+      qf: "QF"
+      sf: "SF"
+      final: "Final"
+      third_place: "3rd Place"
+    champion: "Champion"
+    status:
+      completed: "Completed"
+      to_play: "To Play"
+      pending: "Pending"
+    table:
+      rank: "Rank"
+      group: "Group"
+      team: "Team"
+      pts: "Pts"
+      diff: "GD"
+      status: "Status"
+    qualified: "Qualified"
+    eliminated: "Eliminated"
+    tbd: "TBD"
+
+  third_place:
+    title: "Best"
+    title_highlight: "Third-Place"
+    back: "Back to Bracket"
+    selection_title: "Selection of Qualifiers"
+    instruction: "Select the 8 groups whose third-place teams qualify for the Round of 32:"
+    counter: "Selection"
+    groups_suffix: "groups"
+    submit: "Confirm Selection"
+    edit: "Edit Third-Place Selection"
+    diff: "GD"
+
+  match:
+    title: "Group"
+    back: "Back to Group %{name}"
+    back_to_bracket: "Back to Bracket"
+    save: "Save Prediction"
+    tiebreaker: "In case of a tie, the home team will be declared the winner."
+    teams_unknown: "Teams Not Determined"
+    teams_unknown_message: "The teams for this match are not yet known."
+
+  flash:
+    score_saved: "Score saved ✓"
+    prediction_saved: "Prediction saved for match %{match_number}"
+    ranking_saved: "Group %{group} ranking saved"
+    selection_saved: "Best third-place teams updated"
+    winner_saved: "Winner saved for match %{match_number}"
+    complete_groups_first: "You must complete all groups before selecting the best third-place teams"
+    teams_not_determined: "The teams are not yet determined"
+    quick_mode_only: "This feature is only available in Express mode"
+
+  languages:
+    fr: "Français"
+    en: "English"
+    es: "Español"
+    pt: "Português"
+    de: "Deutsch"

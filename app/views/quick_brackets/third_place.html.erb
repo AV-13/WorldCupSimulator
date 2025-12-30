@@ -1,21 +1,21 @@
-<% content_for :title, "Sélection des 3èmes - Mode Rapide" %>
+<% content_for :title, "#{t('third_place.title')} #{t('third_place.title_highlight')} - #{t('simulation.mode_express')}" %>
 
 <div class="page">
   <header class="page-header">
     <div class="page-header-content">
-      <h1 class="page-title">MEILLEURS <span>3ÈMES</span></h1>
-      <div class="mode-badge mode-quick">⚡ Mode Rapide</div>
+      <h1 class="page-title"><%= t('third_place.title').upcase %> <span><%= t('third_place.title_highlight').upcase %></span></h1>
+      <div class="mode-badge mode-quick"><%= t('simulation.mode_express') %></div>
     </div>
   </header>
 
   <main class="page-content">
     <%= link_to quick_bracket_path(token: @simulation.token), class: "back-link" do %>
-      Retour au bracket
+      <%= t('third_place.back') %>
     <% end %>
 
     <section class="page-section">
-      <h2 class="section-title">Sélection des qualifiés</h2>
-      <p class="text-muted mb-md">Sélectionnez les 8 groupes dont les équipes 3èmes se qualifient pour les 8èmes de finale :</p>
+      <h2 class="section-title"><%= t('third_place.selection_title') %></h2>
+      <p class="text-muted mb-md"><%= t('third_place.instruction') %></p>
 
       <%= form_with url: update_quick_third_place_path(token: @simulation.token), method: :patch do |f| %>
 
@@ -29,32 +29,32 @@
                      <%= 'checked' if is_qualifying %>
                      onchange="updateSelection(this)">
               <div class="third-place-info">
-                <strong>Groupe <%= third.group %></strong>
+                <strong><%= t('simulation.group') %> <%= third.group %></strong>
                 <% if third.team %>
                   <span style="display: flex; align-items: center; gap: 8px; margin-left: 12px;">
                     <%= flag_icon(third.team) %>
                     <%= third.team.name %>
                   </span>
                 <% else %>
-                  <span class="bracket-tbd" style="margin-left: 12px;">À déterminer</span>
+                  <span class="bracket-tbd" style="margin-left: 12px;"><%= t('bracket.tbd') %></span>
                 <% end %>
               </div>
               <div class="third-place-stats">
-                <div><strong><%= third.points %></strong> pts</div>
-                <div style="font-size: 0.8rem;"><%= third.goal_diff > 0 ? "+#{third.goal_diff}" : third.goal_diff %> diff</div>
+                <div><strong><%= third.points %></strong> <%= t('simulation.pts') %></div>
+                <div style="font-size: 0.8rem;"><%= third.goal_diff > 0 ? "+#{third.goal_diff}" : third.goal_diff %> <%= t('third_place.diff') %></div>
               </div>
             </label>
           <% end %>
         </div>
 
         <div class="selection-counter" id="selection-counter">
-          <span>Sélection : </span>
+          <span><%= t('third_place.counter') %> : </span>
           <span class="count" id="selection-count"><%= @current_qualifying.length %></span>
-          <span> / 8 groupes</span>
+          <span> / 8 <%= t('third_place.groups_suffix') %></span>
         </div>
 
         <div class="mt-lg text-center">
-          <%= f.submit "Valider la sélection", id: "submit-btn", class: "btn btn-emerald" %>
+          <%= f.submit t('third_place.submit'), id: "submit-btn", class: "btn btn-emerald" %>
         </div>
 
       <% end %>

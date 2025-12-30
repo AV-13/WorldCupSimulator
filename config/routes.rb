@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   root "pages#home"
+
+  # Locale switching
+  patch "/locale/:locale", to: "locales#update", as: :update_locale
+
   post "/start_simulation", to: "simulations#start", as: :start_simulation
   get "/s/:token", to: "simulations#show", as: :simulation
 

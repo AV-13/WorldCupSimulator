@@ -1,26 +1,26 @@
-<% content_for :title, "Phase finale - World Cup 2026" %>
+<% content_for :title, "#{t('bracket.title')} #{t('bracket.title_highlight')} - #{t('site.description')}" %>
 
 <div class="page">
   <header class="page-header">
     <div class="page-header-content">
-      <h1 class="page-title">PHASE <span>FINALE</span></h1>
-      <div class="mode-badge mode-complete">⚽ Mode Complet</div>
+      <h1 class="page-title"><%= t('bracket.title').upcase %> <span><%= t('bracket.title_highlight').upcase %></span></h1>
+      <div class="mode-badge mode-complete"><%= t('simulation.mode_complete') %></div>
     </div>
   </header>
 
   <main class="page-content">
     <%= link_to simulation_path(token: @simulation.token), class: "back-link" do %>
-      Retour aux groupes
+      <%= t('bracket.back') %>
     <% end %>
 
     <% unless @qualification[:complete] %>
       <div class="alert alert-warning mb-lg">
         <span class="alert-icon">⚠️</span>
         <div class="alert-content">
-          <strong>Phase de groupes incomplète</strong>
-          Complétez toutes les prédictions de groupe pour voir le bracket final.
+          <strong><%= t('bracket.incomplete_alert') %></strong>
+          <%= t('bracket.incomplete_message') %>
           <br>
-          <small>Matchs prédits : <%= Prediction.where(simulation: @simulation).where.not(home_score: nil).count %> / 72</small>
+          <small><%= t('bracket.predictions_count') %> : <%= Prediction.where(simulation: @simulation).where.not(home_score: nil).count %> / 72</small>
         </div>
       </div>
     <% end %>
@@ -28,8 +28,8 @@
     <!-- Bracket Tree Visualization -->
     <% if @knockout_matches.any? %>
       <section class="page-section">
-        <h2 class="section-title">Arbre du tournoi</h2>
-        <p class="text-muted mb-md">Cliquez sur un match pour saisir le score</p>
+        <h2 class="section-title"><%= t('bracket.tree') %></h2>
+        <p class="text-muted mb-md"><%= t('bracket.click_instruction') %></p>
 
         <%= render 'shared/bracket_tree',
                    matches_by_round: @matches_by_round,
@@ -41,19 +41,19 @@
 
     <!-- Third Place Rankings Table -->
     <section class="page-section">
-      <h2 class="section-title">Classement des 3èmes</h2>
-      <p class="text-muted mb-md">Les 8 meilleures équipes 3èmes se qualifient pour les 8èmes de finale.</p>
+      <h2 class="section-title"><%= t('bracket.third_place_title') %></h2>
+      <p class="text-muted mb-md"><%= t('bracket.third_place_info') %></p>
 
       <div class="table-container">
         <table>
           <thead>
             <tr>
-              <th style="width: 60px;">Rang</th>
-              <th style="width: 80px;">Groupe</th>
-              <th>Équipe</th>
-              <th style="text-align: center;">Pts</th>
-              <th style="text-align: center;">Diff</th>
-              <th style="width: 100px;">Statut</th>
+              <th style="width: 60px;"><%= t('bracket.table.rank') %></th>
+              <th style="width: 80px;"><%= t('bracket.table.group') %></th>
+              <th><%= t('bracket.table.team') %></th>
+              <th style="text-align: center;"><%= t('bracket.table.pts') %></th>
+              <th style="text-align: center;"><%= t('bracket.table.diff') %></th>
+              <th style="width: 100px;"><%= t('bracket.table.status') %></th>
             </tr>
           </thead>
           <tbody>
@@ -68,16 +68,16 @@
                       <%= third.team.name %>
                     </span>
                   <% else %>
-                    <span class="bracket-tbd">À déterminer</span>
+                    <span class="bracket-tbd"><%= t('bracket.tbd') %></span>
                   <% end %>
                 </td>
                 <td style="text-align: center;"><%= third.points %></td>
                 <td style="text-align: center;"><%= third.goal_diff %></td>
                 <td>
                   <% if i < 8 %>
-                    <span style="color: var(--color-success);">✓ Qualifié</span>
+                    <span style="color: var(--color-success);">✓ <%= t('bracket.qualified') %></span>
                   <% else %>
-                    <span style="color: var(--color-danger);">✗ Éliminé</span>
+                    <span style="color: var(--color-danger);">✗ <%= t('bracket.eliminated') %></span>
                   <% end %>
                 </td>
               </tr>
@@ -90,14 +90,14 @@
     <!-- Detailed Match List -->
     <% if @knockout_matches.any? %>
       <section class="page-section">
-        <h2 class="section-title">Détail des matchs</h2>
+        <h2 class="section-title"><%= t('bracket.match_details') %></h2>
 
         <% %w[round_of_32 round_of_16 quarter_final semi_final third_place final].each do |round| %>
           <% matches = @matches_by_round[round] %>
           <% next unless matches&.any? %>
 
           <div class="bracket-section">
-            <h3 class="bracket-round-title"><%= Match::ROUND_NAMES[round] || round.titleize %></h3>
+            <h3 class="bracket-round-title"><%= t("bracket.rounds.#{round.gsub('round_of_', 'r')}") %></h3>
 
             <div class="bracket-matches">
               <% matches.each do |match| %>
@@ -107,11 +107,11 @@
 
                 <div class="bracket-match">
                   <div class="bracket-match-header">
-                    <span>Match #<%= match.match_number %></span>
+                    <span><%= t('bracket.match_number') %> #<%= match.match_number %></span>
                     <% if match.teams_known? && !has_score %>
-                      <%= link_to "Prédire", knockout_match_path(token: @simulation.token, match_number: match.match_number) %>
+                      <%= link_to t('groups.predict'), knockout_match_path(token: @simulation.token, match_number: match.match_number) %>
                     <% elsif has_score %>
-                      <%= link_to "Modifier", knockout_match_path(token: @simulation.token, match_number: match.match_number) %>
+                      <%= link_to t('groups.edit'), knockout_match_path(token: @simulation.token, match_number: match.match_number) %>
                     <% end %>
                   </div>
                   <div class="bracket-match-content">
@@ -150,7 +150,7 @@
       </section>
     <% else %>
       <div class="card text-center">
-        <p class="text-muted">Le bracket sera généré une fois la phase de groupes complétée.</p>
+        <p class="text-muted"><%= t('bracket.empty_state_complete') %></p>
       </div>
     <% end %>
   </main>

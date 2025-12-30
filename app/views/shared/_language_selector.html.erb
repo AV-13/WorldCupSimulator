@@ -1,0 +1,31 @@
+<nav class="language-selector" data-controller="dropdown" aria-label="Language selection">
+  <button class="language-trigger" data-action="click->dropdown#toggle" data-dropdown-target="trigger" aria-haspopup="true">
+    <svg class="globe-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+    <span class="fi fi-<%= locale_flag(I18n.locale) %>"></span>
+    <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M6 9l6 6 6-6"/>
+    </svg>
+  </button>
+
+  <div class="language-menu" data-dropdown-target="menu" role="menu">
+    <div class="language-menu-inner">
+      <% I18n.available_locales.each do |locale| %>
+        <%= button_to update_locale_path(locale: locale),
+                      method: :patch,
+                      class: "language-item #{'active' if I18n.locale == locale}",
+                      role: "menuitem" do %>
+          <span class="fi fi-<%= locale_flag(locale) %>"></span>
+          <span class="language-label"><%= t("languages.#{locale}") %></span>
+          <% if I18n.locale == locale %>
+            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 13l4 4L19 7"/>
+            </svg>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</nav>

@@ -32,7 +32,7 @@
       <!-- Round of 32 - Left -->
       <% if r32_left.any? %>
         <div class="bracket-round bracket-round-32">
-          <span class="bracket-round-label">8èmes</span>
+          <span class="bracket-round-label"><%= t('bracket.rounds.r32') %></span>
           <% r32_left.each_slice(2) do |pair| %>
             <div class="bracket-match-pair">
               <% pair.each do |match| %>
@@ -46,7 +46,7 @@
       <!-- Round of 16 - Left -->
       <% if r16_left.any? %>
         <div class="bracket-round bracket-round-16">
-          <span class="bracket-round-label">Quarts</span>
+          <span class="bracket-round-label"><%= t('bracket.rounds.r16') %></span>
           <% r16_left.each_slice(2) do |pair| %>
             <div class="bracket-match-pair">
               <% pair.each do |match| %>
@@ -60,7 +60,7 @@
       <!-- Quarter Finals - Left -->
       <% if qf_left.any? %>
         <div class="bracket-round bracket-round-qf">
-          <span class="bracket-round-label">Demis</span>
+          <span class="bracket-round-label"><%= t('bracket.rounds.qf') %></span>
           <div class="bracket-match-pair">
             <% qf_left.each do |match| %>
               <%= render 'shared/bracket_match', match: match, prediction: predictions[match.id], simulation: simulation, quick_mode: quick_mode %>
@@ -86,7 +86,7 @@
       <% if champion %>
         <div class="bracket-champion">
           <%= flag_icon(champion, size: :large) %>
-          <span class="champion-label">CHAMPION</span>
+          <span class="champion-label"><%= t('bracket.champion').upcase %></span>
         </div>
       <% end %>
 
@@ -100,7 +100,7 @@
       <!-- Third Place Match -->
       <% if third_place_match %>
         <div class="bracket-third-place">
-          <span class="bracket-third-label">3ÈME PLACE</span>
+          <span class="bracket-third-label"><%= t('bracket.rounds.third_place').upcase %></span>
           <%= render 'shared/bracket_match', match: third_place_match, prediction: predictions[third_place_match.id], simulation: simulation, quick_mode: quick_mode %>
         </div>
       <% end %>
@@ -111,7 +111,7 @@
       <!-- Round of 32 - Right -->
       <% if r32_right.any? %>
         <div class="bracket-round bracket-round-32">
-          <span class="bracket-round-label">8èmes</span>
+          <span class="bracket-round-label"><%= t('bracket.rounds.r32') %></span>
           <% r32_right.each_slice(2) do |pair| %>
             <div class="bracket-match-pair">
               <% pair.each do |match| %>
@@ -125,7 +125,7 @@
       <!-- Round of 16 - Right -->
       <% if r16_right.any? %>
         <div class="bracket-round bracket-round-16">
-          <span class="bracket-round-label">Quarts</span>
+          <span class="bracket-round-label"><%= t('bracket.rounds.r16') %></span>
           <% r16_right.each_slice(2) do |pair| %>
             <div class="bracket-match-pair">
               <% pair.each do |match| %>
@@ -139,7 +139,7 @@
       <!-- Quarter Finals - Right -->
       <% if qf_right.any? %>
         <div class="bracket-round bracket-round-qf">
-          <span class="bracket-round-label">Demis</span>
+          <span class="bracket-round-label"><%= t('bracket.rounds.qf') %></span>
           <div class="bracket-match-pair">
             <% qf_right.each do |match| %>
               <%= render 'shared/bracket_match', match: match, prediction: predictions[match.id], simulation: simulation, quick_mode: quick_mode %>

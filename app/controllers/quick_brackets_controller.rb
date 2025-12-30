@@ -29,7 +29,7 @@ class QuickBracketsController < ApplicationController
     # Check if all groups are complete
     unless all_groups_complete?
       redirect_to simulation_path(token: @simulation.token),
-                  alert: "Vous devez terminer tous les groupes avant de sélectionner les meilleurs 3èmes"
+                  alert: t('flash.complete_groups_first')
       return
     end
 
@@ -47,7 +47,7 @@ class QuickBracketsController < ApplicationController
     KnockoutBracketGenerator.new(simulation: @simulation).generate
 
     redirect_to quick_bracket_path(token: @simulation.token),
-                notice: "Meilleurs 3emes mis a jour"
+                notice: t('flash.selection_saved')
   rescue ArgumentError => e
     redirect_to quick_third_place_path(token: @simulation.token),
                 alert: e.message
@@ -59,7 +59,7 @@ class QuickBracketsController < ApplicationController
 
     unless @match.teams_known?
       redirect_to quick_bracket_path(token: @simulation.token),
-                  alert: "Les equipes ne sont pas encore determinees"
+                  alert: t('flash.teams_not_determined')
       return
     end
   end
@@ -84,7 +84,7 @@ class QuickBracketsController < ApplicationController
       end
       format.html do
         redirect_to quick_bracket_path(token: @simulation.token),
-                    notice: "Vainqueur enregistre pour le match #{match.match_number}"
+                    notice: t('flash.winner_saved', match_number: match.match_number)
       end
     end
   rescue ArgumentError => e
@@ -101,7 +101,7 @@ class QuickBracketsController < ApplicationController
   def ensure_quick_mode
     unless @simulation.quick_mode?
       redirect_to simulation_path(token: @simulation.token),
-                  alert: "Cette fonctionnalite n'est disponible qu'en mode rapide"
+                  alert: t('flash.quick_mode_only')
     end
   end
 

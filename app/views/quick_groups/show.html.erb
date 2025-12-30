@@ -1,21 +1,21 @@
-<% content_for :title, "Groupe #{@group.name} - Mode Rapide" %>
+<% content_for :title, "#{t('groups.title')} #{@group.name} - #{t('simulation.mode_express')}" %>
 
 <div class="page">
   <header class="page-header">
     <div class="page-header-content">
-      <h1 class="page-title">GROUPE <span><%= @group.name %></span></h1>
-      <div class="mode-badge mode-quick">⚡ Mode Rapide</div>
+      <h1 class="page-title"><%= t('groups.title') %> <span><%= @group.name %></span></h1>
+      <div class="mode-badge mode-quick"><%= t('simulation.mode_express') %></div>
     </div>
   </header>
 
   <main class="page-content">
     <%= link_to simulation_path(token: @simulation.token), class: "back-link" do %>
-      Retour aux groupes
+      <%= t('groups.back') %>
     <% end %>
 
     <section class="page-section">
-      <h2 class="section-title">Classement du groupe</h2>
-      <p class="text-muted mb-md">Glissez-déposez les équipes pour définir le classement :</p>
+      <h2 class="section-title"><%= t('groups.rankings') %></h2>
+      <p class="text-muted mb-md"><%= t('groups.drag_instruction') %></p>
 
       <%= form_with url: update_quick_group_path(token: @simulation.token, name: @group.name), method: :patch, id: "ranking-form", class: "ranking-form" do |f| %>
 
@@ -36,16 +36,16 @@
         </div>
 
         <div class="ranking-legend">
-          <h4>LÉGENDE</h4>
+          <h4><%= t('groups.legend.title') %></h4>
           <ul>
-            <li class="legend-qualified">1er et 2ème : Qualifiés directement</li>
-            <li class="legend-playoff">3ème : Peut se qualifier parmi les meilleurs 3èmes</li>
-            <li class="legend-eliminated">4ème : Éliminé</li>
+            <li class="legend-qualified"><%= t('groups.legend.qualified') %></li>
+            <li class="legend-playoff"><%= t('groups.legend.playoff') %></li>
+            <li class="legend-eliminated"><%= t('groups.legend.eliminated') %></li>
           </ul>
         </div>
 
         <div class="mt-lg">
-          <%= f.submit "Valider ce classement", class: "btn btn-emerald" %>
+          <%= f.submit t('groups.confirm_rankings'), class: "btn btn-gold" %>
         </div>
 
       <% end %>

@@ -1,5 +1,12 @@
 class ApplicationController < ActionController::Base
+  before_action :set_locale
+
   private
+
+  def set_locale
+    locale = cookies.signed[:locale]&.to_sym
+    I18n.locale = I18n.available_locales.include?(locale) ? locale : I18n.default_locale
+  end
 
   def current_simulation
     return @current_simulation if defined?(@current_simulation)

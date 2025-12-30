@@ -1,117 +1,127 @@
-<% content_for :title, "World Cup Simulator 2026 - Prédisez le Champion" %>
+<% content_for :title, "#{t('site.title')} - #{t('site.description')}" %>
 
 <div class="landing">
   <!-- HERO SECTION -->
   <section class="hero">
-    <!-- Animated particles -->
-    <div class="hero-particles">
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-    </div>
-
     <!-- Hero content -->
     <div class="hero-content">
-      <div class="hero-trophy">🏆</div>
+      <!-- Abstract geometric emblem - pitch lines forming elegant monogram -->
+      <div class="hero-emblem">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Outer frame - subtle pitch reference -->
+          <rect x="10" y="10" width="80" height="80" rx="2" stroke="url(#goldGradient)" stroke-width="0.5" opacity="0.4"/>
+
+          <!-- Center circle - pitch center reference -->
+          <circle cx="50" cy="50" r="20" stroke="url(#goldGradient)" stroke-width="0.75" opacity="0.6"/>
+
+          <!-- Abstract M monogram formed by intersecting lines -->
+          <path d="M25 70 L25 30 L50 50 L75 30 L75 70" stroke="url(#goldGradient)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- Horizontal midfield line -->
+          <line x1="15" y1="50" x2="85" y2="50" stroke="url(#goldGradient)" stroke-width="0.5" opacity="0.3"/>
+
+          <!-- Penalty arc suggestions -->
+          <path d="M35 25 Q50 35, 65 25" stroke="url(#goldGradient)" stroke-width="0.5" fill="none" opacity="0.4"/>
+          <path d="M35 75 Q50 65, 65 75" stroke="url(#goldGradient)" stroke-width="0.5" fill="none" opacity="0.4"/>
+
+          <!-- Corner flag accents -->
+          <circle cx="15" cy="15" r="2" fill="url(#goldGradient)" opacity="0.5"/>
+          <circle cx="85" cy="15" r="2" fill="url(#goldGradient)" opacity="0.5"/>
+          <circle cx="15" cy="85" r="2" fill="url(#goldGradient)" opacity="0.5"/>
+          <circle cx="85" cy="85" r="2" fill="url(#goldGradient)" opacity="0.5"/>
+
+          <!-- Gradient definition -->
+          <defs>
+            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#8b7355"/>
+              <stop offset="50%" stop-color="#c4a77d"/>
+              <stop offset="100%" stop-color="#8b7355"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
 
       <div class="hero-badge">
         <span class="badge-dot"></span>
-        <span>USA • CANADA • MEXICO 2026</span>
+        <span><%= t('home.badge') %></span>
       </div>
 
       <h1 class="hero-title">
-        <span class="title-world">WORLD</span>
-        <span class="title-cup">CUP</span>
-        <span class="title-simulator">SIMULATOR</span>
+        <span class="title-mondial text-gold"><%= t('home.title_main') %></span>
+        <span class="title-simulator"><%= t('home.title_sub') %></span>
       </h1>
 
       <p class="hero-subtitle">
-        Prédisez les résultats, créez votre propre tournoi et découvrez qui soulèvera le trophée selon vos pronostics.
+        <%= t('home.subtitle_1') %>
+        <br>
+        <%= t('home.subtitle_2') %>
       </p>
 
       <!-- Mode selection cards -->
       <div class="mode-selection">
         <!-- Complete mode -->
         <div class="mode-card mode-complete">
-          <span class="mode-icon">⚽</span>
-          <h2 class="mode-title">MODE COMPLET</h2>
-          <p class="mode-description">L'expérience ultime du pronostiqueur</p>
+          <span class="mode-icon">I</span>
+          <h2 class="mode-title"><%= t('home.modes.complete.title') %></h2>
+          <p class="mode-description"><%= t('home.modes.complete.description') %></p>
           <ul class="mode-features">
-            <li>72 matchs de poule à prédire</li>
-            <li>Entrez le score exact de chaque rencontre</li>
-            <li>32 matchs de phase finale</li>
-            <li>Simulation réaliste et détaillée</li>
+            <li><%= t('home.modes.complete.feature_1') %></li>
+            <li><%= t('home.modes.complete.feature_2') %></li>
+            <li><%= t('home.modes.complete.feature_3') %></li>
+            <li><%= t('home.modes.complete.feature_4') %></li>
           </ul>
           <%= button_to start_simulation_path(mode: "complete"), method: :post, class: "btn btn-gold" do %>
-            COMMENCER
+            <%= t('home.modes.complete.button') %>
           <% end %>
         </div>
 
         <!-- Quick mode -->
         <div class="mode-card mode-quick">
-          <span class="mode-icon">⚡</span>
-          <h2 class="mode-title">MODE RAPIDE</h2>
-          <p class="mode-description">Pour les experts pressés</p>
+          <span class="mode-icon">II</span>
+          <h2 class="mode-title"><%= t('home.modes.express.title') %></h2>
+          <p class="mode-description"><%= t('home.modes.express.description') %></p>
           <ul class="mode-features">
-            <li>Classez les équipes par glisser-déposer</li>
-            <li>Sélectionnez les meilleurs 3èmes</li>
-            <li>Choisissez le vainqueur de chaque match</li>
-            <li>Résultat en quelques minutes</li>
+            <li><%= t('home.modes.express.feature_1') %></li>
+            <li><%= t('home.modes.express.feature_2') %></li>
+            <li><%= t('home.modes.express.feature_3') %></li>
+            <li><%= t('home.modes.express.feature_4') %></li>
           </ul>
-          <%= button_to start_simulation_path(mode: "quick"), method: :post, class: "btn btn-emerald" do %>
-            JOUER
+          <%= button_to start_simulation_path(mode: "quick"), method: :post, class: "btn btn-secondary" do %>
+            <%= t('home.modes.express.button') %>
           <% end %>
         </div>
       </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="scroll-indicator">
-      <span>DÉCOUVRIR LE FORMAT</span>
-      <span class="arrow">↓</span>
     </div>
   </section>
 
   <!-- FORMAT SECTION -->
   <section class="format-section">
     <div class="format-container">
-      <h2 class="format-title">FORMAT <span>2026</span></h2>
+      <h2 class="format-title"><%= t('home.format.title') %> <span><%= t('home.format.title_highlight') %></span></h2>
 
       <div class="format-grid">
         <div class="format-stat">
           <div class="stat-number">48</div>
-          <div class="stat-label">Équipes qualifiées</div>
+          <div class="stat-label"><%= t('home.format.nations') %></div>
         </div>
         <div class="format-stat">
           <div class="stat-number">12</div>
-          <div class="stat-label">Groupes de 4</div>
+          <div class="stat-label"><%= t('home.format.groups') %></div>
         </div>
         <div class="format-stat">
           <div class="stat-number">104</div>
-          <div class="stat-label">Matchs au total</div>
+          <div class="stat-label"><%= t('home.format.matches') %></div>
         </div>
         <div class="format-stat">
           <div class="stat-number">3</div>
-          <div class="stat-label">Pays hôtes</div>
+          <div class="stat-label"><%= t('home.format.hosts') %></div>
         </div>
       </div>
 
       <div class="format-info">
         <p>
-          <strong>Phase de groupes :</strong> Les 2 premiers de chaque groupe + les 8 meilleurs 3èmes<br>
-          <strong>Phase finale :</strong> Huitièmes → Quarts → Demi-finales → Finale
+          <strong><%= t('home.format.group_stage') %></strong> — <%= t('home.format.group_stage_desc') %><br>
+          <strong><%= t('home.format.knockout') %></strong> — <%= t('home.format.knockout_desc') %>
         </p>
       </div>
     </div>
@@ -119,7 +129,7 @@
 
   <!-- FOOTER -->
   <footer class="landing-footer">
-    <p>Simulateur non-officiel créé par passion pour le football</p>
+    <p><%= t('home.footer') %></p>
     <div class="footer-flags">
       <span class="fi fi-us"></span>
       <span class="fi fi-ca"></span>

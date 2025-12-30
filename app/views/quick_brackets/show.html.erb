@@ -1,42 +1,42 @@
-<% content_for :title, "Phase finale - Mode Rapide" %>
+<% content_for :title, "#{t('bracket.title')} #{t('bracket.title_highlight')} - #{t('simulation.mode_express')}" %>
 
 <div class="page">
   <header class="page-header">
     <div class="page-header-content">
-      <h1 class="page-title">PHASE <span>FINALE</span></h1>
-      <div class="mode-badge mode-quick">⚡ Mode Rapide</div>
+      <h1 class="page-title"><%= t('bracket.title').upcase %> <span><%= t('bracket.title_highlight').upcase %></span></h1>
+      <div class="mode-badge mode-quick"><%= t('simulation.mode_express') %></div>
     </div>
   </header>
 
   <main class="page-content">
     <%= link_to simulation_path(token: @simulation.token), class: "back-link" do %>
-      Retour aux groupes
+      <%= t('bracket.back') %>
     <% end %>
 
     <% unless @qualification[:complete] %>
       <div class="alert alert-warning mb-lg">
         <span class="alert-icon">⚠️</span>
         <div class="alert-content">
-          <strong>Groupes incomplets</strong>
-          Complétez d'abord le classement de tous les groupes.
+          <strong><%= t('bracket.incomplete_groups_alert') %></strong>
+          <%= t('bracket.incomplete_groups_message') %>
           <br>
-          <%= link_to "Modifier les meilleurs 3èmes →", quick_third_place_path(token: @simulation.token) %>
+          <%= link_to "#{t('bracket.edit_third')} →", quick_third_place_path(token: @simulation.token) %>
         </div>
       </div>
     <% end %>
 
     <!-- Third Place Rankings -->
     <section class="page-section">
-      <h2 class="section-title">Classement des 3èmes</h2>
+      <h2 class="section-title"><%= t('bracket.third_place_title') %></h2>
 
       <div class="table-container">
         <table>
           <thead>
             <tr>
-              <th style="width: 60px;">Rang</th>
-              <th style="width: 80px;">Groupe</th>
-              <th>Équipe</th>
-              <th style="width: 100px;">Statut</th>
+              <th style="width: 60px;"><%= t('bracket.table.rank') %></th>
+              <th style="width: 80px;"><%= t('bracket.table.group') %></th>
+              <th><%= t('bracket.table.team') %></th>
+              <th style="width: 100px;"><%= t('bracket.table.status') %></th>
             </tr>
           </thead>
           <tbody>
@@ -51,14 +51,14 @@
                       <%= third.team.name %>
                     </span>
                   <% else %>
-                    <span class="bracket-tbd">À déterminer</span>
+                    <span class="bracket-tbd"><%= t('bracket.tbd') %></span>
                   <% end %>
                 </td>
                 <td>
                   <% if i < 8 %>
-                    <span style="color: var(--color-success);">✓ Qualifié</span>
+                    <span style="color: var(--color-success);">✓ <%= t('bracket.qualified') %></span>
                   <% else %>
-                    <span style="color: var(--color-danger);">✗ Éliminé</span>
+                    <span style="color: var(--color-danger);">✗ <%= t('bracket.eliminated') %></span>
                   <% end %>
                 </td>
               </tr>
@@ -69,7 +69,7 @@
 
       <div class="mt-md">
         <%= link_to quick_third_place_path(token: @simulation.token), class: "btn btn-outline btn-sm" do %>
-          Modifier la sélection des 3èmes
+          <%= t('third_place.edit') %>
         <% end %>
       </div>
     </section>
@@ -77,8 +77,8 @@
     <!-- Bracket Tree Visualization -->
     <% if @knockout_matches.any? %>
       <section class="page-section">
-        <h2 class="section-title">Arbre du tournoi</h2>
-        <p class="text-muted mb-md">Cliquez sur un drapeau pour désigner le vainqueur</p>
+        <h2 class="section-title"><%= t('bracket.tree') %></h2>
+        <p class="text-muted mb-md"><%= t('bracket.click_winner') %></p>
 
         <div id="bracket-container">
           <%= render 'shared/bracket_tree',
@@ -91,14 +91,14 @@
 
       <!-- Detailed Match List -->
       <section class="page-section">
-        <h2 class="section-title">Détail des matchs</h2>
+        <h2 class="section-title"><%= t('bracket.match_details') %></h2>
 
         <% %w[round_of_32 round_of_16 quarter_final semi_final third_place final].each do |round| %>
           <% matches = @matches_by_round[round] %>
           <% next unless matches&.any? %>
 
           <div class="bracket-section">
-            <h3 class="bracket-round-title"><%= Match::ROUND_NAMES[round] || round.titleize %></h3>
+            <h3 class="bracket-round-title"><%= t("bracket.rounds.#{round.gsub('round_of_', 'r')}") %></h3>
 
             <div class="bracket-matches">
               <% matches.each do |match| %>
@@ -108,13 +108,13 @@
 
                 <div class="bracket-match">
                   <div class="bracket-match-header">
-                    <span>Match #<%= match.match_number %></span>
+                    <span><%= t('bracket.match_number') %> #<%= match.match_number %></span>
                     <% if has_winner %>
-                      <span style="color: var(--color-success);">✓ Terminé</span>
+                      <span style="color: var(--color-success);">✓ <%= t('bracket.status.completed') %></span>
                     <% elsif match.teams_known? %>
-                      <span style="color: var(--color-warning);">À jouer</span>
+                      <span style="color: var(--color-warning);"><%= t('bracket.status.to_play') %></span>
                     <% else %>
-                      <span class="text-muted">En attente</span>
+                      <span class="text-muted"><%= t('bracket.status.pending') %></span>
                     <% end %>
                   </div>
                   <div class="bracket-match-content">
@@ -153,7 +153,7 @@
       </section>
     <% else %>
       <div class="card text-center mt-lg">
-        <p class="text-muted">Le bracket sera généré une fois tous les groupes classés.</p>
+        <p class="text-muted"><%= t('bracket.empty_state') %></p>
       </div>
     <% end %>
   </main>

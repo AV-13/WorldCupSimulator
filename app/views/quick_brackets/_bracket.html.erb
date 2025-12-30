@@ -3,7 +3,7 @@
   <% next unless matches&.any? %>
 
   <section class="bracket-section">
-    <h3 class="bracket-round-title"><%= Match::ROUND_NAMES[round] || round.titleize %></h3>
+    <h3 class="bracket-round-title"><%= t("bracket.rounds.#{round.gsub('round_of_', 'r')}") %></h3>
 
     <div class="bracket-matches">
       <% matches.each do |match| %>
@@ -13,13 +13,13 @@
 
         <div class="bracket-match">
           <div class="bracket-match-header">
-            <span>Match #<%= match.match_number %></span>
+            <span><%= t('bracket.match_number') %> #<%= match.match_number %></span>
             <% if has_winner %>
-              <span style="color: var(--color-success);">✓ Terminé</span>
+              <span style="color: var(--color-success);">✓ <%= t('bracket.status.completed') %></span>
             <% elsif match.teams_known? %>
-              <span style="color: var(--color-warning);">À jouer</span>
+              <span style="color: var(--color-warning);"><%= t('bracket.status.to_play') %></span>
             <% else %>
-              <span class="text-muted">En attente</span>
+              <span class="text-muted"><%= t('bracket.status.pending') %></span>
             <% end %>
           </div>
           <div class="bracket-match-content">

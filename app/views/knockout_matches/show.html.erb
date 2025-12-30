@@ -1,4 +1,4 @@
-<% content_for :title, "#{@match.round_name} - World Cup 2026" %>
+<% content_for :title, "#{@match.round_name} - #{t('site.description')}" %>
 
 <div class="page">
   <header class="page-header">
@@ -9,15 +9,15 @@
 
   <main class="page-content">
     <%= link_to bracket_path(token: @simulation.token), class: "back-link" do %>
-      Retour au bracket
+      <%= t('match.back_to_bracket') %>
     <% end %>
 
     <% unless @match.teams_known? %>
       <div class="alert alert-warning mb-lg">
         <span class="alert-icon">⚠️</span>
         <div class="alert-content">
-          <strong>Équipes non déterminées</strong>
-          Les équipes de ce match ne sont pas encore connues.
+          <strong><%= t('match.teams_unknown') %></strong>
+          <%= t('match.teams_unknown_message') %>
         </div>
       </div>
     <% end %>
@@ -56,11 +56,11 @@
             </div>
 
             <p class="text-muted text-center mb-md" style="font-size: 0.9rem;">
-              En cas d'égalité, l'équipe à domicile sera déclarée vainqueur.
+              <%= t('match.tiebreaker') %>
             </p>
 
             <div class="prediction-submit">
-              <%= f.submit "Enregistrer la prédiction", class: "btn btn-gold" %>
+              <%= f.submit t('match.save'), class: "btn btn-gold" %>
             </div>
 
           <% end %>

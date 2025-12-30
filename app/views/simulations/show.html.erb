@@ -1,14 +1,14 @@
-<% content_for :title, "Simulation - World Cup 2026" %>
+<% content_for :title, "#{t('site.title')} - #{t('site.description')}" %>
 
 <div class="page">
   <header class="page-header">
     <div class="page-header-content">
-      <h1 class="page-title">WORLD CUP <span>2026</span></h1>
+      <h1 class="page-title"><%= t('simulation.title') %> <span><%= t('simulation.title_highlight') %></span></h1>
       <div class="mode-badge <%= @simulation.quick_mode? ? 'mode-quick' : 'mode-complete' %>">
         <% if @simulation.quick_mode? %>
-          ⚡ Mode Rapide
+          <%= t('simulation.mode_express') %>
         <% else %>
-          ⚽ Mode Complet
+          <%= t('simulation.mode_complete') %>
         <% end %>
       </div>
     </div>
@@ -31,8 +31,8 @@
     <!-- Progress -->
     <div class="progress-container">
       <div class="progress-label">
-        <span>Progression phase de groupes</span>
-        <span><%= @group_progress[:completed] %> / <%= @group_progress[:total] %> matchs</span>
+        <span><%= t('simulation.progress_label') %></span>
+        <span><%= @group_progress[:completed] %> / <%= @group_progress[:total] %> <%= t('simulation.matches') %></span>
       </div>
       <div class="progress-bar">
         <% progress_percent = @group_progress[:total] > 0 ? (@group_progress[:completed].to_f / @group_progress[:total] * 100).round : 0 %>
@@ -42,12 +42,12 @@
 
     <!-- Group Stage Section -->
     <section class="page-section">
-      <h2 class="section-title">Phase de groupes</h2>
+      <h2 class="section-title"><%= t('simulation.group_stage') %></h2>
 
       <% if @simulation.quick_mode? %>
-        <p class="text-muted mb-md">Cliquez sur un groupe pour classer les équipes par glisser-déposer</p>
+        <p class="text-muted mb-md"><%= t('simulation.instructions.quick') %></p>
       <% else %>
-        <p class="text-muted mb-md">Cliquez sur un groupe pour entrer les scores des matchs</p>
+        <p class="text-muted mb-md"><%= t('simulation.instructions.complete') %></p>
       <% end %>
 
       <div class="groups-grid">
@@ -59,9 +59,9 @@
           %>
           <%= link_to group_path_url, class: "group-card #{'group-card-complete' if is_complete}" do %>
             <div class="group-card-header">
-              <div class="group-name">GROUPE <span><%= group.name %></span></div>
+              <div class="group-name"><%= t('simulation.group') %> <span><%= group.name %></span></div>
               <% if is_complete %>
-                <span class="group-status complete">Terminé</span>
+                <span class="group-status complete"><%= t('simulation.complete_status') %></span>
               <% end %>
             </div>
             <div class="group-teams">
@@ -71,7 +71,7 @@
                     <span class="group-team-rank"><%= index + 1 %></span>
                     <%= flag_icon(row.team, size: :small) %>
                     <span class="group-team-name"><%= row.team.name %></span>
-                    <span class="group-team-points"><%= row.points %> pts</span>
+                    <span class="group-team-points"><%= row.points %> <%= t('simulation.pts') %></span>
                   </div>
                 <% end %>
               <% else %>
@@ -90,34 +90,34 @@
 
     <!-- Knockout Stage Section -->
     <section class="page-section">
-      <h2 class="section-title">Phase finale</h2>
+      <h2 class="section-title"><%= t('simulation.knockout_stage') %></h2>
 
       <% if @simulation.quick_mode? %>
         <div class="card" style="max-width: 500px;">
           <% if @all_groups_complete %>
-            <p class="mb-md">Tous les groupes sont terminés ! Vous pouvez maintenant :</p>
+            <p class="mb-md"><%= t('simulation.all_complete') %></p>
             <%= link_to quick_third_place_path(token: @simulation.token), class: "btn btn-outline", style: "width: 100%; margin-bottom: var(--space-sm);" do %>
-              Sélectionner les meilleurs 3èmes
+              <%= t('simulation.select_third') %>
             <% end %>
             <%= link_to quick_bracket_path(token: @simulation.token), class: "btn btn-gold", style: "width: 100%;" do %>
-              Voir le bracket
+              <%= t('simulation.view_bracket') %>
             <% end %>
           <% else %>
             <% completed_count = @group_completion.values.count(true) %>
-            <p class="mb-md">Terminez d'abord tous les groupes (<%= completed_count %>/12 terminés)</p>
+            <p class="mb-md"><%= t('simulation.complete_first') %> (<%= t('simulation.complete_count', completed: completed_count) %>)</p>
             <button class="btn btn-outline" style="width: 100%; margin-bottom: var(--space-sm);" disabled>
-              Sélectionner les meilleurs 3èmes
+              <%= t('simulation.select_third') %>
             </button>
             <%= link_to quick_bracket_path(token: @simulation.token), class: "btn btn-outline", style: "width: 100%;" do %>
-              Aperçu du bracket
+              <%= t('simulation.preview_bracket') %>
             <% end %>
           <% end %>
         </div>
       <% else %>
         <div class="card" style="max-width: 500px;">
-          <p class="mb-md">Le bracket sera disponible une fois la phase de groupes complétée.</p>
+          <p class="mb-md"><%= t('simulation.bracket_available') %></p>
           <%= link_to bracket_path(token: @simulation.token), class: "btn btn-gold" do %>
-            Voir le bracket (8èmes → Finale)
+            <%= t('simulation.view_bracket_full') %>
           <% end %>
         </div>
       <% end %>
@@ -126,7 +126,7 @@
     <!-- Actions -->
     <div class="text-center mt-lg">
       <%= link_to root_path, class: "btn btn-outline" do %>
-        ← Nouvelle simulation
+        <%= t('simulation.new_simulation') %>
       <% end %>
     </div>
   </main>

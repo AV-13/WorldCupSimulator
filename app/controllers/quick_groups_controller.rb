@@ -22,7 +22,7 @@ class QuickGroupsController < ApplicationController
     QuickRankingService.new(simulation: @simulation, group: @group).call(ranked_team_ids)
 
     redirect_to simulation_path(token: @simulation.token),
-                notice: "Classement du groupe #{@group.name} enregistre"
+                notice: t('flash.ranking_saved', group: @group.name)
   rescue ArgumentError => e
     redirect_to quick_group_path(token: @simulation.token, name: @group.name),
                 alert: e.message
@@ -37,7 +37,7 @@ class QuickGroupsController < ApplicationController
   def ensure_quick_mode
     unless @simulation.quick_mode?
       redirect_to simulation_path(token: @simulation.token),
-                  alert: "Cette fonctionnalite n'est disponible qu'en mode rapide"
+                  alert: t('flash.quick_mode_only')
     end
   end
 

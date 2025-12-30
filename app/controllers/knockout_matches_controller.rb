@@ -22,7 +22,7 @@ class KnockoutMatchesController < ApplicationController
       KnockoutProgression.new(simulation: @simulation).update_from_match(@match.match_number)
 
       redirect_to bracket_path(token: @simulation.token),
-                  notice: "Prediction enregistree pour le match #{@match.match_number}"
+                  notice: t('flash.prediction_saved', match_number: @match.match_number)
     else
       render :show, status: :unprocessable_entity
     end

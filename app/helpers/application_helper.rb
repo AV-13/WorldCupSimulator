@@ -1,4 +1,18 @@
 module ApplicationHelper
+  # Map locale codes to flag-icons country codes
+  LOCALE_FLAGS = {
+    fr: 'fr',
+    en: 'gb',
+    es: 'es',
+    pt: 'pt',
+    de: 'de'
+  }.freeze
+
+  # Get flag code for a locale
+  def locale_flag(locale)
+    LOCALE_FLAGS[locale.to_sym] || 'un'
+  end
+
   # Display a flag icon for a team
   # Uses flag-icons library (https://flagicons.lipis.dev/)
   def flag_icon(team, size: :normal)

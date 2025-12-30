@@ -19,7 +19,7 @@ class MatchesController < ApplicationController
     )
 
     if @prediction.update(prediction_params)
-      redirect_to match_path(@simulation.token, @match.id), notice: "Score enregistré ✅"
+      redirect_to match_path(@simulation.token, @match.id), notice: t('flash.score_saved')
     else
       render :show, status: :unprocessable_entity
     end
