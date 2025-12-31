@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
   root "pages#home"
 
+  # Static pages
+  get "/teams", to: "pages#teams", as: :teams
+
   # Locale switching
   patch "/locale/:locale", to: "locales#update", as: :update_locale
 
@@ -23,6 +26,9 @@ Rails.application.routes.draw do
   get "/s/:token/groups/:name", to: "groups#show", as: :group
   get "s/:token/matches/:id", to: "matches#show", as: :match
   patch "s/:token/matches/:id", to: "matches#update", as: :update_match
+
+  # Team lineup route (works for both modes)
+  get "/s/:token/teams/:team_id/lineup", to: "lineups#show", as: :team_lineup
 
   # Knockout stage routes (complete mode)
   get "/s/:token/bracket", to: "brackets#show", as: :bracket

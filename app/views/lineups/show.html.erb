@@ -1,0 +1,114 @@
+<% content_for :title, "#{@team.name} - #{t('lineup.title', default: 'Lineup')} - #{t('site.description')}" %>
+
+<div class="page">
+  <header class="page-header">
+    <div class="page-header-content">
+      <h1 class="page-title"><%= t('lineup.title', default: 'LINEUP').upcase %> <span><%= @team.name %></span></h1>
+      <div class="lineup-header-flag">
+        <%= flag_icon(@team, size: :large) %>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <%= link_to simulation_path(@simulation.token), class: "back-link" do %>
+      <%= t('lineup.back', default: 'Back to simulation') %>
+    <% end %>
+
+    <%# Team Tabs (when viewing from a match context) %>
+    <% if @match && @opponent %>
+      <nav class="lineup-tabs" aria-label="Team selection">
+        <%= link_to team_lineup_path(@simulation.token, @match.home_team, match_id: @match.id),
+                    class: "lineup-tab #{@team.id == @match.home_team_id ? 'active' : ''}" do %>
+          <%= flag_icon(@match.home_team) %>
+          <span class="lineup-tab-name"><%= @match.home_team.name %></span>
+        <% end %>
+        <div class="lineup-tabs-divider">
+          <span>VS</span>
+        </div>
+        <%= link_to team_lineup_path(@simulation.token, @match.away_team, match_id: @match.id),
+                    class: "lineup-tab #{@team.id == @match.away_team_id ? 'active' : ''}" do %>
+          <%= flag_icon(@match.away_team) %>
+          <span class="lineup-tab-name"><%= @match.away_team.name %></span>
+        <% end %>
+      </nav>
+    <% end %>
+
+    <%# Formation Badge %>
+    <div class="lineup-formation-badge">
+      <span class="formation-label"><%= t('lineup.formation', default: 'Formation') %></span>
+      <span class="formation-value"><%= @lineup[:formation] %></span>
+    </div>
+
+    <%# Main Pitch Section %>
+    <section class="lineup-pitch-section">
+      <div class="lineup-pitch">
+        <%# Pitch Background with Gold Field Lines %>
+        <div class="pitch-background">
+          <%= image_tag "football_pitch.jpg", alt: "Football pitch", class: "pitch-image" %>
+          <div class="pitch-overlay"></div>
+          <div class="pitch-vignette"></div>
+        </div>
+
+        <%# Players Grid %>
+        <div class="pitch-players">
+          <% @lineup[:starters].each_with_index do |player, index| %>
+            <div class="pitch-player"
+                 style="--grid-row: <%= player[:grid_row] %>; --grid-col: <%= player[:grid_col] %>; --delay: <%= index * 0.08 %>s;">
+              <div class="player-card">
+                <div class="player-avatar">
+                  <%= player_face_image(player, alt: player[:last_name], css_class: "player-silhouette") %>
+                  <div class="player-number"><%= player[:number] %></div>
+                  <div class="player-position-badge"><%= player[:position] %></div>
+                </div>
+                <div class="player-info">
+                  <span class="player-first-name"><%= player[:first_name] %></span>
+                  <span class="player-last-name"><%= player[:last_name] %></span>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <%# Pitch Corner Accents %>
+        <div class="pitch-corner pitch-corner-tl"></div>
+        <div class="pitch-corner pitch-corner-tr"></div>
+        <div class="pitch-corner pitch-corner-bl"></div>
+        <div class="pitch-corner pitch-corner-br"></div>
+      </div>
+    </section>
+
+    <%# Coach Section %>
+    <section class="lineup-coach-section">
+      <div class="lineup-coach">
+        <div class="coach-avatar">
+          <%= image_tag "player_placeholder.jpg", alt: @lineup[:coach][:name], class: "coach-silhouette" %>
+        </div>
+        <div class="coach-info">
+          <span class="coach-role"><%= t('lineup.coach', default: 'Head Coach') %></span>
+          <span class="coach-name"><%= @lineup[:coach][:name] %></span>
+        </div>
+        <div class="coach-decoration"></div>
+      </div>
+    </section>
+
+    <%# Substitutes Section %>
+    <section class="lineup-substitutes-section">
+      <h2 class="section-title"><%= t('lineup.substitutes', default: 'Substitutes') %></h2>
+      <div class="substitutes-grid">
+        <% @lineup[:substitutes].each_with_index do |sub, index| %>
+          <div class="substitute-card" style="--delay: <%= index * 0.05 %>s;">
+            <div class="substitute-avatar">
+              <%= player_face_image(sub, alt: sub[:last_name], css_class: "substitute-silhouette") %>
+              <div class="substitute-number"><%= sub[:number] %></div>
+            </div>
+            <div class="substitute-info">
+              <span class="substitute-name"><%= sub[:first_name] %> <%= sub[:last_name] %></span>
+              <span class="substitute-position"><%= sub[:position] %></span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  </main>
+</div>

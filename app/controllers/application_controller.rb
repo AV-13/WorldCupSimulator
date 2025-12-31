@@ -1,11 +1,17 @@
 class ApplicationController < ActionController::Base
   before_action :set_locale
+  before_action :set_navbar_variables
 
   private
 
   def set_locale
     locale = cookies.signed[:locale]&.to_sym
     I18n.locale = I18n.available_locales.include?(locale) ? locale : I18n.default_locale
+  end
+
+  def set_navbar_variables
+    @current_simulation_token = cookies.signed[:simulation_token]
+    @show_resume_toaster = false
   end
 
   def current_simulation

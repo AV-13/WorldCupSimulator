@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team: one
+  fm_uid: MyString
+  fotmob_id: MyString
+  first_name: MyString
+  last_name: MyString
+  position: MyString
+  jersey_number: 1
+  birth_date: 2025-12-31
+  club: MyString
+  is_starter: false
+  grid_row: 1
+  grid_col: 1
+
+two:
+  team: two
+  fm_uid: MyString
+  fotmob_id: MyString
+  first_name: MyString
+  last_name: MyString
+  position: MyString
+  jersey_number: 1
+  birth_date: 2025-12-31
+  club: MyString
+  is_starter: false
+  grid_row: 1
+  grid_col: 1

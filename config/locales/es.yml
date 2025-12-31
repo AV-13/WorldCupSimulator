@@ -8,6 +8,16 @@ es:
     back_to_groups: "Volver a Grupos"
     back_to_bracket: "Volver al Cuadro"
 
+  navbar:
+    home: "Inicio"
+    express: "Modo Exprés"
+    complete: "Modo Completo"
+    teams: "Equipos"
+    coming_soon: "Próximamente"
+    resume_title: "Partida en curso"
+    resume_subtitle: "Continúa donde lo dejaste"
+    resume_button: "Continuar"
+
   home:
     badge: "United 2026"
     title_main: "Mondial"
@@ -74,6 +84,8 @@ es:
     back: "Volver a Grupos"
     standings: "Clasificación"
     matches: "Partidos"
+    progress: "Partidos"
+    complete: "Completado"
     legend:
       title: "Leyenda"
       qualified: "1° y 2°: Clasifican a Octavos"
@@ -159,6 +171,7 @@ es:
     tiebreaker: "En caso de empate, el equipo local será declarado ganador."
     teams_unknown: "Equipos No Determinados"
     teams_unknown_message: "Los equipos de este partido aún no se conocen."
+    group_stage: "Fase de Grupos"
 
   flash:
     score_saved: "Marcador guardado ✓"
@@ -169,6 +182,15 @@ es:
     complete_groups_first: "Debes completar todos los grupos antes de seleccionar los mejores terceros"
     teams_not_determined: "Los equipos aún no están determinados"
     quick_mode_only: "Esta función solo está disponible en modo Express"
+
+  lineup:
+    title: "Alineación"
+    back: "Volver"
+    starting_eleven: "Once titular"
+    substitutes: "Suplentes"
+    formation: "Formación"
+    coach: "Entrenador"
+    view: "Ver alineación"
 
   languages:
     fr: "Français"

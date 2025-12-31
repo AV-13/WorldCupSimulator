@@ -1,0 +1,26 @@
+<% content_for :title, "#{t('navbar.teams')} - #{t('site.title')}" %>
+
+<div class="page">
+  <header class="page-header">
+    <div class="page-header-content">
+      <h1 class="page-title"><%= t('navbar.teams').upcase %></h1>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <div class="coming-soon-container">
+      <div class="coming-soon-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+          <path d="M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+      </div>
+      <h2 class="coming-soon-title"><%= t('navbar.coming_soon') %></h2>
+      <p class="coming-soon-text">
+        Cette page présentera les 48 équipes qualifiées avec leurs effectifs complets.
+      </p>
+    </div>
+  </main>
+</div>

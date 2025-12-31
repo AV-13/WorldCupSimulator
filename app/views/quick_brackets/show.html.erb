@@ -123,6 +123,7 @@
                         <% if match.home_team %>
                           <%= flag_icon(match.home_team) %>
                           <span><%= match.home_team.name %></span>
+                          <%= lineup_icon(match.home_team, @simulation, match: match) %>
                         <% else %>
                           <span class="bracket-tbd"><%= match.home_source %></span>
                         <% end %>
@@ -136,6 +137,7 @@
                         <% if match.away_team %>
                           <%= flag_icon(match.away_team) %>
                           <span><%= match.away_team.name %></span>
+                          <%= lineup_icon(match.away_team, @simulation, match: match) %>
                         <% else %>
                           <span class="bracket-tbd"><%= match.away_source %></span>
                         <% end %>

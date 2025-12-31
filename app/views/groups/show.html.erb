@@ -20,36 +20,37 @@
         <table class="standings-table">
           <thead>
             <tr>
-              <th style="width: 50px;">#</th>
-              <th><%= t('groups.table.team') %></th>
-              <th style="text-align: center;"><%= t('groups.table.played') %></th>
-              <th style="text-align: center;"><%= t('groups.table.won') %></th>
-              <th style="text-align: center;"><%= t('groups.table.drawn') %></th>
-              <th style="text-align: center;"><%= t('groups.table.lost') %></th>
-              <th style="text-align: center;"><%= t('groups.table.gf') %></th>
-              <th style="text-align: center;"><%= t('groups.table.ga') %></th>
-              <th style="text-align: center;"><%= t('groups.table.gd') %></th>
-              <th style="text-align: center;"><%= t('groups.table.pts') %></th>
+              <th class="col-rank">#</th>
+              <th class="col-team"><%= t('groups.table.team') %></th>
+              <th class="col-stat"><%= t('groups.table.played') %></th>
+              <th class="col-stat"><%= t('groups.table.won') %></th>
+              <th class="col-stat"><%= t('groups.table.drawn') %></th>
+              <th class="col-stat"><%= t('groups.table.lost') %></th>
+              <th class="col-stat"><%= t('groups.table.gf') %></th>
+              <th class="col-stat"><%= t('groups.table.ga') %></th>
+              <th class="col-stat"><%= t('groups.table.gd') %></th>
+              <th class="col-stat"><%= t('groups.table.pts') %></th>
             </tr>
           </thead>
           <tbody>
             <% @standings.each_with_index do |row, i| %>
               <tr class="position-<%= i + 1 %>">
-                <td><%= i + 1 %></td>
+                <td class="rank-cell"><%= i + 1 %></td>
                 <td class="team-cell">
                   <%= flag_icon(row.team) %>
                   <%= row.team.name %>
+                  <%= lineup_icon(row.team, @simulation) %>
                 </td>
-                <td style="text-align: center;"><%= row.played %></td>
-                <td style="text-align: center;"><%= row.wins %></td>
-                <td style="text-align: center;"><%= row.draws %></td>
-                <td style="text-align: center;"><%= row.losses %></td>
-                <td style="text-align: center;"><%= row.goals_for %></td>
-                <td style="text-align: center;"><%= row.goals_against %></td>
-                <td style="text-align: center;" class="<%= row.goal_diff > 0 ? 'diff-positive' : (row.goal_diff < 0 ? 'diff-negative' : '') %>">
+                <td class="stat-cell"><%= row.played %></td>
+                <td class="stat-cell"><%= row.wins %></td>
+                <td class="stat-cell"><%= row.draws %></td>
+                <td class="stat-cell"><%= row.losses %></td>
+                <td class="stat-cell"><%= row.goals_for %></td>
+                <td class="stat-cell"><%= row.goals_against %></td>
+                <td class="stat-cell <%= row.goal_diff > 0 ? 'diff-positive' : (row.goal_diff < 0 ? 'diff-negative' : '') %>">
                   <%= row.goal_diff > 0 ? "+#{row.goal_diff}" : row.goal_diff %>
                 </td>
-                <td style="text-align: center;" class="points-cell"><%= row.points %></td>
+                <td class="stat-cell points-cell"><%= row.points %></td>
               </tr>
             <% end %>
           </tbody>
@@ -69,6 +70,18 @@
     <!-- Matches List -->
     <section class="page-section">
       <h2 class="section-title"><%= t('groups.matches') %></h2>
+
+      <% completed_count = @predictions_by_match_id.values.count { |p| p&.home_score && p&.away_score } %>
+      <div class="match-progress">
+        <span class="match-progress-label"><%= t('groups.progress') %></span>
+        <span class="match-progress-count"><%= completed_count %>/<%= @matches.count %></span>
+        <div class="match-progress-bar">
+          <div class="match-progress-fill" style="width: <%= (@matches.count > 0 ? completed_count.to_f / @matches.count * 100 : 0).round %>%"></div>
+        </div>
+        <% if completed_count == @matches.count %>
+          <span class="completion-badge"><%= t('groups.complete') %></span>
+        <% end %>
+      </div>
 
       <div class="matches-list">
         <% @matches.each do |m| %>

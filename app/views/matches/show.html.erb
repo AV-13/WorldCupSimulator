@@ -14,6 +14,11 @@
 
     <div class="prediction-form">
       <div class="prediction-card">
+        <div class="prediction-context">
+          <span class="context-badge"><%= t('match.group_stage') %></span>
+          <span class="context-detail"><%= t('groups.title') %> <%= @match.group.name %></span>
+        </div>
+
         <%= form_with model: @prediction,
                       url: update_match_path(@simulation.token, @match.id),
                       method: :patch do |f| %>

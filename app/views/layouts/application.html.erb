@@ -14,9 +14,9 @@
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="icon" href="/logo.png" type="image/png">
+    <link rel="shortcut icon" href="/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="/logo.png">
 
     <%# Flag icons library %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css">
@@ -27,6 +27,7 @@
   </head>
 
   <body>
+    <%= render 'shared/navbar' %>
     <%= render 'shared/language_selector' %>
     <%= yield %>
   </body>

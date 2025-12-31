@@ -171,3 +171,8 @@ docker-sync.yml
 
 # Ignore Procfile.dev generated files
 Procfile.dev.lock
+
+# =============================================================================
+# Large Assets (stored externally in production)
+# =============================================================================
+/app/assets/images/players/

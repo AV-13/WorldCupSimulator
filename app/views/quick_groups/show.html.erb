@@ -28,6 +28,7 @@
               <div class="ranking-team">
                 <%= flag_icon(team) %>
                 <span><%= team.name %></span>
+                <%= lineup_icon(team, @simulation) %>
               </div>
               <span class="ranking-handle">⋮⋮</span>
               <input type="hidden" name="team_ids[]" value="<%= team.id %>">

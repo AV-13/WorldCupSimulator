@@ -25,6 +25,11 @@
     <% if @match.teams_known? %>
       <div class="prediction-form">
         <div class="prediction-card">
+          <div class="prediction-context">
+            <span class="context-badge context-knockout"><%= @match.round_name %></span>
+            <span class="context-detail"><%= t('bracket.match_number') %> #<%= @match.match_number %></span>
+          </div>
+
           <% if @prediction.errors.any? %>
             <div class="alert alert-danger mb-md">
               <ul style="margin: 0; padding-left: 20px;">
@@ -55,7 +60,7 @@
               </div>
             </div>
 
-            <p class="text-muted text-center mb-md" style="font-size: 0.9rem;">
+            <p class="prediction-tiebreaker">
               <%= t('match.tiebreaker') %>
             </p>
 

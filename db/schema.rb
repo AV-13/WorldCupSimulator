@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_29_142525) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_31_084157) do
+  create_table "coaches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "team_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_coaches_on_team_id"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -33,6 +42,24 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_29_142525) do
     t.index ["home_team_id"], name: "index_matches_on_home_team_id"
     t.index ["match_number"], name: "index_matches_on_match_number", unique: true
     t.index ["round"], name: "index_matches_on_round"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.date "birth_date"
+    t.string "club"
+    t.datetime "created_at", null: false
+    t.string "first_name"
+    t.string "fm_uid"
+    t.string "fotmob_id"
+    t.integer "grid_col"
+    t.integer "grid_row"
+    t.boolean "is_starter"
+    t.integer "jersey_number"
+    t.string "last_name"
+    t.string "position"
+    t.integer "team_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_players_on_team_id"
   end
 
   create_table "predictions", force: :cascade do |t|
@@ -66,9 +93,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_29_142525) do
     t.index ["group_id"], name: "index_teams_on_group_id"
   end
 
+  add_foreign_key "coaches", "teams"
   add_foreign_key "matches", "groups"
   add_foreign_key "matches", "teams", column: "away_team_id"
   add_foreign_key "matches", "teams", column: "home_team_id"
+  add_foreign_key "players", "teams"
   add_foreign_key "predictions", "matches"
   add_foreign_key "predictions", "simulations"
   add_foreign_key "teams", "groups"

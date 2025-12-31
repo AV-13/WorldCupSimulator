@@ -1,0 +1,84 @@
+<nav class="main-navbar">
+  <div class="navbar-container">
+    <%# Logo / Home link %>
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <div class="navbar-logo">
+        <img src="/logo.png" alt="logo" height="35" width="35"/>
+      </div>
+      <span class="navbar-title"><%= t('site.title') %></span>
+    <% end %>
+
+    <%# Navigation links %>
+    <div class="navbar-links">
+      <%= link_to root_path, class: "navbar-link" do %>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+          <path d="M9 22V12h6v10"/>
+        </svg>
+        <span><%= t('navbar.home') %></span>
+      <% end %>
+
+      <%= link_to start_simulation_path(mode: "quick"), method: :post, class: "navbar-link", data: { turbo_method: :post } do %>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        <span><%= t('navbar.express') %></span>
+      <% end %>
+
+      <%= link_to start_simulation_path(mode: "complete"), method: :post, class: "navbar-link", data: { turbo_method: :post } do %>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        <span><%= t('navbar.complete') %></span>
+      <% end %>
+
+      <%= link_to teams_path, class: "navbar-link navbar-link-disabled", title: t('navbar.coming_soon') do %>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+          <path d="M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+        <span><%= t('navbar.teams') %></span>
+      <% end %>
+    </div>
+
+    <%# Mobile menu button %>
+    <button class="navbar-mobile-toggle" data-controller="navbar" data-action="click->navbar#toggle">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<%# Resume Toaster - shows when user has an active simulation %>
+<% if @show_resume_toaster && @current_simulation_token %>
+  <div class="resume-toaster" data-controller="toaster" data-toaster-delay-value="500">
+    <div class="resume-toaster-content">
+      <div class="resume-toaster-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="5 3 19 12 5 21 5 3"/>
+        </svg>
+      </div>
+      <div class="resume-toaster-text">
+        <span class="resume-toaster-title"><%= t('navbar.resume_title') %></span>
+        <span class="resume-toaster-subtitle"><%= t('navbar.resume_subtitle') %></span>
+      </div>
+      <%= link_to simulation_path(@current_simulation_token), class: "resume-toaster-btn" do %>
+        <%= t('navbar.resume_button') %>
+      <% end %>
+      <button class="resume-toaster-close" data-action="click->toaster#dismiss">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+<% end %>
