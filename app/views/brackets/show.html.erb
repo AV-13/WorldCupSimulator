@@ -31,7 +31,7 @@
         <h2 class="section-title"><%= t('bracket.tree') %></h2>
         <p class="text-muted mb-md"><%= t('bracket.click_instruction') %></p>
 
-        <%= render 'shared/bracket_tree',
+        <%= render 'shared/d3_bracket',
                    matches_by_round: @matches_by_round,
                    predictions: @predictions,
                    simulation: @simulation,
@@ -45,39 +45,39 @@
       <p class="text-muted mb-md"><%= t('bracket.third_place_info') %></p>
 
       <div class="table-container">
-        <table>
+        <table class="standings-table thirds-table">
           <thead>
             <tr>
-              <th style="width: 60px;"><%= t('bracket.table.rank') %></th>
-              <th style="width: 80px;"><%= t('bracket.table.group') %></th>
-              <th><%= t('bracket.table.team') %></th>
-              <th style="text-align: center;"><%= t('bracket.table.pts') %></th>
-              <th style="text-align: center;"><%= t('bracket.table.diff') %></th>
-              <th style="width: 100px;"><%= t('bracket.table.status') %></th>
+              <th class="col-rank"><%= t('bracket.table.rank') %></th>
+              <th class="col-group"><%= t('bracket.table.group') %></th>
+              <th class="col-team"><%= t('bracket.table.team') %></th>
+              <th class="col-stat"><%= t('bracket.table.pts') %></th>
+              <th class="col-stat"><%= t('bracket.table.diff') %></th>
+              <th class="col-status"><%= t('bracket.table.status') %></th>
             </tr>
           </thead>
           <tbody>
             <% @qualification[:all_thirds].each_with_index do |third, i| %>
-              <tr class="<%= i < 8 ? 'qualified' : 'eliminated' %>">
-                <td><%= i + 1 %></td>
-                <td><%= third.group %></td>
-                <td>
+              <tr class="<%= i < 8 ? 'row-qualified' : 'row-eliminated' %>">
+                <td class="rank-cell"><%= i + 1 %></td>
+                <td class="group-cell"><%= t('simulation.group') %> <%= third.group %></td>
+                <td class="team-cell">
                   <% if third.team %>
-                    <span class="team-cell">
-                      <%= flag_icon(third.team) %>
-                      <%= third.team.name %>
-                    </span>
+                    <%= flag_icon(third.team) %>
+                    <span><%= third.team.name %></span>
                   <% else %>
                     <span class="bracket-tbd"><%= t('bracket.tbd') %></span>
                   <% end %>
                 </td>
-                <td style="text-align: center;"><%= third.points %></td>
-                <td style="text-align: center;"><%= third.goal_diff %></td>
-                <td>
+                <td class="stat-cell points-cell"><%= third.points %></td>
+                <td class="stat-cell <%= third.goal_diff > 0 ? 'diff-positive' : (third.goal_diff < 0 ? 'diff-negative' : '') %>">
+                  <%= third.goal_diff > 0 ? "+#{third.goal_diff}" : third.goal_diff %>
+                </td>
+                <td class="status-cell">
                   <% if i < 8 %>
-                    <span style="color: var(--color-success);">✓ <%= t('bracket.qualified') %></span>
+                    <span class="status-badge status-qualified">✓ <%= t('bracket.qualified') %></span>
                   <% else %>
-                    <span style="color: var(--color-danger);">✗ <%= t('bracket.eliminated') %></span>
+                    <span class="status-badge status-eliminated">✗ <%= t('bracket.eliminated') %></span>
                   <% end %>
                 </td>
               </tr>

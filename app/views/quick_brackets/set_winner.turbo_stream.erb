@@ -1,5 +1,5 @@
-<%= turbo_stream.update "bracket-container" do %>
-  <%= render 'shared/bracket_tree',
+<%= turbo_stream.replace "bracket-container" do %>
+  <%= render 'shared/d3_bracket',
              matches_by_round: @matches_by_round,
              predictions: @predictions,
              simulation: @simulation,

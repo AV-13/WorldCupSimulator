@@ -17,7 +17,7 @@
       <h2 class="section-title"><%= t('groups.standings') %></h2>
 
       <div class="table-container">
-        <table class="standings-table">
+        <table class="standings-table group-standings-table">
           <thead>
             <tr>
               <th class="col-rank">#</th>
@@ -29,7 +29,7 @@
               <th class="col-stat"><%= t('groups.table.gf') %></th>
               <th class="col-stat"><%= t('groups.table.ga') %></th>
               <th class="col-stat"><%= t('groups.table.gd') %></th>
-              <th class="col-stat"><%= t('groups.table.pts') %></th>
+              <th class="col-stat col-pts"><%= t('groups.table.pts') %></th>
             </tr>
           </thead>
           <tbody>
@@ -38,7 +38,7 @@
                 <td class="rank-cell"><%= i + 1 %></td>
                 <td class="team-cell">
                   <%= flag_icon(row.team) %>
-                  <%= row.team.name %>
+                  <span><%= row.team.name %></span>
                   <%= lineup_icon(row.team, @simulation) %>
                 </td>
                 <td class="stat-cell"><%= row.played %></td>
