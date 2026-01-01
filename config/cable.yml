@@ -8,10 +8,7 @@ development:
 test:
   adapter: test
 
+# For Render free tier (single instance), async adapter is sufficient
+# Upgrade to Redis adapter if you need multiple instances
 production:
-  adapter: solid_cable
-  connects_to:
-    database:
-      writing: cable
-  polling_interval: 0.1.seconds
-  message_retention: 1.day
+  adapter: async

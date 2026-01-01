@@ -1,19 +1,10 @@
 <% content_for :title, "#{@team.name} - #{t('lineup.title', default: 'Lineup')} - #{t('site.description')}" %>
 
 <div class="page">
-  <header class="page-header">
-    <div class="page-header-content">
-      <h1 class="page-title"><%= t('lineup.title', default: 'LINEUP').upcase %> <span><%= @team.name %></span></h1>
-      <div class="lineup-header-flag">
-        <%= flag_icon(@team, size: :large) %>
-      </div>
-    </div>
-  </header>
+  <%= page_title_bar t('lineup.title', default: 'Lineup'), highlight: @team.name %>
 
   <main class="page-content">
-    <%= link_to simulation_path(@simulation.token), class: "back-link" do %>
-      <%= t('lineup.back', default: 'Back to simulation') %>
-    <% end %>
+    <%= back_link simulation_path(@simulation.token), t('lineup.back', default: 'Back to simulation') %>
 
     <%# Team Tabs (when viewing from a match context) %>
     <% if @match && @opponent %>

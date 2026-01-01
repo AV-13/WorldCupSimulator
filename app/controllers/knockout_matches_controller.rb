@@ -21,8 +21,13 @@ class KnockoutMatchesController < ApplicationController
       # Update bracket progression after prediction
       KnockoutProgression.new(simulation: @simulation).update_from_match(@match.match_number)
 
-      redirect_to bracket_path(token: @simulation.token),
-                  notice: t('flash.prediction_saved', match_number: @match.match_number)
+      # Redirect to celebration page if final was just predicted
+      if @match.match_number == 80
+        redirect_to celebration_path(token: @simulation.token)
+      else
+        redirect_to bracket_path(token: @simulation.token),
+                    notice: t('flash.prediction_saved', match_number: @match.match_number)
+      end
     else
       render :show, status: :unprocessable_entity
     end

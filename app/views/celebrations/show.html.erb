@@ -1,0 +1,121 @@
+<% content_for :title, "#{@champion&.name} - #{t('celebration.title')} - #{t('site.title')}" %>
+
+<div class="celebration-page" data-controller="confetti">
+  <!-- Confetti Canvas -->
+  <canvas class="confetti-canvas" data-confetti-target="canvas"></canvas>
+
+  <!-- Trophy Animation -->
+  <div class="celebration-trophy">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+      <path d="M4 22h16"/>
+      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+    </svg>
+  </div>
+
+  <!-- Title -->
+  <header class="celebration-header">
+    <h1 class="celebration-title"><%= t('celebration.world_champion').upcase %></h1>
+    <p class="celebration-subtitle"><%= t('celebration.subtitle') %></p>
+  </header>
+
+  <!-- Champion Showcase -->
+  <% if @champion %>
+    <section class="champion-showcase">
+      <div class="champion-flag">
+        <%= flag_icon(@champion, size: :large) %>
+      </div>
+      <h2 class="champion-name"><%= @champion.name %></h2>
+      <div class="champion-badge">
+        <span class="stars">&#9733; &#9733; &#9733;</span>
+      </div>
+    </section>
+  <% end %>
+
+  <!-- Podium -->
+  <section class="podium-section">
+    <h3 class="podium-title"><%= t('celebration.podium').upcase %></h3>
+
+    <div class="podium">
+      <!-- 2nd Place -->
+      <div class="podium-place podium-second">
+        <div class="podium-team">
+          <% if @runner_up %>
+            <%= flag_icon(@runner_up, size: :large) %>
+            <span class="podium-team-name"><%= @runner_up.name %></span>
+          <% end %>
+        </div>
+        <div class="podium-block">
+          <span class="podium-rank">2</span>
+        </div>
+      </div>
+
+      <!-- 1st Place -->
+      <div class="podium-place podium-first">
+        <div class="podium-team">
+          <% if @champion %>
+            <%= flag_icon(@champion, size: :large) %>
+            <span class="podium-team-name"><%= @champion.name %></span>
+          <% end %>
+        </div>
+        <div class="podium-block">
+          <span class="podium-rank">1</span>
+        </div>
+      </div>
+
+      <!-- 3rd Place -->
+      <div class="podium-place podium-third">
+        <div class="podium-team">
+          <% if @third_place %>
+            <%= flag_icon(@third_place, size: :large) %>
+            <span class="podium-team-name"><%= @third_place.name %></span>
+          <% else %>
+            <span class="podium-tbd"><%= t('bracket.tbd') %></span>
+          <% end %>
+        </div>
+        <div class="podium-block">
+          <span class="podium-rank">3</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats (Complete Mode only) -->
+  <% if @stats %>
+    <section class="celebration-stats">
+      <h3 class="stats-title"><%= t('celebration.your_tournament').upcase %></h3>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-value"><%= @stats[:total_matches] %></span>
+          <span class="stat-label"><%= t('celebration.stats.matches') %></span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value"><%= @stats[:total_goals] %></span>
+          <span class="stat-label"><%= t('celebration.stats.goals') %></span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value"><%= @stats[:avg_goals] %></span>
+          <span class="stat-label"><%= t('celebration.stats.avg_goals') %></span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value"><%= @stats[:biggest_margin] %></span>
+          <span class="stat-label"><%= t('celebration.stats.biggest_margin') %></span>
+        </div>
+      </div>
+    </section>
+  <% end %>
+
+  <!-- Actions -->
+  <div class="celebration-actions">
+    <%= link_to bracket_path(token: @simulation.token), class: "btn btn-outline" do %>
+      <%= t('celebration.view_bracket') %>
+    <% end %>
+    <%= link_to root_path, class: "btn btn-gold" do %>
+      <%= t('celebration.new_simulation') %>
+    <% end %>
+  </div>
+</div>

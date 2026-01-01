@@ -1,0 +1,34 @@
+<% content_for :title, "#{t('legal.title')} - #{t('site.title')}" %>
+
+<div class="page">
+  <%= page_title_bar t('legal.title') %>
+
+  <main class="page-content legal-content">
+    <%= back_link root_path, t('legal.back') %>
+
+    <section class="legal-section">
+      <h2><%= t('legal.editor.title') %></h2>
+      <p><%= t('legal.editor.content') %></p>
+    </section>
+
+    <section class="legal-section">
+      <h2><%= t('legal.hosting.title') %></h2>
+      <p><%= t('legal.hosting.content') %></p>
+    </section>
+
+    <section class="legal-section">
+      <h2><%= t('legal.intellectual_property.title') %></h2>
+      <p><%= t('legal.intellectual_property.content') %></p>
+    </section>
+
+    <section class="legal-section">
+      <h2><%= t('legal.disclaimer.title') %></h2>
+      <p><%= t('legal.disclaimer.content') %></p>
+    </section>
+
+    <section class="legal-section">
+      <h2><%= t('legal.contact.title') %></h2>
+      <p><%= t('legal.contact.content_html').html_safe %></p>
+    </section>
+  </main>
+</div>

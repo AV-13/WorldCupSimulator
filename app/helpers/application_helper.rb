@@ -90,4 +90,74 @@ module ApplicationHelper
       end
     end
   end
+
+  # Page title bar - simple centered title
+  def page_title_bar(title, highlight: nil)
+    tag.div(class: "page-title-bar") do
+      tag.h1(class: "page-title") do
+        if highlight
+          safe_join([title.upcase, " ", tag.span(highlight.upcase)])
+        else
+          title.upcase
+        end
+      end
+    end
+  end
+
+  # Back link with SVG arrow icon
+  def back_link(path, text)
+    link_to path, class: "back-link" do
+      safe_join([
+        tag.span(class: "back-link-icon") do
+          tag.svg(
+            xmlns: "http://www.w3.org/2000/svg",
+            width: 20,
+            height: 20,
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            "stroke-width": 2.5,
+            "stroke-linecap": "round",
+            "stroke-linejoin": "round"
+          ) do
+            safe_join([
+              tag.path(d: "M19 12H5"),
+              tag.polyline(points: "12 19 5 12 12 5")
+            ])
+          end
+        end,
+        tag.span(text, class: "back-link-text")
+      ])
+    end
+  end
+
+  # Team info link - displays team name as clickable link with info icon
+  def team_info_link(team)
+    return "".html_safe unless team
+
+    tag.span(class: "team-info-link") do
+      safe_join([
+        link_to(team.name, teams_path(team_id: team.id), class: "team-name-link"),
+        link_to(teams_path(team_id: team.id), class: "team-info-icon", title: t('teams.view_details', default: 'View team details')) do
+          tag.svg(
+            xmlns: "http://www.w3.org/2000/svg",
+            width: 14,
+            height: 14,
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "currentColor",
+            "stroke-width": 2,
+            "stroke-linecap": "round",
+            "stroke-linejoin": "round"
+          ) do
+            safe_join([
+              tag.circle(cx: 12, cy: 12, r: 10),
+              tag.line(x1: 12, y1: 16, x2: 12, y2: 12),
+              tag.line(x1: 12, y1: 8, x2: 12.01, y2: 8)
+            ])
+          end
+        end
+      ])
+    end
+  end
 end

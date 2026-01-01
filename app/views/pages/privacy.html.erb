@@ -1,0 +1,44 @@
+<% content_for :title, "#{t('privacy.title')} - #{t('site.title')}" %>
+
+<div class="page">
+  <%= page_title_bar t('privacy.title') %>
+
+  <main class="page-content legal-content">
+    <%= back_link root_path, t('privacy.back') %>
+
+    <section class="legal-section">
+      <h2><%= t('privacy.intro.title') %></h2>
+      <p><%= t('privacy.intro.content') %></p>
+    </section>
+
+    <section class="legal-section">
+      <h2><%= t('privacy.data_collected.title') %></h2>
+      <p><%= t('privacy.data_collected.content') %></p>
+      <ul>
+        <% t('privacy.data_collected.items').each do |item| %>
+          <li><%= item %></li>
+        <% end %>
+      </ul>
+    </section>
+
+    <section class="legal-section">
+      <h2><%= t('privacy.data_usage.title') %></h2>
+      <p><%= t('privacy.data_usage.content') %></p>
+    </section>
+
+    <section class="legal-section">
+      <h2><%= t('privacy.cookies.title') %></h2>
+      <p><%= t('privacy.cookies.content') %></p>
+    </section>
+
+    <section class="legal-section">
+      <h2><%= t('privacy.rights.title') %></h2>
+      <p><%= t('privacy.rights.content') %></p>
+    </section>
+
+    <section class="legal-section">
+      <h2><%= t('privacy.contact.title') %></h2>
+      <p><%= t('privacy.contact.content_html').html_safe %></p>
+    </section>
+  </main>
+</div>

@@ -107,7 +107,7 @@
           "last_name": "Orozco",
           "position": "CB",
           "jersey_number": 8,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -146,7 +146,7 @@
           "last_name": "Chavez",
           "position": "CB",
           "jersey_number": 11,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -211,7 +211,7 @@
           "last_name": "Mora",
           "position": "CM",
           "jersey_number": 16,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -593,7 +593,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "65033785",
+          "fm_uid": null,
           "fotmob_id": "1471333",
           "first_name": "Relebohile",
           "last_name": "Mofokeng",
@@ -760,7 +760,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "67260506",
+          "fm_uid": "2000082779",
           "fotmob_id": "1232253",
           "first_name": "Han-Beom",
           "last_name": "Lee",
@@ -786,7 +786,7 @@
           "grid_col": 2
         },
         {
-          "fm_uid": "2000054111",
+          "fm_uid": null,
           "fotmob_id": "1054177",
           "first_name": "Ju-Sung",
           "last_name": "Kim",
@@ -838,7 +838,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "67207191",
+          "fm_uid": null,
           "fotmob_id": "1107251",
           "first_name": "Tae-Seok",
           "last_name": "Lee",
@@ -870,7 +870,7 @@
           "last_name": "Cho",
           "position": "CB",
           "jersey_number": 12,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -1052,7 +1052,7 @@
           "last_name": "Jeong",
           "position": "ST",
           "jersey_number": 26,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -2357,7 +2357,7 @@
           "last_name": "Pedro",
           "position": "ST",
           "jersey_number": 22,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": true,
           "grid_row": 4,
@@ -2409,7 +2409,7 @@
           "last_name": "Junior",
           "position": "ST",
           "jersey_number": 26,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -2654,7 +2654,7 @@
           "last_name": "Lambese",
           "position": "CM",
           "jersey_number": 17,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -2713,7 +2713,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "2000014613",
+          "fm_uid": null,
           "fotmob_id": "1200016",
           "first_name": "Ruben",
           "last_name": "Providence",
@@ -3339,7 +3339,7 @@
           "last_name": "Miller",
           "position": "CM",
           "jersey_number": 18,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -3610,7 +3610,7 @@
           "last_name": "Miller",
           "position": "CB",
           "jersey_number": 11,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -4031,7 +4031,7 @@
           "grid_col": 4
         },
         {
-          "fm_uid": "2000106740",
+          "fm_uid": null,
           "fotmob_id": "1354561",
           "first_name": "Diego",
           "last_name": "Gomez",
@@ -4044,7 +4044,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "2000106740",
+          "fm_uid": null,
           "fotmob_id": "1348496",
           "first_name": "Diego",
           "last_name": "González",
@@ -4735,7 +4735,7 @@
           "last_name": "Bacuna",
           "position": "CM",
           "jersey_number": 15,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -4794,7 +4794,7 @@
           "grid_col": 3
         },
         {
-          "fm_uid": "37070212",
+          "fm_uid": null,
           "fotmob_id": "1180784",
           "first_name": "Jearl",
           "last_name": "Margaritha",
@@ -5136,7 +5136,7 @@
           "last_name": "Ramirez",
           "position": "ST",
           "jersey_number": 19,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": true,
           "grid_row": 4,
@@ -5182,7 +5182,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "19390301",
+          "fm_uid": null,
           "fotmob_id": "1109100",
           "first_name": "John",
           "last_name": "Mercado",
@@ -5195,7 +5195,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "19390301",
+          "fm_uid": null,
           "fotmob_id": "845368",
           "first_name": "John",
           "last_name": "Yeboah",
@@ -5912,7 +5912,7 @@
           "last_name": "Touré",
           "position": "LW",
           "jersey_number": 20,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": true,
           "grid_row": 4,
@@ -5997,7 +5997,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "2000160511",
+          "fm_uid": null,
           "fotmob_id": "1735453",
           "first_name": "Yan",
           "last_name": "Diomande",
@@ -6086,7 +6086,7 @@
           "grid_col": 2
         },
         {
-          "fm_uid": "62247477",
+          "fm_uid": null,
           "fotmob_id": "1337765",
           "first_name": "Junnosuke",
           "last_name": "Suzuki",
@@ -6790,7 +6790,7 @@
           "last_name": "Arous",
           "position": "LB",
           "jersey_number": 5,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": true,
           "grid_row": 2,
@@ -6972,14 +6972,14 @@
           "last_name": "Teka",
           "position": "CM",
           "jersey_number": 19,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
           "grid_col": null
         },
         {
-          "fm_uid": "13232260",
+          "fm_uid": null,
           "fotmob_id": "1000876",
           "first_name": "Mohamed",
           "last_name": "Ali Ben Romdhane",
@@ -7334,7 +7334,7 @@
           "last_name": "Moreira",
           "position": "CM",
           "jersey_number": 18,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -7495,7 +7495,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "12020128",
+          "fm_uid": null,
           "fotmob_id": "546550",
           "first_name": "Mohamed",
           "last_name": "El Shenawy",
@@ -7664,7 +7664,7 @@
           "grid_col": 3
         },
         {
-          "fm_uid": "12020128",
+          "fm_uid": null,
           "fotmob_id": "1120992",
           "first_name": "Mohamed",
           "last_name": "Shehata",
@@ -7677,7 +7677,7 @@
           "grid_col": 4
         },
         {
-          "fm_uid": "12020128",
+          "fm_uid": null,
           "fotmob_id": "906944",
           "first_name": "Mohanad",
           "last_name": "Lasheen",
@@ -7755,7 +7755,7 @@
           "grid_col": 3
         },
         {
-          "fm_uid": "98028755",
+          "fm_uid": null,
           "fotmob_id": "292462",
           "first_name": "Mohamed",
           "last_name": "Salah",
@@ -7768,7 +7768,7 @@
           "grid_col": 5
         },
         {
-          "fm_uid": "13231887",
+          "fm_uid": null,
           "fotmob_id": "817500",
           "first_name": "Mostafa",
           "last_name": "Mohamed",
@@ -7794,7 +7794,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "2000059773",
+          "fm_uid": null,
           "fotmob_id": "1272436",
           "first_name": "Ibrahim",
           "last_name": "Adel",
@@ -8143,7 +8143,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "23127918",
+          "fm_uid": null,
           "fotmob_id": "619506",
           "first_name": "Mehdi",
           "last_name": "Taremi",
@@ -8156,7 +8156,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "64040098",
+          "fm_uid": null,
           "fotmob_id": "1073012",
           "first_name": "Mohammad",
           "last_name": "Mohebi",
@@ -8182,7 +8182,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "64040098",
+          "fm_uid": null,
           "fotmob_id": "1227853",
           "first_name": "Mohammadmehdi",
           "last_name": "Mohebi",
@@ -8472,7 +8472,7 @@
           "last_name": "Thomas",
           "position": "CM",
           "jersey_number": 21,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -8574,7 +8574,7 @@
           "last_name": "Marcio",
           "position": "GK",
           "jersey_number": 2,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -8691,7 +8691,7 @@
           "last_name": "Tavares",
           "position": "CM",
           "jersey_number": 11,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": true,
           "grid_row": 3,
@@ -8750,7 +8750,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "37063421",
+          "fm_uid": null,
           "fotmob_id": "665167",
           "first_name": "Laros",
           "last_name": "Duarte",
@@ -8821,14 +8821,14 @@
           "last_name": "Varela",
           "position": "RW",
           "jersey_number": 21,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": true,
           "grid_row": 4,
           "grid_col": 5
         },
         {
-          "fm_uid": "83111471",
+          "fm_uid": null,
           "fotmob_id": "785716",
           "first_name": "Jovane",
           "last_name": "Cabral",
@@ -9164,7 +9164,7 @@
           "grid_col": 5
         },
         {
-          "fm_uid": "23208524",
+          "fm_uid": null,
           "fotmob_id": "1251448",
           "first_name": "Saleh",
           "last_name": "Abu Al Shamat",
@@ -9402,7 +9402,7 @@
           "last_name": "Ruiz",
           "position": "CM",
           "jersey_number": 15,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -9894,7 +9894,7 @@
           "last_name": "Rodriguez",
           "position": "ST",
           "jersey_number": 27,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -10469,7 +10469,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "53101282",
+          "fm_uid": null,
           "fotmob_id": "540963",
           "first_name": "Sander",
           "last_name": "Berge",
@@ -10701,7 +10701,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "48032200",
+          "fm_uid": null,
           "fotmob_id": "1451265",
           "first_name": "Malick",
           "last_name": "Diouf",
@@ -11095,7 +11095,7 @@
           "last_name": "Chergui",
           "position": "CB",
           "jersey_number": 26,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -11128,7 +11128,7 @@
           "grid_col": 3
         },
         {
-          "fm_uid": "49045882",
+          "fm_uid": null,
           "fotmob_id": "956659",
           "first_name": "Himad",
           "last_name": "Abdelli",
@@ -11173,7 +11173,7 @@
           "last_name": "Aït-Nouri",
           "position": "CM",
           "jersey_number": 15,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -11399,7 +11399,7 @@
           "grid_col": 1
         },
         {
-          "fm_uid": "77062850",
+          "fm_uid": null,
           "fotmob_id": "1402540",
           "first_name": "Ignacio",
           "last_name": "Talavera",
@@ -11995,7 +11995,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "91143703",
+          "fm_uid": null,
           "fotmob_id": "1024292",
           "first_name": "Marco",
           "last_name": "Grüll",
@@ -12034,7 +12034,7 @@
           "grid_col": 5
         },
         {
-          "fm_uid": "16191724",
+          "fm_uid": null,
           "fotmob_id": "1663487",
           "first_name": "Nikolaus",
           "last_name": "Wurmbrand",
@@ -12227,7 +12227,7 @@
           "grid_col": 3
         },
         {
-          "fm_uid": "23189634",
+          "fm_uid": null,
           "fotmob_id": "1059129",
           "first_name": "Mohammad",
           "last_name": "Abu Zraiq",
@@ -12253,7 +12253,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "64039163",
+          "fm_uid": null,
           "fotmob_id": "969080",
           "first_name": "Ahmad",
           "last_name": "Ersan",
@@ -12305,7 +12305,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "23189634",
+          "fm_uid": null,
           "fotmob_id": "1247001",
           "first_name": "Mohannad",
           "last_name": "Abu Taha",
@@ -12452,7 +12452,7 @@
           "last_name": "Angulo",
           "position": "LB",
           "jersey_number": 5,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": true,
           "grid_row": 2,
@@ -12563,7 +12563,7 @@
           "grid_col": 2
         },
         {
-          "fm_uid": "83244209",
+          "fm_uid": "641509",
           "fotmob_id": "164684",
           "first_name": "James",
           "last_name": "Rodriguez",
@@ -12775,7 +12775,7 @@
           "last_name": "Costa",
           "position": "GK",
           "jersey_number": 1,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": true,
           "grid_row": 1,
@@ -12788,7 +12788,7 @@
           "last_name": "Carvalho",
           "position": "GK",
           "jersey_number": 2,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -14236,7 +14236,7 @@
           "last_name": "Asare",
           "position": "GK",
           "jersey_number": 1,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": true,
           "grid_row": 1,
@@ -14748,7 +14748,7 @@
           "grid_col": 4
         },
         {
-          "fm_uid": "80033255",
+          "fm_uid": null,
           "fotmob_id": "727101",
           "first_name": "Christian",
           "last_name": "Martinez",
@@ -14878,7 +14878,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "2002076278",
+          "fm_uid": null,
           "fotmob_id": "1054138",
           "first_name": "Tomas",
           "last_name": "Rodriguez",
@@ -15543,7 +15543,7 @@
           "last_name": "Retegui",
           "position": "ST",
           "jersey_number": 23,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -15756,7 +15756,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "71000324",
+          "fm_uid": null,
           "fotmob_id": "1054026",
           "first_name": "Yukhym",
           "last_name": "Konoplya",
@@ -16092,7 +16092,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "68016292",
+          "fm_uid": null,
           "fotmob_id": "1642810",
           "first_name": "Ahmed",
           "last_name": "Maknzi",
@@ -16150,7 +16150,7 @@
           "last_name": "Ismael",
           "position": "CM",
           "jersey_number": 20,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -16176,7 +16176,7 @@
           "last_name": "Jawad",
           "position": "ST",
           "jersey_number": 9,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": true,
           "grid_row": 4,
@@ -16454,7 +16454,7 @@
           "grid_col": 2
         },
         {
-          "fm_uid": "18107092",
+          "fm_uid": null,
           "fotmob_id": "909803",
           "first_name": "Edo",
           "last_name": "Kayembe",
@@ -16725,7 +16725,7 @@
           "grid_col": 1
         },
         {
-          "fm_uid": "47076732",
+          "fm_uid": null,
           "fotmob_id": "1211621",
           "first_name": "Bojan",
           "last_name": "Dimoski",
@@ -16738,7 +16738,7 @@
           "grid_col": 2
         },
         {
-          "fm_uid": "47076732",
+          "fm_uid": null,
           "fotmob_id": "938267",
           "first_name": "Bojan",
           "last_name": "Ilievski",
@@ -16933,7 +16933,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "37024403",
+          "fm_uid": null,
           "fotmob_id": "768016",
           "first_name": "Tihomir",
           "last_name": "Kostadinov",
@@ -16959,7 +16959,7 @@
           "grid_col": 1
         },
         {
-          "fm_uid": "47076732",
+          "fm_uid": null,
           "fotmob_id": "846970",
           "first_name": "Bojan",
           "last_name": "Miovski",
@@ -17067,7 +17067,7 @@
           "last_name": "Kovar",
           "position": "GK",
           "jersey_number": 3,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -17132,7 +17132,7 @@
           "last_name": "Vitik",
           "position": "RB",
           "jersey_number": 8,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": true,
           "grid_row": 2,
@@ -17256,7 +17256,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "37062676",
+          "fm_uid": null,
           "fotmob_id": "806551",
           "first_name": "Michal",
           "last_name": "Sadilek",
@@ -18270,7 +18270,7 @@
           "last_name": "Dasilva",
           "position": "CB",
           "jersey_number": 8,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -18788,7 +18788,7 @@
           "last_name": "Basic",
           "position": "CM",
           "jersey_number": 19,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -18903,7 +18903,7 @@
           "last_name": "Andrei Radu",
           "position": "GK",
           "jersey_number": 1,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": true,
           "grid_row": 1,
@@ -19265,7 +19265,7 @@
           "last_name": "Takac",
           "position": "GK",
           "jersey_number": 1,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": true,
           "grid_row": 1,
@@ -19545,7 +19545,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "2000192797",
+          "fm_uid": null,
           "fotmob_id": "1425998",
           "first_name": "Leo",
           "last_name": "Sauer",
@@ -19558,7 +19558,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "43206262",
+          "fm_uid": null,
           "fotmob_id": "701202",
           "first_name": "Lubomir",
           "last_name": "Tupta",
@@ -20015,7 +20015,7 @@
           "last_name": "Kochalski",
           "position": "GK",
           "jersey_number": 5,
-          "club": NaN,
+          "club": null,
           "birth_date": null,
           "is_starter": false,
           "grid_row": null,
@@ -20824,7 +20824,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "19026640",
+          "fm_uid": null,
           "fotmob_id": "813372",
           "first_name": "Carlos",
           "last_name": "Melgar",
@@ -20902,7 +20902,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "19026640",
+          "fm_uid": null,
           "fotmob_id": "1694764",
           "first_name": "Oscar",
           "last_name": "Lopez",
@@ -20954,7 +20954,7 @@
           "grid_col": 3
         },
         {
-          "fm_uid": "86056924",
+          "fm_uid": null,
           "fotmob_id": "840183",
           "first_name": "Henry",
           "last_name": "Vaca",
@@ -21392,7 +21392,7 @@
           "grid_col": 3
         },
         {
-          "fm_uid": "70103149",
+          "fm_uid": null,
           "fotmob_id": null,
           "first_name": "Yusuf",
           "last_name": "Yazıcı",
@@ -21574,7 +21574,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "70097248",
+          "fm_uid": null,
           "fotmob_id": null,
           "first_name": "Zeki",
           "last_name": "Çelik",
@@ -21691,7 +21691,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "70087488",
+          "fm_uid": null,
           "fotmob_id": null,
           "first_name": "Enes",
           "last_name": "Ünal",
@@ -21767,7 +21767,7 @@
           "grid_col": 1
         },
         {
-          "fm_uid": "53074943",
+          "fm_uid": null,
           "fotmob_id": null,
           "first_name": "Zymer",
           "last_name": "Bytyqi",
@@ -21884,7 +21884,7 @@
           "grid_col": 5
         },
         {
-          "fm_uid": "11024791",
+          "fm_uid": null,
           "fotmob_id": null,
           "first_name": "Milot",
           "last_name": "Rashica",
@@ -21897,7 +21897,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "98038235",
+          "fm_uid": null,
           "fotmob_id": null,
           "first_name": "Idriz",
           "last_name": "Voca",
@@ -21962,7 +21962,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "53087151",
+          "fm_uid": null,
           "fotmob_id": null,
           "first_name": "Bersant",
           "last_name": "Celina",
@@ -22014,7 +22014,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "93069960",
+          "fm_uid": null,
           "fotmob_id": null,
           "first_name": "Leonard",
           "last_name": "Pllana",
@@ -22181,7 +22181,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "29129460",
+          "fm_uid": null,
           "fotmob_id": null,
           "first_name": "Kenneth",
           "last_name": "Paal",
@@ -22233,7 +22233,7 @@
           "grid_col": null
         },
         {
-          "fm_uid": "37049345",
+          "fm_uid": null,
           "fotmob_id": null,
           "first_name": "Damil",
           "last_name": "Dankerlui",

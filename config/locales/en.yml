@@ -13,13 +13,14 @@ en:
     express: "Express Mode"
     complete: "Complete Mode"
     teams: "Teams"
+    my_predictions: "My Predictions"
     coming_soon: "Coming soon"
     resume_title: "Game in progress"
     resume_subtitle: "Pick up where you left off"
     resume_button: "Resume"
 
   home:
-    badge: "United 2026"
+    badge: "North America 2026"
     title_main: "Mondial"
     title_sub: "Simulator"
     subtitle_1: "The art of tournament prediction, refined."
@@ -172,6 +173,7 @@ en:
     teams_unknown: "Teams Not Determined"
     teams_unknown_message: "The teams for this match are not yet known."
     group_stage: "Group Stage"
+    view_lineups: "View lineups"
 
   flash:
     score_saved: "Score saved ✓"
@@ -198,3 +200,82 @@ en:
     es: "Español"
     pt: "Português"
     de: "Deutsch"
+
+  legal:
+    title: "Legal Notice"
+    back: "Back to Home"
+    editor:
+      title: "Website Publisher"
+      content: "This website is a personal non-profit project developed by an individual. It is an unofficial tournament simulator that is in no way affiliated with FIFA or any other official organization."
+    hosting:
+      title: "Hosting"
+      content: "Hosting information will be provided soon."
+    intellectual_property:
+      title: "Intellectual Property"
+      content: "The source code of this project is available as open source. The flags and images used come from royalty-free sources. Team and player names are used for informational purposes only. FIFA and World Cup are registered trademarks belonging to their respective owners."
+    disclaimer:
+      title: "Disclaimer"
+      content: "This simulator is provided for informational and entertainment purposes only. The predictions generated have no official value and do not represent the actual results of competitions."
+    contact:
+      title: "Contact"
+      content_html: "For any questions, you can contact us via <a href=\"https://github.com/AV-13/WorldCupSimulator\">GitHub</a>."
+
+  privacy:
+    title: "Privacy Policy"
+    back: "Back to Home"
+    intro:
+      title: "Introduction"
+      content: "This privacy policy explains how we handle data when you use Mondial Simulator."
+    data_collected:
+      title: "Data Collected"
+      content: "We only collect data strictly necessary for the simulator to function:"
+      items:
+        - "Simulation identifier (randomly generated unique token)"
+        - "Language preferences"
+        - "Match predictions saved in the simulation"
+    data_usage:
+      title: "Data Usage"
+      content: "Data is used solely to enable the simulator to function and save your predictions. No personal data is collected, sold, or shared with third parties."
+    cookies:
+      title: "Cookies"
+      content: "The site uses essential technical cookies to remember your language preference and current simulation. No tracking or advertising cookies are used."
+    rights:
+      title: "Your Rights"
+      content: "Your simulations are stored locally and can be deleted at any time by clearing your browser cookies. No registration is required to use the service."
+    contact:
+      title: "Contact"
+      content_html: "For any questions regarding your data, contact us via <a href=\"https://github.com/AV-13/WorldCupSimulator\">GitHub</a>."
+
+  footer:
+    legal: "Legal Notice"
+    privacy: "Privacy"
+
+  celebration:
+    title: "World Champion"
+    world_champion: "World Champion"
+    subtitle: "World Cup 2026"
+    podium: "Podium"
+    your_tournament: "Your Tournament"
+    stats:
+      matches: "Matches"
+      goals: "Goals"
+      avg_goals: "Goals/Match"
+      biggest_margin: "Biggest Margin"
+    view_bracket: "View Bracket"
+    new_simulation: "New Simulation"
+
+  recap:
+    title: "My"
+    title_highlight: "Predictions"
+    back_to_simulation: "Back to Simulation"
+    groups_completed: "Groups completed"
+    group_matches: "Group matches"
+    knockout_matches: "Knockout matches"
+    overall_progress: "Overall progress"
+    continue_group: "Continue Group %{group}"
+    continue_bracket: "Continue Bracket"
+    view_results: "View Results"
+    groups_status: "Groups Status"
+    knockout_status: "Knockout Stage"
+    matches_predicted: "matches predicted"
+    view_bracket: "View Bracket"

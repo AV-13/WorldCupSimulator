@@ -13,13 +13,14 @@ es:
     express: "Modo Exprés"
     complete: "Modo Completo"
     teams: "Equipos"
+    my_predictions: "Mis Predicciones"
     coming_soon: "Próximamente"
     resume_title: "Partida en curso"
     resume_subtitle: "Continúa donde lo dejaste"
     resume_button: "Continuar"
 
   home:
-    badge: "United 2026"
+    badge: "North America 2026"
     title_main: "Mondial"
     title_sub: "Simulator"
     subtitle_1: "El arte de la predicción de torneos, refinado."
@@ -172,6 +173,7 @@ es:
     teams_unknown: "Equipos No Determinados"
     teams_unknown_message: "Los equipos de este partido aún no se conocen."
     group_stage: "Fase de Grupos"
+    view_lineups: "Ver alineaciones"
 
   flash:
     score_saved: "Marcador guardado ✓"
@@ -198,3 +200,82 @@ es:
     es: "Español"
     pt: "Português"
     de: "Deutsch"
+
+  legal:
+    title: "Aviso Legal"
+    back: "Volver al inicio"
+    editor:
+      title: "Editor del sitio"
+      content: "Este sitio es un proyecto personal sin fines de lucro desarrollado por un particular. Es un simulador de torneos no oficial que no está afiliado de ninguna manera con la FIFA ni con ninguna otra organización oficial."
+    hosting:
+      title: "Alojamiento"
+      content: "La información del alojamiento se proporcionará próximamente."
+    intellectual_property:
+      title: "Propiedad intelectual"
+      content: "El código fuente de este proyecto está disponible como código abierto. Las banderas e imágenes utilizadas provienen de fuentes libres de derechos. Los nombres de equipos y jugadores se utilizan únicamente con fines informativos. FIFA y World Cup son marcas registradas de sus respectivos propietarios."
+    disclaimer:
+      title: "Aviso"
+      content: "Este simulador se proporciona únicamente con fines informativos y de entretenimiento. Las predicciones generadas no tienen valor oficial y no representan los resultados reales de las competiciones."
+    contact:
+      title: "Contacto"
+      content_html: "Para cualquier pregunta, puede contactarnos a través de <a href=\"https://github.com/AV-13/WorldCupSimulator\">GitHub</a>."
+
+  privacy:
+    title: "Política de privacidad"
+    back: "Volver al inicio"
+    intro:
+      title: "Introducción"
+      content: "Esta política de privacidad explica cómo manejamos los datos cuando utiliza Mondial Simulator."
+    data_collected:
+      title: "Datos recopilados"
+      content: "Solo recopilamos los datos estrictamente necesarios para el funcionamiento del simulador:"
+      items:
+        - "Identificador de simulación (token único generado aleatoriamente)"
+        - "Preferencias de idioma"
+        - "Predicciones de partidos guardadas en la simulación"
+    data_usage:
+      title: "Uso de datos"
+      content: "Los datos se utilizan únicamente para permitir el funcionamiento del simulador y guardar sus predicciones. No se recopilan, venden ni comparten datos personales con terceros."
+    cookies:
+      title: "Cookies"
+      content: "El sitio utiliza cookies técnicas esenciales para recordar su preferencia de idioma y simulación actual. No se utilizan cookies de seguimiento ni publicitarias."
+    rights:
+      title: "Sus derechos"
+      content: "Sus simulaciones se almacenan localmente y pueden eliminarse en cualquier momento borrando las cookies de su navegador. No se requiere registro para usar el servicio."
+    contact:
+      title: "Contacto"
+      content_html: "Para cualquier pregunta sobre sus datos, contáctenos a través de <a href=\"https://github.com/AV-13/WorldCupSimulator\">GitHub</a>."
+
+  footer:
+    legal: "Aviso Legal"
+    privacy: "Privacidad"
+
+  celebration:
+    title: "Campeón del Mundo"
+    world_champion: "Campeón del Mundo"
+    subtitle: "Copa del Mundo 2026"
+    podium: "Podio"
+    your_tournament: "Tu Torneo"
+    stats:
+      matches: "Partidos"
+      goals: "Goles"
+      avg_goals: "Goles/Partido"
+      biggest_margin: "Mayor diferencia"
+    view_bracket: "Ver bracket"
+    new_simulation: "Nueva simulación"
+
+  recap:
+    title: "Mis"
+    title_highlight: "Predicciones"
+    back_to_simulation: "Volver a la simulación"
+    groups_completed: "Grupos completados"
+    group_matches: "Partidos de grupos"
+    knockout_matches: "Partidos eliminatorios"
+    overall_progress: "Progreso general"
+    continue_group: "Continuar Grupo %{group}"
+    continue_bracket: "Continuar Cuadro"
+    view_results: "Ver Resultados"
+    groups_status: "Estado de los Grupos"
+    knockout_status: "Fase Eliminatoria"
+    matches_predicted: "partidos predichos"
+    view_bracket: "Ver Cuadro"

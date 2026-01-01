@@ -1,0 +1,125 @@
+<% content_for :title, "#{t('recap.title')} - #{t('site.title')}" %>
+
+<div class="page">
+  <%= page_title_bar t('recap.title'), highlight: t('recap.title_highlight') %>
+
+  <main class="page-content">
+    <%= back_link simulation_path(@simulation.token), t('recap.back_to_simulation') %>
+
+    <!-- Mode Badge -->
+    <div class="recap-mode">
+      <span class="mode-indicator <%= @simulation.quick_mode? ? 'mode-quick' : 'mode-complete' %>">
+        <%= @simulation.quick_mode? ? t('simulation.mode_express') : t('simulation.mode_complete') %>
+      </span>
+    </div>
+
+    <!-- Overall Progress -->
+    <section class="recap-progress-section">
+      <div class="recap-stats">
+        <div class="recap-stat">
+          <span class="recap-stat-value"><%= @groups_completed %>/12</span>
+          <span class="recap-stat-label"><%= t('recap.groups_completed') %></span>
+        </div>
+        <div class="recap-stat">
+          <span class="recap-stat-value"><%= @group_progress[:completed] %>/<%= @group_progress[:total] %></span>
+          <span class="recap-stat-label"><%= t('recap.group_matches') %></span>
+        </div>
+        <div class="recap-stat">
+          <span class="recap-stat-value"><%= @knockout_progress[:completed] %>/<%= @knockout_progress[:total] %></span>
+          <span class="recap-stat-label"><%= t('recap.knockout_matches') %></span>
+        </div>
+      </div>
+
+      <!-- Main Progress Bar -->
+      <div class="recap-main-progress">
+        <% total_matches = @group_progress[:total] + @knockout_progress[:total] %>
+        <% completed_matches = @group_progress[:completed] + @knockout_progress[:completed] %>
+        <% progress_percent = total_matches > 0 ? (completed_matches.to_f / total_matches * 100).round : 0 %>
+
+        <div class="recap-progress-header">
+          <span><%= t('recap.overall_progress') %></span>
+          <span class="recap-progress-percent"><%= progress_percent %>%</span>
+        </div>
+        <div class="recap-progress-bar">
+          <div class="recap-progress-fill" style="width: <%= progress_percent %>%;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Continue Button -->
+    <section class="recap-action-section">
+      <%= link_to @next_action[:path], class: "btn btn-gold btn-lg recap-continue-btn" do %>
+        <span class="continue-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+        </span>
+        <span class="continue-text">
+          <% if @next_action[:group] %>
+            <%= t(@next_action[:label_key], group: @next_action[:group]) %>
+          <% else %>
+            <%= t(@next_action[:label_key]) %>
+          <% end %>
+        </span>
+      <% end %>
+    </section>
+
+    <!-- Groups Grid -->
+    <section class="page-section">
+      <h2 class="section-title"><%= t('recap.groups_status') %></h2>
+
+      <div class="recap-groups-grid">
+        <% @groups_data.each do |data| %>
+          <%
+            group = data[:group]
+            group_path_url = @simulation.quick_mode? ? quick_group_path(token: @simulation.token, name: group.name) : group_path(@simulation.token, group.name)
+          %>
+          <%= link_to group_path_url, class: "recap-group-card #{data[:is_complete] ? 'complete' : 'incomplete'}" do %>
+            <div class="recap-group-header">
+              <span class="recap-group-name"><%= t('simulation.group') %> <%= group.name %></span>
+              <% if data[:is_complete] %>
+                <span class="recap-group-status complete">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </span>
+              <% else %>
+                <span class="recap-group-status incomplete"><%= data[:completed] %>/<%= data[:total] %></span>
+              <% end %>
+            </div>
+            <div class="recap-group-progress">
+              <div class="recap-group-bar">
+                <div class="recap-group-fill" style="width: <%= data[:total] > 0 ? (data[:completed].to_f / data[:total] * 100).round : 0 %>%;"></div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+
+    <!-- Knockout Progress -->
+    <section class="page-section">
+      <h2 class="section-title"><%= t('recap.knockout_status') %></h2>
+
+      <div class="recap-knockout-card">
+        <div class="recap-knockout-info">
+          <span class="recap-knockout-label"><%= t('simulation.knockout_stage') %></span>
+          <span class="recap-knockout-count"><%= @knockout_progress[:completed] %>/<%= @knockout_progress[:total] %> <%= t('recap.matches_predicted') %></span>
+        </div>
+        <div class="recap-knockout-bar">
+          <div class="recap-knockout-fill" style="width: <%= @knockout_progress[:total] > 0 ? (@knockout_progress[:completed].to_f / @knockout_progress[:total] * 100).round : 0 %>%;"></div>
+        </div>
+        <% if @groups_completed == 12 %>
+          <% bracket_path_url = @simulation.quick_mode? ? quick_bracket_path(token: @simulation.token) : bracket_path(token: @simulation.token) %>
+          <%= link_to bracket_path_url, class: "recap-knockout-link" do %>
+            <%= t('recap.view_bracket') %>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+
+  </main>
+</div>

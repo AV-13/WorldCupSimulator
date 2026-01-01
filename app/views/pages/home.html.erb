@@ -9,36 +9,55 @@
       <div class="hero-emblem">
         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <!-- Outer frame - subtle pitch reference -->
-          <rect x="10" y="10" width="80" height="80" rx="2" stroke="url(#goldGradient)" stroke-width="0.5" opacity="0.4"/>
+          <rect class="emblem-frame" x="10" y="10" width="80" height="80" rx="2" stroke="url(#goldGradient)" stroke-width="0.5" opacity="0.4"/>
 
           <!-- Center circle - pitch center reference -->
-          <circle cx="50" cy="50" r="20" stroke="url(#goldGradient)" stroke-width="0.75" opacity="0.6"/>
+          <circle class="emblem-circle" cx="50" cy="50" r="20" stroke="url(#goldGradient)" stroke-width="0.75" opacity="0.6"/>
 
           <!-- Abstract M monogram formed by intersecting lines -->
-          <path d="M25 70 L25 30 L50 50 L75 30 L75 70" stroke="url(#goldGradient)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path class="emblem-monogram" d="M25 70 L25 30 L50 50 L75 30 L75 70" stroke="url(#goldGradient)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 
           <!-- Horizontal midfield line -->
-          <line x1="15" y1="50" x2="85" y2="50" stroke="url(#goldGradient)" stroke-width="0.5" opacity="0.3"/>
+          <line class="emblem-midline" x1="15" y1="50" x2="85" y2="50" stroke="url(#goldGradient)" stroke-width="0.5" opacity="0.3"/>
 
           <!-- Penalty arc suggestions -->
-          <path d="M35 25 Q50 35, 65 25" stroke="url(#goldGradient)" stroke-width="0.5" fill="none" opacity="0.4"/>
-          <path d="M35 75 Q50 65, 65 75" stroke="url(#goldGradient)" stroke-width="0.5" fill="none" opacity="0.4"/>
+          <path class="emblem-arc emblem-arc-top" d="M35 25 Q50 35, 65 25" stroke="url(#goldGradient)" stroke-width="0.5" fill="none" opacity="0.4"/>
+          <path class="emblem-arc emblem-arc-bottom" d="M35 75 Q50 65, 65 75" stroke="url(#goldGradient)" stroke-width="0.5" fill="none" opacity="0.4"/>
 
           <!-- Corner flag accents -->
-          <circle cx="15" cy="15" r="2" fill="url(#goldGradient)" opacity="0.5"/>
-          <circle cx="85" cy="15" r="2" fill="url(#goldGradient)" opacity="0.5"/>
-          <circle cx="15" cy="85" r="2" fill="url(#goldGradient)" opacity="0.5"/>
-          <circle cx="85" cy="85" r="2" fill="url(#goldGradient)" opacity="0.5"/>
+          <circle class="emblem-corner emblem-corner-1" cx="15" cy="15" r="2" fill="url(#goldGradient)" opacity="0.5"/>
+          <circle class="emblem-corner emblem-corner-2" cx="85" cy="15" r="2" fill="url(#goldGradient)" opacity="0.5"/>
+          <circle class="emblem-corner emblem-corner-3" cx="15" cy="85" r="2" fill="url(#goldGradient)" opacity="0.5"/>
+          <circle class="emblem-corner emblem-corner-4" cx="85" cy="85" r="2" fill="url(#goldGradient)" opacity="0.5"/>
+
+          <!-- Orbiting particle -->
+          <circle class="emblem-orbit-particle" cx="50" cy="25" r="1.5" fill="url(#goldGradient)" opacity="0.8"/>
 
           <!-- Gradient definition -->
           <defs>
             <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#8b7355"/>
-              <stop offset="50%" stop-color="#c4a77d"/>
-              <stop offset="100%" stop-color="#8b7355"/>
+              <stop offset="0%" stop-color="#8b7355">
+                <animate attributeName="stop-color" values="#8b7355;#c4a77d;#8b7355" dur="4s" repeatCount="indefinite"/>
+              </stop>
+              <stop offset="50%" stop-color="#c4a77d">
+                <animate attributeName="stop-color" values="#c4a77d;#d4bc96;#c4a77d" dur="4s" repeatCount="indefinite"/>
+              </stop>
+              <stop offset="100%" stop-color="#8b7355">
+                <animate attributeName="stop-color" values="#8b7355;#c4a77d;#8b7355" dur="4s" repeatCount="indefinite"/>
+              </stop>
             </linearGradient>
           </defs>
         </svg>
+      </div>
+
+      <!-- Floating particles background -->
+      <div class="hero-particles">
+        <span class="particle particle-1"></span>
+        <span class="particle particle-2"></span>
+        <span class="particle particle-3"></span>
+        <span class="particle particle-4"></span>
+        <span class="particle particle-5"></span>
+        <span class="particle particle-6"></span>
       </div>
 
       <div class="hero-badge">
@@ -134,6 +153,11 @@
       <span class="fi fi-us"></span>
       <span class="fi fi-ca"></span>
       <span class="fi fi-mx"></span>
+    </div>
+    <div class="footer-links">
+      <%= link_to t('footer.legal'), legal_path %>
+      <span class="footer-separator">|</span>
+      <%= link_to t('footer.privacy'), privacy_path %>
     </div>
   </footer>
 </div>

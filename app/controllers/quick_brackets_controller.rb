@@ -73,6 +73,15 @@ class QuickBracketsController < ApplicationController
     # Update bracket progression
     KnockoutProgression.new(simulation: @simulation).update_bracket
 
+    # Check if final was just predicted
+    is_final = match.match_number == 80
+
+    # Always redirect for final match (celebration page)
+    if is_final
+      redirect_to celebration_path(token: @simulation.token)
+      return
+    end
+
     respond_to do |format|
       format.turbo_stream do
         @knockout_matches = Match.knockout

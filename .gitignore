@@ -176,3 +176,4 @@ Procfile.dev.lock
 # Large Assets (stored externally in production)
 # =============================================================================
 /app/assets/images/players/
+/app/assets/images/coach/

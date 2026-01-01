@@ -104,4 +104,84 @@ namespace :squads do
       puts "  #{position}: #{count}"
     end
   end
+
+  desc "Match coach images with fm_uid based on first/last name"
+  task match_coach_images: :environment do
+    coaches_dir = Rails.root.join("app/assets/images/coach")
+
+    unless coaches_dir.exist?
+      puts "❌ Coach images directory not found: #{coaches_dir}"
+      exit 1
+    end
+
+    # Build index from image files: { "firstname_lastname" => fm_uid }
+    image_index = {}
+    Dir.glob(coaches_dir.join("*.png")).each do |file|
+      filename = File.basename(file, ".png")
+      # Format: Country_FirstName_LastName_fmuid (e.g., Argentina_Lionel_Scaloni_2000219)
+      parts = filename.split("_")
+      next if parts.size < 4
+
+      fm_uid = parts.last
+      # Handle multi-word first/last names: everything between country and fm_uid
+      name_parts = parts[1..-2]
+      # Try different splits for first/last name
+      name_parts.each_with_index do |_, i|
+        next if i == 0 && name_parts.size > 1
+        first_name = name_parts[0...i].join(" ")
+        last_name = name_parts[i..-1].join(" ")
+        key = "#{first_name.downcase}_#{last_name.downcase}".gsub(/\s+/, "_")
+        image_index[key] = fm_uid
+      end
+      # Also try single first name, rest is last name
+      if name_parts.size >= 2
+        key = "#{name_parts[0].downcase}_#{name_parts[1..-1].join('_').downcase}"
+        image_index[key] = fm_uid
+      end
+    end
+
+    matched = 0
+    not_matched = []
+
+    Coach.find_each do |coach|
+      # Try to match with various key formats
+      keys_to_try = [
+        "#{coach.first_name}_#{coach.last_name}".downcase.gsub(/\s+/, "_"),
+        "#{coach.first_name.split.first}_#{coach.last_name}".downcase.gsub(/\s+/, "_"),
+        "#{coach.last_name}".downcase.gsub(/\s+/, "_")
+      ]
+
+      fm_uid = nil
+      keys_to_try.each do |key|
+        if image_index[key]
+          fm_uid = image_index[key]
+          break
+        end
+      end
+
+      if fm_uid
+        coach.update!(fm_uid: fm_uid)
+        puts "✓ #{coach.full_name} -> #{fm_uid}"
+        matched += 1
+      else
+        not_matched << coach
+      end
+    end
+
+    puts ""
+    puts "=" * 50
+    puts "Matched: #{matched}"
+    puts "Not matched: #{not_matched.size}"
+
+    if not_matched.any?
+      puts ""
+      puts "⚠️  Coaches without image match:"
+      not_matched.each { |c| puts "  - #{c.team.name}: #{c.full_name}" }
+    end
+
+    # Reload the index
+    Coach.reload_face_images_index!
+    puts ""
+    puts "✓ Coach face images index reloaded"
+  end
 end

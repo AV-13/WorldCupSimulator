@@ -15,12 +15,16 @@ Rails.application.routes.draw do
 
   # Static pages
   get "/teams", to: "pages#teams", as: :teams
+  get "/teams/:id", to: "pages#team_detail", as: :team_detail
+  get "/legal", to: "pages#legal", as: :legal
+  get "/privacy", to: "pages#privacy", as: :privacy
 
   # Locale switching
   patch "/locale/:locale", to: "locales#update", as: :update_locale
 
   post "/start_simulation", to: "simulations#start", as: :start_simulation
   get "/s/:token", to: "simulations#show", as: :simulation
+  get "/s/:token/recap", to: "simulations#recap", as: :simulation_recap
 
   # Complete mode routes (enter scores)
   get "/s/:token/groups/:name", to: "groups#show", as: :group
@@ -34,6 +38,7 @@ Rails.application.routes.draw do
   get "/s/:token/bracket", to: "brackets#show", as: :bracket
   get "/s/:token/knockout/:match_number", to: "knockout_matches#show", as: :knockout_match
   patch "/s/:token/knockout/:match_number", to: "knockout_matches#update", as: :update_knockout_match
+  get "/s/:token/celebration", to: "celebrations#show", as: :celebration
 
   # Quick mode routes (drag & drop ranking)
   get "/s/:token/quick/groups/:name", to: "quick_groups#show", as: :quick_group

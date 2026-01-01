@@ -1,26 +1,85 @@
 <% content_for :title, "#{t('navbar.teams')} - #{t('site.title')}" %>
 
-<div class="page">
-  <header class="page-header">
-    <div class="page-header-content">
-      <h1 class="page-title"><%= t('navbar.teams').upcase %></h1>
+<div class="teams-page" data-controller="teams">
+  <!-- Sidebar -->
+  <aside class="teams-sidebar">
+    <div class="teams-sidebar-header">
+      <h2><%= t('teams.all_teams', default: 'All Teams') %></h2>
+      <span class="teams-count"><%= @teams.count %></span>
     </div>
-  </header>
 
-  <main class="page-content">
-    <div class="coming-soon-container">
-      <div class="coming-soon-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-          <circle cx="9" cy="7" r="4"/>
-          <path d="M23 21v-2a4 4 0 00-3-3.87"/>
-          <path d="M16 3.13a4 4 0 010 7.75"/>
+    <div class="teams-sidebar-scroll">
+      <div class="teams-search">
+        <input
+          type="text"
+          data-teams-target="search"
+          data-action="input->teams#filter"
+          placeholder="<%= t('teams.search', default: 'Search teams...') %>"
+          autocomplete="off"
+        />
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
         </svg>
       </div>
-      <h2 class="coming-soon-title"><%= t('navbar.coming_soon') %></h2>
-      <p class="coming-soon-text">
-        Cette page présentera les 48 équipes qualifiées avec leurs effectifs complets.
-      </p>
+
+      <nav class="teams-nav" data-teams-target="nav">
+      <% @groups.each do |group| %>
+        <div class="teams-group" data-group="<%= group.name %>">
+          <div class="teams-group-header">
+            <span class="group-letter"><%= group.name %></span>
+            <span class="group-label"><%= t('simulation.group') %></span>
+          </div>
+          <ul class="teams-list">
+            <% @teams_by_group[group]&.each do |team| %>
+              <li>
+                <button
+                  type="button"
+                  class="team-nav-item <%= team == @selected_team ? 'active' : '' %>"
+                  data-action="click->teams#selectTeam"
+                  data-team-id="<%= team.id %>"
+                  data-team-name="<%= team.name %>"
+                >
+                  <%= flag_icon(team) %>
+                  <span class="team-name"><%= team.name %></span>
+                </button>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="teams-main">
+    <div class="teams-content" data-teams-target="content">
+      <% if @selected_team %>
+        <%= render 'team_details', team: @selected_team, players_by_position: @players_by_position %>
+      <% else %>
+        <div class="teams-empty">
+          <p><%= t('teams.select_team', default: 'Select a team to view details') %></p>
+        </div>
+      <% end %>
     </div>
   </main>
+
+  <!-- Mobile toggle button -->
+  <button
+    type="button"
+    class="teams-mobile-toggle"
+    data-action="click->teams#toggleMobileSidebar"
+    aria-label="<%= t('teams.toggle_menu', default: 'Toggle teams menu') %>"
+  >
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+      <path d="M16 3.13a4 4 0 010 7.75"/>
+    </svg>
+  </button>
+
+  <!-- Mobile overlay -->
+  <div class="teams-sidebar-overlay" data-action="click->teams#closeMobileSidebar"></div>
 </div>

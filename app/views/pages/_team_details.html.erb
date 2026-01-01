@@ -1,0 +1,82 @@
+<div class="team-detail" data-team-id="<%= team.id %>">
+  <!-- Team Header -->
+  <header class="team-header">
+    <div class="team-header-flag">
+      <%= flag_icon(team, size: :large) %>
+    </div>
+    <div class="team-header-info">
+      <h1 class="team-title"><%= team.name %></h1>
+      <div class="team-meta">
+        <span class="team-group"><%= t('simulation.group') %> <%= team.group.name %></span>
+        <% if team.coach %>
+          <div class="team-coach">
+            <div class="coach-photo">
+              <% if team.coach.respond_to?(:face_image_path) && team.coach.face_image_path %>
+                <%= image_tag team.coach.face_image_path, alt: team.coach.full_name, class: "coach-face", onerror: "this.onerror=null; this.src='#{asset_path('player_placeholder.jpg')}'" %>
+              <% else %>
+                <%= image_tag "player_placeholder.jpg", alt: team.coach.full_name, class: "coach-face" %>
+              <% end %>
+            </div>
+            <div class="coach-info">
+              <span class="coach-label"><%= t('teams.coach', default: 'Coach') %></span>
+              <span class="coach-name"><%= team.coach.full_name %></span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="team-header-badge">
+      <div class="squad-count">
+        <span class="count-number"><%= team.players.count %></span>
+        <span class="count-label"><%= t('teams.players', default: 'Players') %></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Squad Section -->
+  <section class="team-squad">
+    <% position_order = %w[GK CB LB RB CDM CM CAM LW RW CF ST] %>
+    <% position_groups = {
+      'goalkeepers' => %w[GK],
+      'defenders' => %w[CB LB RB],
+      'midfielders' => %w[CDM CM CAM],
+      'forwards' => %w[LW RW CF ST]
+    } %>
+
+    <% position_groups.each do |group_name, positions| %>
+      <% group_players = positions.flat_map { |pos| players_by_position[pos] || [] }.sort_by { |p| p.jersey_number || 99 } %>
+      <% next if group_players.empty? %>
+
+      <div class="squad-section">
+        <div class="squad-section-header">
+          <h3><%= t("teams.positions.#{group_name}", default: group_name.capitalize) %></h3>
+          <span class="squad-section-count"><%= group_players.count %></span>
+        </div>
+
+        <div class="players-grid">
+          <% group_players.each do |player| %>
+            <div class="player-card">
+              <div class="player-photo">
+                <% if player.face_image_path %>
+                  <%= image_tag player.face_image_path, alt: player.full_name, class: "player-face", onerror: "this.onerror=null; this.src='#{asset_path('player_placeholder.jpg')}'" %>
+                <% else %>
+                  <%= image_tag "player_placeholder.jpg", alt: player.full_name, class: "player-face" %>
+                <% end %>
+                <% if player.jersey_number %>
+                  <span class="player-number"><%= player.jersey_number %></span>
+                <% end %>
+              </div>
+              <div class="player-info">
+                <span class="player-name"><%= player.last_name %></span>
+                <span class="player-firstname"><%= player.first_name %></span>
+                <div class="player-details">
+                  <span class="player-position"><%= player.position %></span>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </section>
+</div>

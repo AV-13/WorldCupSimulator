@@ -1,16 +1,10 @@
 <% content_for :title, "#{t('groups.title')} #{@group.name} - #{t('site.description')}" %>
 
 <div class="page">
-  <header class="page-header">
-    <div class="page-header-content">
-      <h1 class="page-title"><%= t('groups.title').upcase %> <span><%= @group.name %></span></h1>
-    </div>
-  </header>
+  <%= page_title_bar t('groups.title'), highlight: @group.name %>
 
   <main class="page-content">
-    <%= link_to simulation_path(@simulation.token), class: "back-link" do %>
-      <%= t('groups.back') %>
-    <% end %>
+    <%= back_link simulation_path(@simulation.token), t('groups.back') %>
 
     <!-- Standings Table -->
     <section class="page-section">
@@ -38,7 +32,7 @@
                 <td class="rank-cell"><%= i + 1 %></td>
                 <td class="team-cell">
                   <%= flag_icon(row.team) %>
-                  <span><%= row.team.name %></span>
+                  <%= team_info_link(row.team) %>
                   <%= lineup_icon(row.team, @simulation) %>
                 </td>
                 <td class="stat-cell"><%= row.played %></td>
@@ -90,7 +84,7 @@
           <div class="match-item <%= has_score ? 'match-completed' : 'match-pending' %>">
             <div class="match-teams">
               <div class="match-team home">
-                <span><%= m.home_team.name %></span>
+                <%= team_info_link(m.home_team) %>
                 <%= flag_icon(m.home_team) %>
               </div>
               <% if has_score %>
@@ -100,7 +94,7 @@
               <% end %>
               <div class="match-team away">
                 <%= flag_icon(m.away_team) %>
-                <span><%= m.away_team.name %></span>
+                <%= team_info_link(m.away_team) %>
               </div>
             </div>
             <div class="match-action">

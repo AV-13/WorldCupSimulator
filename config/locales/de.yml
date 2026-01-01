@@ -13,13 +13,14 @@ de:
     express: "Express-Modus"
     complete: "Komplett-Modus"
     teams: "Mannschaften"
+    my_predictions: "Meine Vorhersagen"
     coming_soon: "Demnächst"
     resume_title: "Spiel läuft"
     resume_subtitle: "Machen Sie dort weiter, wo Sie aufgehört haben"
     resume_button: "Fortsetzen"
 
   home:
-    badge: "United 2026"
+    badge: "North America 2026"
     title_main: "Mondial"
     title_sub: "Simulator"
     subtitle_1: "Die Kunst der Turniervorhersage, verfeinert."
@@ -172,6 +173,7 @@ de:
     teams_unknown: "Teams nicht bestimmt"
     teams_unknown_message: "Die Teams für dieses Spiel sind noch nicht bekannt."
     group_stage: "Gruppenphase"
+    view_lineups: "Aufstellungen anzeigen"
 
   flash:
     score_saved: "Ergebnis gespeichert ✓"
@@ -198,3 +200,82 @@ de:
     es: "Español"
     pt: "Português"
     de: "Deutsch"
+
+  legal:
+    title: "Impressum"
+    back: "Zurück zur Startseite"
+    editor:
+      title: "Herausgeber"
+      content: "Diese Website ist ein persönliches, nicht kommerzielles Projekt, das von einer Privatperson entwickelt wurde. Es handelt sich um einen inoffiziellen Turniersimulator, der in keiner Weise mit der FIFA oder einer anderen offiziellen Organisation verbunden ist."
+    hosting:
+      title: "Hosting"
+      content: "Informationen zum Hosting werden in Kürze bereitgestellt."
+    intellectual_property:
+      title: "Geistiges Eigentum"
+      content: "Der Quellcode dieses Projekts ist als Open Source verfügbar. Die verwendeten Flaggen und Bilder stammen aus lizenzfreien Quellen. Team- und Spielernamen werden nur zu Informationszwecken verwendet. FIFA und World Cup sind eingetragene Marken ihrer jeweiligen Eigentümer."
+    disclaimer:
+      title: "Haftungsausschluss"
+      content: "Dieser Simulator wird nur zu Informations- und Unterhaltungszwecken bereitgestellt. Die generierten Vorhersagen haben keinen offiziellen Wert und stellen nicht die tatsächlichen Ergebnisse von Wettbewerben dar."
+    contact:
+      title: "Kontakt"
+      content_html: "Bei Fragen können Sie uns über <a href=\"https://github.com/AV-13/WorldCupSimulator\">GitHub</a> kontaktieren."
+
+  privacy:
+    title: "Datenschutz"
+    back: "Zurück zur Startseite"
+    intro:
+      title: "Einleitung"
+      content: "Diese Datenschutzrichtlinie erklärt, wie wir Daten bei der Nutzung von Mondial Simulator verarbeiten."
+    data_collected:
+      title: "Erfasste Daten"
+      content: "Wir erfassen nur die für den Betrieb des Simulators unbedingt erforderlichen Daten:"
+      items:
+        - "Simulationskennung (zufällig generierter eindeutiger Token)"
+        - "Spracheinstellungen"
+        - "In der Simulation gespeicherte Spielvorhersagen"
+    data_usage:
+      title: "Datennutzung"
+      content: "Die Daten werden ausschließlich verwendet, um den Betrieb des Simulators zu ermöglichen und Ihre Vorhersagen zu speichern. Es werden keine persönlichen Daten erfasst, verkauft oder an Dritte weitergegeben."
+    cookies:
+      title: "Cookies"
+      content: "Die Website verwendet technisch notwendige Cookies, um Ihre Spracheinstellung und aktuelle Simulation zu speichern. Es werden keine Tracking- oder Werbe-Cookies verwendet."
+    rights:
+      title: "Ihre Rechte"
+      content: "Ihre Simulationen werden lokal gespeichert und können jederzeit durch Löschen der Browser-Cookies entfernt werden. Zur Nutzung des Dienstes ist keine Registrierung erforderlich."
+    contact:
+      title: "Kontakt"
+      content_html: "Bei Fragen zu Ihren Daten kontaktieren Sie uns bitte über <a href=\"https://github.com/AV-13/WorldCupSimulator\">GitHub</a>."
+
+  footer:
+    legal: "Impressum"
+    privacy: "Datenschutz"
+
+  celebration:
+    title: "Weltmeister"
+    world_champion: "Weltmeister"
+    subtitle: "Weltmeisterschaft 2026"
+    podium: "Podium"
+    your_tournament: "Ihr Turnier"
+    stats:
+      matches: "Spiele"
+      goals: "Tore"
+      avg_goals: "Tore/Spiel"
+      biggest_margin: "Größter Abstand"
+    view_bracket: "Bracket anzeigen"
+    new_simulation: "Neue Simulation"
+
+  recap:
+    title: "Meine"
+    title_highlight: "Vorhersagen"
+    back_to_simulation: "Zurück zur Simulation"
+    groups_completed: "Gruppen abgeschlossen"
+    group_matches: "Gruppenspiele"
+    knockout_matches: "K.o.-Spiele"
+    overall_progress: "Gesamtfortschritt"
+    continue_group: "Gruppe %{group} fortsetzen"
+    continue_bracket: "Spielplan fortsetzen"
+    view_results: "Ergebnisse anzeigen"
+    groups_status: "Gruppenstatus"
+    knockout_status: "K.o.-Phase"
+    matches_predicted: "Spiele vorhergesagt"
+    view_bracket: "Spielplan anzeigen"

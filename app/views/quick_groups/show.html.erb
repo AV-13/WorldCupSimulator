@@ -1,39 +1,36 @@
 <% content_for :title, "#{t('groups.title')} #{@group.name} - #{t('simulation.mode_express')}" %>
 
 <div class="page">
-  <header class="page-header">
-    <div class="page-header-content">
-      <h1 class="page-title"><%= t('groups.title') %> <span><%= @group.name %></span></h1>
-      <div class="mode-badge mode-quick"><%= t('simulation.mode_express') %></div>
-    </div>
-  </header>
+  <%= page_title_bar t('groups.title'), highlight: @group.name %>
 
   <main class="page-content">
-    <%= link_to simulation_path(token: @simulation.token), class: "back-link" do %>
-      <%= t('groups.back') %>
-    <% end %>
+    <%= back_link simulation_path(token: @simulation.token), t('groups.back') %>
 
     <section class="page-section">
       <h2 class="section-title"><%= t('groups.rankings') %></h2>
       <p class="text-muted mb-md"><%= t('groups.drag_instruction') %></p>
 
       <%= form_with url: update_quick_group_path(token: @simulation.token, name: @group.name), method: :patch, id: "ranking-form", class: "ranking-form" do |f| %>
-
-        <div class="ranking-list" data-controller="sortable" data-sortable-target="list">
-          <% @teams.each_with_index do |team, index| %>
-            <div class="ranking-item position-<%= index + 1 %>"
-                 data-sortable-target="item"
-                 data-team-id="<%= team.id %>">
-              <span class="ranking-position" data-rank><%= index + 1 %></span>
-              <div class="ranking-team">
-                <%= flag_icon(team) %>
-                <span><%= team.name %></span>
-                <%= lineup_icon(team, @simulation) %>
+        <div class="ranking-main">
+          <div class="ranking-list" data-controller="sortable" data-sortable-target="list">
+            <% @teams.each_with_index do |team, index| %>
+              <div class="ranking-item position-<%= index + 1 %>"
+                   data-sortable-target="item"
+                   data-team-id="<%= team.id %>">
+                <span class="ranking-position" data-rank><%= index + 1 %></span>
+                <div class="ranking-team">
+                  <%= flag_icon(team) %>
+                  <%= lineup_icon(team, @simulation) %>
+                </div>
+                <span class="ranking-handle">⋮⋮</span>
+                <input type="hidden" name="team_ids[]" value="<%= team.id %>">
               </div>
-              <span class="ranking-handle">⋮⋮</span>
-              <input type="hidden" name="team_ids[]" value="<%= team.id %>">
-            </div>
-          <% end %>
+            <% end %>
+          </div>
+
+          <div class="ranking-submit">
+            <%= f.submit t('groups.confirm_rankings'), class: "btn btn-gold btn-block" %>
+          </div>
         </div>
 
         <div class="ranking-legend">
@@ -44,11 +41,6 @@
             <li class="legend-eliminated"><%= t('groups.legend.eliminated') %></li>
           </ul>
         </div>
-
-        <div class="mt-lg">
-          <%= f.submit t('groups.confirm_rankings'), class: "btn btn-gold" %>
-        </div>
-
       <% end %>
     </section>
   </main>

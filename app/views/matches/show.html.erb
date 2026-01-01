@@ -1,16 +1,10 @@
 <% content_for :title, "#{@match.home_team.name} vs #{@match.away_team.name} - #{t('site.description')}" %>
 
 <div class="page">
-  <header class="page-header">
-    <div class="page-header-content">
-      <h1 class="page-title"><%= t('match.title').upcase %> <span><%= @match.group&.name %></span></h1>
-    </div>
-  </header>
+  <%= page_title_bar t('match.title'), highlight: @match.group&.name %>
 
   <main class="page-content">
-    <%= link_to group_path(@simulation.token, @match.group.name), class: "back-link" do %>
-      <%= t('match.back', name: @match.group.name) %>
-    <% end %>
+    <%= back_link group_path(@simulation.token, @match.group.name), t('match.back', name: @match.group.name) %>
 
     <div class="prediction-form">
       <div class="prediction-card">
@@ -46,5 +40,110 @@
         <% end %>
       </div>
     </div>
+
+    <%# Lineups Section %>
+    <section class="match-lineups-section" data-controller="toggle">
+      <button class="lineups-toggle-btn" data-action="click->toggle#toggle" data-toggle-target="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+          <path d="M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+        <span><%= t('match.view_lineups') %></span>
+        <svg class="toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+
+      <div class="lineups-content" data-toggle-target="content">
+        <div class="lineups-versus">
+          <%# Home Team Lineup %>
+          <div class="lineup-side lineup-home">
+            <div class="lineup-header">
+              <%= flag_icon(@match.home_team) %>
+              <span class="lineup-team-name"><%= @match.home_team.name %></span>
+              <span class="lineup-formation"><%= @home_lineup[:formation] %></span>
+            </div>
+
+            <div class="lineup-pitch-mini">
+              <div class="pitch-mini-bg">
+                <%= image_tag "football_pitch.jpg", alt: "", class: "pitch-mini-image" %>
+                <div class="pitch-mini-overlay"></div>
+              </div>
+              <div class="pitch-mini-players">
+                <% @home_lineup[:starters].each do |player| %>
+                  <div class="pitch-mini-player" style="--row: <%= player[:grid_row] %>; --col: <%= player[:grid_col] %>;">
+                    <div class="mini-player-avatar">
+                      <%= player_face_image(player, alt: player[:last_name], css_class: "mini-player-img") %>
+                    </div>
+                    <span class="mini-player-name"><%= player[:last_name] %></span>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="lineup-coach-mini">
+              <div class="coach-avatar">
+                <% if @home_lineup[:coach][:face_image] %>
+                  <%= image_tag @home_lineup[:coach][:face_image], alt: @home_lineup[:coach][:name] %>
+                <% else %>
+                  <%= image_tag "player_placeholder.jpg", alt: @home_lineup[:coach][:name] %>
+                <% end %>
+              </div>
+              <div class="coach-info">
+                <span class="coach-label"><%= t('lineup.coach') %></span>
+                <span class="coach-name"><%= @home_lineup[:coach][:name] %></span>
+              </div>
+            </div>
+          </div>
+
+          <%# VS Divider %>
+          <div class="lineups-divider">
+            <span>VS</span>
+          </div>
+
+          <%# Away Team Lineup %>
+          <div class="lineup-side lineup-away">
+            <div class="lineup-header">
+              <%= flag_icon(@match.away_team) %>
+              <span class="lineup-team-name"><%= @match.away_team.name %></span>
+              <span class="lineup-formation"><%= @away_lineup[:formation] %></span>
+            </div>
+
+            <div class="lineup-pitch-mini">
+              <div class="pitch-mini-bg">
+                <%= image_tag "football_pitch.jpg", alt: "", class: "pitch-mini-image" %>
+                <div class="pitch-mini-overlay"></div>
+              </div>
+              <div class="pitch-mini-players">
+                <% @away_lineup[:starters].each do |player| %>
+                  <div class="pitch-mini-player" style="--row: <%= player[:grid_row] %>; --col: <%= player[:grid_col] %>;">
+                    <div class="mini-player-avatar">
+                      <%= player_face_image(player, alt: player[:last_name], css_class: "mini-player-img") %>
+                    </div>
+                    <span class="mini-player-name"><%= player[:last_name] %></span>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="lineup-coach-mini">
+              <div class="coach-avatar">
+                <% if @away_lineup[:coach][:face_image] %>
+                  <%= image_tag @away_lineup[:coach][:face_image], alt: @away_lineup[:coach][:name] %>
+                <% else %>
+                  <%= image_tag "player_placeholder.jpg", alt: @away_lineup[:coach][:name] %>
+                <% end %>
+              </div>
+              <div class="coach-info">
+                <span class="coach-label"><%= t('lineup.coach') %></span>
+                <span class="coach-name"><%= @away_lineup[:coach][:name] %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </div>

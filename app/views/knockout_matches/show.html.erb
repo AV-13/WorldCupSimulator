@@ -1,16 +1,10 @@
 <% content_for :title, "#{@match.round_name} - #{t('site.description')}" %>
 
 <div class="page">
-  <header class="page-header">
-    <div class="page-header-content">
-      <h1 class="page-title"><%= @match.round_name.upcase %></h1>
-    </div>
-  </header>
+  <%= page_title_bar @match.round_name %>
 
   <main class="page-content">
-    <%= link_to bracket_path(token: @simulation.token), class: "back-link" do %>
-      <%= t('match.back_to_bracket') %>
-    <% end %>
+    <%= back_link bracket_path(token: @simulation.token), t('match.back_to_bracket') %>
 
     <% unless @match.teams_known? %>
       <div class="alert alert-warning mb-lg">
@@ -47,7 +41,7 @@
             <div class="prediction-teams">
               <div class="prediction-team">
                 <%= flag_icon(@match.home_team, size: :large) %>
-                <div class="team-name"><%= @match.home_team.name %></div>
+                <div class="team-name"><%= team_info_link(@match.home_team) %></div>
                 <%= f.number_field :home_score, min: 0, max: 20, placeholder: "0" %>
               </div>
 
@@ -55,7 +49,7 @@
 
               <div class="prediction-team">
                 <%= flag_icon(@match.away_team, size: :large) %>
-                <div class="team-name"><%= @match.away_team.name %></div>
+                <div class="team-name"><%= team_info_link(@match.away_team) %></div>
                 <%= f.number_field :away_score, min: 0, max: 20, placeholder: "0" %>
               </div>
             </div>

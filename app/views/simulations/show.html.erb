@@ -1,18 +1,7 @@
 <% content_for :title, "#{t('site.title')} - #{t('site.description')}" %>
 
 <div class="page">
-  <header class="page-header">
-    <div class="page-header-content">
-      <h1 class="page-title"><%= t('simulation.title') %> <span><%= t('simulation.title_highlight') %></span></h1>
-      <div class="mode-badge <%= @simulation.quick_mode? ? 'mode-quick' : 'mode-complete' %>">
-        <% if @simulation.quick_mode? %>
-          <%= t('simulation.mode_express') %>
-        <% else %>
-          <%= t('simulation.mode_complete') %>
-        <% end %>
-      </div>
-    </div>
-  </header>
+  <%= page_title_bar t('simulation.title'), highlight: t('simulation.title_highlight') %>
 
   <main class="page-content">
     <% if flash[:alert] %>

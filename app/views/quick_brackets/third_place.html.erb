@@ -1,17 +1,10 @@
 <% content_for :title, "#{t('third_place.title')} #{t('third_place.title_highlight')} - #{t('simulation.mode_express')}" %>
 
 <div class="page">
-  <header class="page-header">
-    <div class="page-header-content">
-      <h1 class="page-title"><%= t('third_place.title').upcase %> <span><%= t('third_place.title_highlight').upcase %></span></h1>
-      <div class="mode-badge mode-quick"><%= t('simulation.mode_express') %></div>
-    </div>
-  </header>
+  <%= page_title_bar t('third_place.title'), highlight: t('third_place.title_highlight') %>
 
   <main class="page-content">
-    <%= link_to quick_bracket_path(token: @simulation.token), class: "back-link" do %>
-      <%= t('third_place.back') %>
-    <% end %>
+    <%= back_link quick_bracket_path(token: @simulation.token), t('third_place.back') %>
 
     <section class="page-section">
       <h2 class="section-title"><%= t('third_place.selection_title') %></h2>
@@ -33,7 +26,7 @@
                 <% if third.team %>
                   <span style="display: flex; align-items: center; gap: 8px; margin-left: 12px;">
                     <%= flag_icon(third.team) %>
-                    <%= third.team.name %>
+                    <%= team_info_link(third.team) %>
                   </span>
                 <% else %>
                   <span class="bracket-tbd" style="margin-left: 12px;"><%= t('bracket.tbd') %></span>

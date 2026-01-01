@@ -1,13 +1,19 @@
-# Mode rapide
+### Petites corrections
 
-- [x] Le drag and drop dans le mode facile n'est pas très UI friendly, ça manque de dynamisme. Tout est figé jusqu'à ce qu'on relâche. Il faudrait que ce soit dynamique même quand on a pas relaché, mais qu'on se déplace avec notre souris.
-- [x] Quand un utilisateur a fini une poule, la page des groupes ne fonctionne pas bien :
-  - [x] Il faut actualiser le classement choisi dans la group-card
-  - [x] Il faut que l'utilisateur voit en un seul coup d'oeil qui il a qualifié, qui il a disqualifier
-- [ ] Le flow du jeu ne me va pas, on peut choisir les meilleurs troisièmes alors même que le classement des poules n'est pas fini. ça n'a pas de sens. On devrait pouvoir choisir les meilleurs troisièmes une fois toutes les poules faites non ?
-- [?] l'arbre du tournoi est tronqué dans mon navigateur, je suis obligé de scroller horizontalement pour voir la partie droite de l'arbre, il faut changer ça.
-- [?] Quand l'arbre est à la verticale, les deux parties du tableau parte des 8 ème, sauf qu'il y a la finale entre les deux ce qui donne ce rendu très bizarre : 8-> 4-> 2-> finale-> 8 -> 4 -> 2
+- [ ] Revoir le texte et les phrases qui n'ont pas de sens (landing page notamment)
+- [x] Pages mentions légales, confidentialité 
+- [x] Meilleure accessibilité vers les détails d'une équipe.
+- [ ] Flow pour le mode complete ne fonctionne pas (prediction-form doit être inclus comme une modale qui s'afficherait automatiquement, on pourrait la fermer pour observer l'arbre, et la faire réapparaitre quand on veut ?)
+- [x] Page modifiée quand on a enfin prédit le gagnant de la coupe du monde, avec un podium, confettis (statistiques pour le mode complete)
+- [ ] Pour les matchs de poules, pareil que pour l'arbre -> mettre prediction form dans une modale, c'est bizarre de faire quitter la page ou alors la faire apparaitre en dessous ? parce qu'une modale sur téléphone c'est étrange également ?
+- [x] La div player-info n'est pas satisfaisante dans la page teams (irrégulière selon la longueur du nom du joueur.)
 
-## Fonctionnalité clé
+### Gros chantiers
 
-- [ ] Si l'utilisateur clique sur les détails d'un match avant de faire son choix : on affiche la feuille de match de chaque rencontre : On utilise l'image d'une pelouse et on y place les 22 joueurs + les coachs + les remplacants. Pour l'instant on va utiliser une silouhette tout en noir et pour le nom on va utiliser firstname lastname. Le but est de coder la feature, le style, puis ensuite on ajoutera les vraies données. 
+- [ ] Couvrir l'intégralité du projet avec des tests (agent claude).
+- [ ] Documentation complète du code (agent).
+- [ ] Renommage des pays avec les clés de traduction en bdd plutôt que les noms en français pour être supportés dans toutes les langues ? Voir si cette solution fonctionne
+- [ ] Refacto du css, découpages en de nombreux fichiers pour favoriser la lisibilité
+- [ ] CDN pour les images ? trouver une solution gratuite plutôt que local
+- [ ] Utilisation de Kamal ?
+- [ ] Déploiement avec Heroku : si possible rien payer appart un nom de domaine.
