@@ -4,7 +4,7 @@
 class QuickGroupsController < ApplicationController
   before_action :load_simulation
   before_action :ensure_quick_mode
-  before_action :load_group, only: [:show, :update]
+  before_action :load_group, only: [ :show, :update ]
 
   def show
     @teams = @group.teams.to_a
@@ -22,7 +22,7 @@ class QuickGroupsController < ApplicationController
     QuickRankingService.new(simulation: @simulation, group: @group).call(ranked_team_ids)
 
     redirect_to simulation_path(token: @simulation.token),
-                notice: t('flash.ranking_saved', group: @group.name)
+                notice: t("flash.ranking_saved", group: @group.name)
   rescue ArgumentError => e
     redirect_to quick_group_path(token: @simulation.token, name: @group.name),
                 alert: e.message
@@ -37,7 +37,7 @@ class QuickGroupsController < ApplicationController
   def ensure_quick_mode
     unless @simulation.quick_mode?
       redirect_to simulation_path(token: @simulation.token),
-                  alert: t('flash.quick_mode_only')
+                  alert: t("flash.quick_mode_only")
     end
   end
 

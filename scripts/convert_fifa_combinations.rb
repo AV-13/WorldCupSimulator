@@ -74,7 +74,7 @@ def parse_combinations
     end
   end
 
-  [combinations, errors]
+  [ combinations, errors ]
 end
 
 def generate_ruby_file(combinations)

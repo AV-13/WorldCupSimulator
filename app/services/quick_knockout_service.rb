@@ -49,7 +49,7 @@ class QuickKnockoutService
   end
 
   def validate_winner!(winner_team_id)
-    unless [@match.home_team_id, @match.away_team_id].include?(winner_team_id)
+    unless [ @match.home_team_id, @match.away_team_id ].include?(winner_team_id)
       raise ArgumentError, "Winner must be one of the teams in the match"
     end
   end

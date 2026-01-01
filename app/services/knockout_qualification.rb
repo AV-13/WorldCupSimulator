@@ -53,7 +53,7 @@ class KnockoutQualification
     GROUPS.to_h do |group_name|
       group = Group.find_by(name: group_name)
       standings = GroupStandings.new(simulation: @simulation, group: group).call
-      [group_name, standings]
+      [ group_name, standings ]
     end
   end
 
@@ -85,7 +85,7 @@ class KnockoutQualification
     # 5. Fair play points (not implemented - would need card tracking)
     # 6. Drawing of lots (using group letter as deterministic tiebreaker)
     thirds.sort_by do |t|
-      [-t.points, -t.goal_diff, -t.goals_for, t.goals_against, t.group]
+      [ -t.points, -t.goal_diff, -t.goals_for, t.goals_against, t.group ]
     end
   end
 end

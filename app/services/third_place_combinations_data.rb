@@ -516,7 +516,7 @@ module ThirdPlaceCombinationsData
     "DEFHIJKL" => { A: "E", B: "J", D: "I", E: "D", G: "H", I: "F", K: "L", L: "K" },
     "DEGHIJKL" => { A: "E", B: "J", D: "I", E: "D", G: "H", I: "G", K: "L", L: "K" },
     "DFGHIJKL" => { A: "H", B: "G", D: "I", E: "D", G: "J", I: "F", K: "L", L: "K" },
-    "EFGHIJKL" => { A: "E", B: "J", D: "I", E: "F", G: "H", I: "G", K: "L", L: "K" },
+    "EFGHIJKL" => { A: "E", B: "J", D: "I", E: "F", G: "H", I: "G", K: "L", L: "K" }
   }.freeze
 
   def self.lookup(qualifying_groups)

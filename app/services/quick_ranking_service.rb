@@ -6,11 +6,11 @@ class QuickRankingService
   # Score patterns that produce the desired ranking
   # Format: [home_score, away_score] for match between higher-ranked vs lower-ranked team
   SCORE_PATTERNS = {
-    dominant_win: [3, 0],
-    clear_win: [2, 0],
-    close_win: [2, 1],
-    narrow_win: [1, 0],
-    draw: [1, 1]
+    dominant_win: [ 3, 0 ],
+    clear_win: [ 2, 0 ],
+    close_win: [ 2, 1 ],
+    narrow_win: [ 1, 0 ],
+    draw: [ 1, 1 ]
   }.freeze
 
   def initialize(simulation:, group:)
@@ -32,7 +32,7 @@ class QuickRankingService
         home_idx = teams.index(match.home_team)
         away_idx = teams.index(match.away_team)
 
-        score = scores[[home_idx, away_idx].sort]
+        score = scores[[ home_idx, away_idx ].sort]
         home_score, away_score = home_idx < away_idx ? score : score.reverse
 
         prediction = Prediction.find_or_initialize_by(
@@ -63,17 +63,17 @@ class QuickRankingService
 
     {
       # 1st vs 2nd: close win for 1st
-      [0, 1] => [2, 1],
+      [ 0, 1 ] => [ 2, 1 ],
       # 1st vs 3rd: clear win for 1st
-      [0, 2] => [2, 0],
+      [ 0, 2 ] => [ 2, 0 ],
       # 1st vs 4th: dominant win for 1st
-      [0, 3] => [3, 0],
+      [ 0, 3 ] => [ 3, 0 ],
       # 2nd vs 3rd: close win for 2nd
-      [1, 2] => [1, 0],
+      [ 1, 2 ] => [ 1, 0 ],
       # 2nd vs 4th: clear win for 2nd
-      [1, 3] => [2, 0],
+      [ 1, 3 ] => [ 2, 0 ],
       # 3rd vs 4th: narrow win for 3rd
-      [2, 3] => [1, 0]
+      [ 2, 3 ] => [ 1, 0 ]
     }
 
     # Result:

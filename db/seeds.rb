@@ -14,76 +14,76 @@ puts "🌱 Démarrage du Seeding pour la Coupe du Monde 2026 (48 équipes)..."
 # Format : [Nom du pays, Code ISO / code utilisé par votre front pour les drapeaux]
 world_cup_data = {
   "A" => [
-    ["Mexique", "mx"],
-    ["Afrique du Sud", "za"],
-    ["Corée du Sud", "kr"],
-    ["Danemark", "dk"] # UEFA Playoff D (Denmark, North Macedonia, Czechia, Ireland)
+    [ "Mexique", "mx" ],
+    [ "Afrique du Sud", "za" ],
+    [ "Corée du Sud", "kr" ],
+    [ "Danemark", "dk" ] # UEFA Playoff D (Denmark, North Macedonia, Czechia, Ireland)
   ],
   "B" => [
-    ["Canada", "ca"],
-    ["Italie", "it"],   # UEFA Playoff A (Italy, Northern Ireland, Wales, Bosnia & Herzegovina)
-    ["Qatar", "qa"],
-    ["Suisse", "ch"]
+    [ "Canada", "ca" ],
+    [ "Italie", "it" ],   # UEFA Playoff A (Italy, Northern Ireland, Wales, Bosnia & Herzegovina)
+    [ "Qatar", "qa" ],
+    [ "Suisse", "ch" ]
   ],
   "C" => [
-    ["Brésil", "br"],
-    ["Maroc", "ma"],
-    ["Haïti", "ht"],
-    ["Écosse", "gb-sct"]
+    [ "Brésil", "br" ],
+    [ "Maroc", "ma" ],
+    [ "Haïti", "ht" ],
+    [ "Écosse", "gb-sct" ]
   ],
   "D" => [
-    ["États-Unis", "us"],
-    ["Paraguay", "py"],
-    ["Australie", "au"],
-    ["Turquie", "tr"] # UEFA Playoff C (Türkiye, Romania, Slovakia, Kosovo)
+    [ "États-Unis", "us" ],
+    [ "Paraguay", "py" ],
+    [ "Australie", "au" ],
+    [ "Turquie", "tr" ] # UEFA Playoff C (Türkiye, Romania, Slovakia, Kosovo)
   ],
   "E" => [
-    ["Allemagne", "de"],
-    ["Curaçao", "cw"],
-    ["Côte d'Ivoire", "ci"],
-    ["Équateur", "ec"]
+    [ "Allemagne", "de" ],
+    [ "Curaçao", "cw" ],
+    [ "Côte d'Ivoire", "ci" ],
+    [ "Équateur", "ec" ]
   ],
   "F" => [
-    ["Pays-Bas", "nl"],
-    ["Japon", "jp"],
-    ["Ukraine", "ua"],  # UEFA Playoff B (Ukraine, Sweden, Poland, Albania)
-    ["Tunisie", "tn"]
+    [ "Pays-Bas", "nl" ],
+    [ "Japon", "jp" ],
+    [ "Ukraine", "ua" ],  # UEFA Playoff B (Ukraine, Sweden, Poland, Albania)
+    [ "Tunisie", "tn" ]
   ],
   "G" => [
-    ["Belgique", "be"],
-    ["Égypte", "eg"],
-    ["Iran", "ir"],
-    ["Nouvelle-Zélande", "nz"]
+    [ "Belgique", "be" ],
+    [ "Égypte", "eg" ],
+    [ "Iran", "ir" ],
+    [ "Nouvelle-Zélande", "nz" ]
   ],
   "H" => [
-    ["Espagne", "es"],
-    ["Cap-Vert", "cv"],
-    ["Arabie Saoudite", "sa"],
-    ["Uruguay", "uy"]
+    [ "Espagne", "es" ],
+    [ "Cap-Vert", "cv" ],
+    [ "Arabie Saoudite", "sa" ],
+    [ "Uruguay", "uy" ]
   ],
   "I" => [
-    ["France", "fr"],
-    ["Sénégal", "sn"],
-    ["Irak", "iq"],     # Intercontinental Playoff Tournament 2 (Bolivia, Suriname, Iraq)
-    ["Norvège", "no"]
+    [ "France", "fr" ],
+    [ "Sénégal", "sn" ],
+    [ "Irak", "iq" ],     # Intercontinental Playoff Tournament 2 (Bolivia, Suriname, Iraq)
+    [ "Norvège", "no" ]
   ],
   "J" => [
-    ["Argentine", "ar"],
-    ["Algérie", "dz"],
-    ["Autriche", "at"],
-    ["Jordanie", "jo"]
+    [ "Argentine", "ar" ],
+    [ "Algérie", "dz" ],
+    [ "Autriche", "at" ],
+    [ "Jordanie", "jo" ]
   ],
   "K" => [
-    ["Portugal", "pt"],
-    ["RD Congo", "cd"], # Intercontinental Playoff Tournament 1 (Jamaica, New Caledonia, DR Congo)
-    ["Ouzbékistan", "uz"],
-    ["Colombie", "co"]
+    [ "Portugal", "pt" ],
+    [ "RD Congo", "cd" ], # Intercontinental Playoff Tournament 1 (Jamaica, New Caledonia, DR Congo)
+    [ "Ouzbékistan", "uz" ],
+    [ "Colombie", "co" ]
   ],
   "L" => [
-    ["Angleterre", "gb-eng"],
-    ["Croatie", "hr"],
-    ["Ghana", "gh"],
-    ["Panama", "pa"]
+    [ "Angleterre", "gb-eng" ],
+    [ "Croatie", "hr" ],
+    [ "Ghana", "gh" ],
+    [ "Panama", "pa" ]
   ]
 }
 

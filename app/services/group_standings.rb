@@ -67,7 +67,7 @@ class GroupStandings
 
     # Tri "classique" : Points > Diff > Buts pour > Nom
     rows.values.sort_by do |r|
-      [-r.points, -r.goal_diff, -r.goals_for, r.team.name]
+      [ -r.points, -r.goal_diff, -r.goals_for, r.team.name ]
     end
   end
 end

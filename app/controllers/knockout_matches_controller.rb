@@ -26,7 +26,7 @@ class KnockoutMatchesController < ApplicationController
         redirect_to celebration_path(token: @simulation.token)
       else
         redirect_to bracket_path(token: @simulation.token),
-                    notice: t('flash.prediction_saved', match_number: @match.match_number)
+                    notice: t("flash.prediction_saved", match_number: @match.match_number)
       end
     else
       render :show, status: :unprocessable_entity

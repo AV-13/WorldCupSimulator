@@ -1,16 +1,16 @@
 module ApplicationHelper
   # Map locale codes to flag-icons country codes
   LOCALE_FLAGS = {
-    fr: 'fr',
-    en: 'gb',
-    es: 'es',
-    pt: 'pt',
-    de: 'de'
+    fr: "fr",
+    en: "gb",
+    es: "es",
+    pt: "pt",
+    de: "de"
   }.freeze
 
   # Get flag code for a locale
   def locale_flag(locale)
-    LOCALE_FLAGS[locale.to_sym] || 'un'
+    LOCALE_FLAGS[locale.to_sym] || "un"
   end
 
   # Display a flag icon for a team
@@ -30,11 +30,11 @@ module ApplicationHelper
     is_winner = team && winner == team
     can_click = quick_mode && match.teams_known? && !has_winner
 
-    classes = ['bracket-tree-team']
-    classes << 'winner' if is_winner
-    classes << 'clickable' if can_click
-    classes << 'tbd' unless team
-    classes.join(' ')
+    classes = [ "bracket-tree-team" ]
+    classes << "winner" if is_winner
+    classes << "clickable" if can_click
+    classes << "tbd" unless team
+    classes.join(" ")
   end
 
   def bracket_match_winner(match, prediction)
@@ -64,7 +64,7 @@ module ApplicationHelper
 
     path = match ? team_lineup_path(simulation.token, team, match_id: match.id) : team_lineup_path(simulation.token, team)
 
-    link_to path, class: "lineup-icon-btn", title: t('lineup.view', default: 'View lineup') do
+    link_to path, class: "lineup-icon-btn", title: t("lineup.view", default: "View lineup") do
       tag.svg(
         xmlns: "http://www.w3.org/2000/svg",
         width: 14,
@@ -96,7 +96,7 @@ module ApplicationHelper
     tag.div(class: "page-title-bar") do
       tag.h1(class: "page-title") do
         if highlight
-          safe_join([title.upcase, " ", tag.span(highlight.upcase)])
+          safe_join([ title.upcase, " ", tag.span(highlight.upcase) ])
         else
           title.upcase
         end
@@ -138,7 +138,7 @@ module ApplicationHelper
     tag.span(class: "team-info-link") do
       safe_join([
         link_to(team.name, teams_path(team_id: team.id), class: "team-name-link"),
-        link_to(teams_path(team_id: team.id), class: "team-info-icon", title: t('teams.view_details', default: 'View team details')) do
+        link_to(teams_path(team_id: team.id), class: "team-info-icon", title: t("teams.view_details", default: "View team details")) do
           tag.svg(
             xmlns: "http://www.w3.org/2000/svg",
             width: 14,

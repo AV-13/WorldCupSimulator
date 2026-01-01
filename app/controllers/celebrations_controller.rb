@@ -19,8 +19,8 @@ class CelebrationsController < ApplicationController
     @champion = determine_winner(@final_match, @final_prediction)
     @runner_up = determine_loser(@final_match, @final_prediction)
     @third_place = if @third_place_prediction&.home_score && @third_place_prediction&.away_score
-                     determine_winner(@third_place_match, @third_place_prediction)
-                   end
+      determine_winner(@third_place_match, @third_place_prediction)
+    end
 
     # Calculate stats for complete mode
     @stats = calculate_stats if @simulation.complete_mode?

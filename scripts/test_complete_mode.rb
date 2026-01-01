@@ -18,7 +18,7 @@ group_a = Group.find_by!(name: "A")
 matches = Match.where(group: group_a, stage: "group_stage")
 
 # Simple scores: 1-0, 2-1, etc.
-scores = [[2, 1], [1, 0], [3, 0], [2, 2], [1, 1], [2, 0]]
+scores = [ [ 2, 1 ], [ 1, 0 ], [ 3, 0 ], [ 2, 2 ], [ 1, 1 ], [ 2, 0 ] ]
 
 matches.each_with_index do |match, i|
   Prediction.create!(

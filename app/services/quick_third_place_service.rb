@@ -62,8 +62,8 @@ class QuickThirdPlaceService
     # Find match between 3rd and 4th place teams
     match = Match.where(group: group, stage: "group_stage")
                  .find do |m|
-                   [m.home_team_id, m.away_team_id].sort ==
-                     [third_place.team.id, fourth_place.team.id].sort
+                   [ m.home_team_id, m.away_team_id ].sort ==
+                     [ third_place.team.id, fourth_place.team.id ].sort
                  end
 
     return unless match
@@ -88,8 +88,8 @@ class QuickThirdPlaceService
 
     match = Match.where(group: group, stage: "group_stage")
                  .find do |m|
-                   [m.home_team_id, m.away_team_id].sort ==
-                     [third_place.team.id, fourth_place.team.id].sort
+                   [ m.home_team_id, m.away_team_id ].sort ==
+                     [ third_place.team.id, fourth_place.team.id ].sort
                  end
 
     return unless match

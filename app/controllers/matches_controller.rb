@@ -1,7 +1,7 @@
 class MatchesController < ApplicationController
   def show
     @simulation = Simulation.find_by!(token: params[:token])
-    @match = Match.includes(:group, home_team: [:players, :coach], away_team: [:players, :coach]).find(params[:id])
+    @match = Match.includes(:group, home_team: [ :players, :coach ], away_team: [ :players, :coach ]).find(params[:id])
 
     @prediction = Prediction.find_or_initialize_by(
       simulation_id: @simulation.id,
@@ -27,9 +27,9 @@ class MatchesController < ApplicationController
       next_match = find_next_unpredicted_match(@match.group)
 
       if next_match
-        redirect_to match_path(@simulation.token, next_match.id), notice: t('flash.score_saved')
+        redirect_to match_path(@simulation.token, next_match.id), notice: t("flash.score_saved")
       else
-        redirect_to group_path(@simulation.token, @match.group.name), notice: t('flash.score_saved')
+        redirect_to group_path(@simulation.token, @match.group.name), notice: t("flash.score_saved")
       end
     else
       render :show, status: :unprocessable_entity

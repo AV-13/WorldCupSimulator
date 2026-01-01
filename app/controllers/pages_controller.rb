@@ -15,10 +15,10 @@ class PagesController < ApplicationController
 
     # Preselect team from params or default to first team
     @selected_team = if params[:team_id].present?
-                       @teams.find { |t| t.id == params[:team_id].to_i } || @teams.first
-                     else
-                       @teams.first
-                     end
+      @teams.find { |t| t.id == params[:team_id].to_i } || @teams.first
+    else
+      @teams.first
+    end
     @players_by_position = @selected_team&.players&.group_by(&:position) || {}
 
     # Show resume toaster if user has an existing simulation
