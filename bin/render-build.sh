@@ -10,4 +10,8 @@ bundle install
 
 bundle exec rails assets:precompile
 bundle exec rails assets:clean
-bundle exec rails db:migrate
+
+# db:prepare runs migrations + seeds if DB is new
+# db:seed populates data (idempotent - checks if data exists)
+bundle exec rails db:prepare
+bundle exec rails db:seed

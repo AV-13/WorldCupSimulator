@@ -1,11 +1,11 @@
 # db/seeds.rb
 
-puts "🗑️  Nettoyage de la base de données..."
-Prediction.destroy_all
-Match.destroy_all
-Team.destroy_all
-Group.destroy_all
-Simulation.destroy_all
+# Idempotent seed - only runs if no groups exist
+# This prevents destroying user simulations on redeploy
+if Group.exists?
+  puts "✅ Database already seeded (#{Group.count} groups, #{Team.count} teams). Skipping."
+  return
+end
 
 puts "🌱 Démarrage du Seeding pour la Coupe du Monde 2026 (48 équipes)..."
 
