@@ -173,7 +173,6 @@ docker-sync.yml
 Procfile.dev.lock
 
 # =============================================================================
-# Large Assets (stored externally in production)
+# Large Assets
 # =============================================================================
-/app/assets/images/players/
-/app/assets/images/coach/
+# Player and coach images are now versioned for Render deployment
