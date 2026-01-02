@@ -8,6 +8,12 @@ namespace :squads do
 
   desc "Import squads from JSON file"
   task import: :environment do
+    # Idempotent - skip if players already exist
+    if Player.exists?
+      puts "✅ Squads already imported (#{Player.count} players, #{Coach.count} coaches). Skipping."
+      next
+    end
+
     json_path = ENV.fetch("SQUADS_JSON", Rails.root.join("world_cup_squads_complete.json"))
 
     unless File.exist?(json_path)
@@ -107,6 +113,12 @@ namespace :squads do
 
   desc "Match coach images with fm_uid based on first/last name"
   task match_coach_images: :environment do
+    # Idempotent - skip if coaches already have fm_uid
+    if Coach.where.not(fm_uid: nil).exists?
+      puts "✅ Coach images already matched. Skipping."
+      next
+    end
+
     coaches_dir = Rails.root.join("app/assets/images/coach")
 
     unless coaches_dir.exist?

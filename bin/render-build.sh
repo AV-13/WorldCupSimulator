@@ -15,3 +15,7 @@ bundle exec rails assets:clean
 # db:seed populates data (idempotent - checks if data exists)
 bundle exec rails db:prepare
 bundle exec rails db:seed
+
+# Import squads (players, coaches) from JSON - idempotent
+bundle exec rails squads:import
+bundle exec rails squads:match_coach_images
