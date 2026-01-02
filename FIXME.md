@@ -15,5 +15,4 @@
 - [ ] Renommage des pays avec les clés de traduction en bdd plutôt que les noms en français pour être supportés dans toutes les langues ? Voir si cette solution fonctionne
 - [ ] Refacto du css, découpages en de nombreux fichiers pour favoriser la lisibilité
 - [ ] CDN pour les images ? trouver une solution gratuite plutôt que local
-- [ ] Utilisation de Kamal ?
-- [ ] Déploiement avec Heroku : si possible rien payer appart un nom de domaine.
+- [x] Déploiement avec Render (gratuit) + UptimeRobot

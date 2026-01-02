@@ -74,6 +74,6 @@ RUN mkdir -p /rails/storage && chown -R rails:rails /rails/storage
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Start server on port 8000 (Koyeb default) or PORT env variable
-EXPOSE 8000
-CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "8000"]
+# Start server via thruster (handles PORT env variable automatically)
+EXPOSE 3000
+CMD ["./bin/thrust", "./bin/rails", "server"]

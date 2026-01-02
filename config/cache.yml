@@ -11,6 +11,7 @@ development:
 test:
   <<: *default
 
+# Production uses memory_store (see config/environments/production.rb)
+# Solid Cache disabled for Render free tier (ephemeral filesystem)
 production:
-  database: cache
   <<: *default

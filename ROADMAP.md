@@ -107,7 +107,7 @@ Prediction simulator for the 2026 FIFA World Cup.
 ### Technical
 - [ ] Automated tests (RSpec)
 - [ ] CI/CD pipeline (GitHub Actions)
-- [ ] Production deployment (Render/Fly.io)
+- [x] Production deployment (Render + UptimeRobot)
 - [ ] Performance optimization
 
 ---
